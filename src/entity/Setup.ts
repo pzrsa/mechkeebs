@@ -22,7 +22,7 @@ export class Setup {
   @Column({ type: "simple-array" })
   items: string[];
 
-  @ManyToOne(() => User, (user) => user.setups)
+  @ManyToOne(() => User, (user) => user.setups, { onDelete: "CASCADE" }) // if the user gets deleted, then delete posts associated with that creatorid
   creator: User;
 
   @CreateDateColumn({ name: "created_at" })

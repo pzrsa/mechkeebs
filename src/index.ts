@@ -1,8 +1,9 @@
 import "reflect-metadata";
 import { createConnection } from "typeorm";
 
-createConnection()
-  .then(async (connection) => {
-    console.log(connection.isConnected);
-  })
-  .catch((error) => console.log(error));
+const main = async () => {
+  const conn = await createConnection();
+  console.log(conn.isConnected);
+};
+
+main().catch((err) => console.error(err));
