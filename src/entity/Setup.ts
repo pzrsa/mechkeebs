@@ -2,9 +2,11 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
+import { User } from "./User";
 
 @Entity({ name: "setups" })
 export class Setup {
@@ -19,6 +21,9 @@ export class Setup {
 
   @Column({ type: "simple-array" })
   items: string[];
+
+  @ManyToOne(() => User, (user) => user.setups)
+  creator: User;
 
   @CreateDateColumn({ name: "created_at" })
   createdAt: Date;
