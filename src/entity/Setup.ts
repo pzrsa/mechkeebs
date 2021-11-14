@@ -3,6 +3,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -24,6 +25,7 @@ export class Setup extends BaseEntity {
   items: string[];
 
   @ManyToOne(() => User, (user) => user.setups, { onDelete: "CASCADE" }) // if the user gets deleted, then delete posts associated with that creatorid
+  @JoinColumn({ name: "creator_id" })
   creator: User;
 
   @CreateDateColumn({ name: "created_at" })
