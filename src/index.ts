@@ -1,6 +1,7 @@
 import express, { Application } from "express";
 import "reflect-metadata";
 import { createConnection } from "typeorm";
+import setupRouter from "./routes/setup";
 import userRouter from "./routes/user";
 
 const main = async () => {
@@ -11,7 +12,7 @@ const main = async () => {
 
   app.use(express.json());
 
-  app.use("/api", userRouter);
+  app.use("/api", userRouter, setupRouter);
 
   app.listen(3000, () => {
     console.log("server up on http://localhost:3000");
