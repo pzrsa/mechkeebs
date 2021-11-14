@@ -37,4 +37,27 @@ userRouter.post("/register", async (req: Request, res: Response) => {
   }
 });
 
+userRouter.post("/login", async (req: Request, res: Response) => {
+  const user = await User.findOne({
+    where: { username: req.body.username },
+    select: ["username", "password"],
+  });
+
+  if (!user) {
+    return res
+      .status(400)
+      .json({ error: "Account with that username doesn't exist" });
+  }
+
+  const valid = user.password === req.body.password;
+
+  if (!valid) {
+    return res.status(400).json({ error: "Incorrect password" });
+  }
+
+  return res
+    .status(200)
+    .json({ result: `User '${user.username}' successfully logged in` });
+});
+
 export default userRouter;
