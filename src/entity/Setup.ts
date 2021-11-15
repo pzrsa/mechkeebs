@@ -24,6 +24,9 @@ export class Setup extends BaseEntity {
   @Column({ type: "simple-array" })
   items: string[];
 
+  @Column({ name: "creator_id" })
+  creatorId: number;
+
   @ManyToOne(() => User, (user) => user.setups, { onDelete: "CASCADE" }) // if the user gets deleted, then delete posts associated with that creatorid
   @JoinColumn({ name: "creator_id" })
   creator: User;
