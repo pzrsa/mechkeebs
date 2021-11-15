@@ -29,4 +29,17 @@ setupRouter.post("/setups/create", async (req: Request, res: Response) => {
   }
 });
 
+setupRouter.put("/setups/:id", async (req: Request, res: Response) => {
+  const setup = await Setup.findOne(req.params.id);
+
+  if (!setup) {
+    return res.status(400).json({ error: "Setup does not exist to update" });
+  }
+
+  await Setup.update(req.params.id, req.body);
+  return res
+    .status(200)
+    .json({ result: `Setup ${setup.id} successfully updated` });
+});
+
 export default setupRouter;
