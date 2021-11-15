@@ -19,7 +19,7 @@ userRouter.get("/users/:id", async (req: Request, res: Response) => {
   return res.status(200).json({ result });
 });
 
-userRouter.post("/register", async (req: Request, res: Response) => {
+userRouter.post("/users/register", async (req: Request, res: Response) => {
   try {
     const result = await User.create({
       username: req.body.username,
@@ -37,7 +37,7 @@ userRouter.post("/register", async (req: Request, res: Response) => {
   }
 });
 
-userRouter.post("/login", async (req: Request, res: Response) => {
+userRouter.post("/users/login", async (req: Request, res: Response) => {
   const user = await User.findOne({
     where: { username: req.body.username },
     select: ["username", "password"],
