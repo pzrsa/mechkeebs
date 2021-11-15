@@ -1,8 +1,8 @@
 import express, { Application } from "express";
 import "reflect-metadata";
 import { createConnection } from "typeorm";
-import setupRouter from "./routes/setup";
-import userRouter from "./routes/user";
+import setupRouter from "./routers/setup";
+import userRouter from "./routers/user";
 
 const main = async () => {
   // @ts-ignore - initialise db connection here to be fetched later with "getConnection"
