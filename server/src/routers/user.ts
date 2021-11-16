@@ -1,3 +1,4 @@
+import * as argon2 from "argon2";
 import router, { Request, Response, Router } from "express";
 import { User } from "../entity/User";
 
@@ -20,21 +21,27 @@ userRouter.get("/users/:id", async (req: Request, res: Response) => {
 });
 
 userRouter.post("/users/register", async (req: Request, res: Response) => {
-  try {
-    const result = await User.create({
-      username: req.body.username,
-      email: req.body.email,
-      password: req.body.password,
-    }).save();
-    return res
-      .status(200)
-      .json({ result: `User '${result.username}' created` });
-  } catch (err) {
-    if (err.code === "23505") {
-      return res.status(400).json({ error: "Username or Email aready taken" });
-    }
-    return res.status(400).json({ error: err.detail });
+  const existingUsername = await User.findOne({
+    where: { username: req.body.username },
+  });
+  if (existingUsername) {
+    return res.status(400).json({ error: "Username already taken" });
   }
+
+  const existingEmail = await User.findOne({
+    where: { email: req.body.email },
+  });
+  if (existingEmail) {
+    return res.status(400).json({ error: "Email already taken" });
+  }
+
+  const { password, ...result } = await User.create({
+    username: req.body.username,
+    email: req.body.email,
+    password: await argon2.hash(req.body.password),
+  }).save();
+
+  return res.status(200).json({ result });
 });
 
 userRouter.post("/users/login", async (req: Request, res: Response) => {
