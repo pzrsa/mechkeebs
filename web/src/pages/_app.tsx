@@ -1,11 +1,12 @@
 import { ChakraProvider } from "@chakra-ui/react";
+import { AppProps } from "next/app";
 
-function MyApp({ Component, pageProps }: any) {
+const App = ({ Component, pageProps }: AppProps) => {
   return (
     <ChakraProvider resetCSS>
       <Component {...pageProps} />
     </ChakraProvider>
   );
-}
+};
 
-export default MyApp;
+export default App;
