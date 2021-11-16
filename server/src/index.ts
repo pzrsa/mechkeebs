@@ -1,3 +1,4 @@
+import cors from "cors";
 import express, { Application } from "express";
 import "reflect-metadata";
 import { createConnection } from "typeorm";
@@ -10,7 +11,7 @@ const main = async () => {
 
   const app: Application = express();
 
-  app.use(express.json());
+  app.use(express.json(), cors({ origin: process.env.CORS_ORIGIN }));
 
   app.use("/api", userRouter, setupRouter);
 
