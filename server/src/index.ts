@@ -14,8 +14,8 @@ const main = async () => {
 
   app.use("/api", userRouter, setupRouter);
 
-  app.listen(3000, () => {
-    console.log("server up on http://localhost:3000");
+  app.listen(4000, () => {
+    console.log("server up on http://localhost:4000");
   });
 };
 
