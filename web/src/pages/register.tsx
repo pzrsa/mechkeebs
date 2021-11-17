@@ -1,59 +1,65 @@
 import { Button } from "@chakra-ui/button";
-import { FormLabel } from "@chakra-ui/form-control";
-import { Input } from "@chakra-ui/input";
-import { Heading } from "@chakra-ui/layout";
-import { Field, Form, Formik } from "formik";
+import { Box, Heading } from "@chakra-ui/layout";
+import { Form, Formik } from "formik";
+import { useRouter } from "next/router";
+import React from "react";
+import * as Yup from "yup";
+import InputField from "../components/InputField";
 import Wrapper from "../components/Wrapper";
+import RegisterFormValues from "../interfaces/RegisterFormValues";
+import registerUser from "../lib/registerUser";
 
 interface RegisterProps {}
 
-interface FormValues {
-  username: string;
-  email: string;
-  password: string;
-}
-
 const Register: React.FC<RegisterProps> = ({}) => {
-  const initialValues: FormValues = { username: "", email: "", password: "" };
+  const initialValues: RegisterFormValues = {
+    username: "",
+    email: "",
+    password: "",
+  };
+  const router = useRouter();
 
   return (
     <Wrapper>
-      <Heading my={5}>Register</Heading>
-      <Formik
-        initialValues={initialValues}
-        onSubmit={async (values) => {
-          const res = await fetch("http://localhost:4000/api/users/register", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ ...values }),
-          });
+      <Box width="500px" mx="auto">
+        <Heading my={5}>Register</Heading>
+        <Formik
+          initialValues={initialValues}
+          validationSchema={Yup.object({
+            username: Yup.string()
+              .max(15, "Must be 15 characters or less")
+              .required("Username required"),
+            email: Yup.string()
+              .email("Invalid email address")
+              .required("Email required"),
+            password: Yup.string()
+              .min(5, "Must be greater than 5 characters")
+              .required("Password required, how else you logging in?"),
+          })}
+          onSubmit={async (values, { setErrors }) => {
+            const response = await registerUser(values);
 
-          const result = await res.json();
-
-          console.log(result.result);
-        }}
-      >
-        {({ isSubmitting }) => (
-          <Form>
-            <FormLabel>Username</FormLabel>
-            <Field type="text" name="username" as={Input} />
-            <FormLabel>Email</FormLabel>
-            <Field type="email" name="email" as={Input} />
-            <FormLabel>Password</FormLabel>
-            <Field type="password" name="password" as={Input} />
-            <Button
-              colorScheme="teal"
-              isLoading={isSubmitting}
-              mt={5}
-              type="submit"
-            >
-              Submit
-            </Button>
-          </Form>
-        )}
-      </Formik>
+            if (response.error?.includes("Username")) {
+              setErrors({ username: response.error });
+            } else if (response.error?.includes("Email")) {
+              setErrors({ email: response.error });
+            } else if (response?.result) {
+              router.push("/");
+            }
+          }}
+        >
+          {({ isSubmitting }) => (
+            <Form>
+              <InputField name="username" label="Username" />
+              <InputField name="email" label="Email" />
+              <InputField name="password" type="password" label="Password" />
+              <Button colorScheme="teal" isLoading={isSubmitting} type="submit">
+                Register
+              </Button>
+            </Form>
+          )}
+        </Formik>
+      </Box>
     </Wrapper>
   );
 };
