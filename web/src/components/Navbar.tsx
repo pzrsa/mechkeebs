@@ -6,7 +6,7 @@ interface NavbarProps {}
 
 const Navbar: React.FC<NavbarProps> = ({}) => {
   return (
-    <Flex zIndex={1} position="sticky" top={0} bg="blue.400" p={4}>
+    <Flex zIndex={1} position="sticky" top={0} p={4}>
       <Flex flex={1} m="auto" align="center" maxW={800}>
         <NextLink href="/">
           <Link>
