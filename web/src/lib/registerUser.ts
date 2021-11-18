@@ -3,6 +3,7 @@ import RegisterFormValues from "../interfaces/RegisterFormValues";
 const registerUser = async (values: RegisterFormValues) => {
   const response = await fetch("http://localhost:4000/api/users/register", {
     method: "POST",
+    credentials: "include",
     headers: {
       "Content-Type": "application/json",
     },
