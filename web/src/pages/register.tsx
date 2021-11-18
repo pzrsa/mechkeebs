@@ -27,6 +27,7 @@ const Register: React.FC<RegisterProps> = ({}) => {
           initialValues={initialValues}
           validationSchema={Yup.object({
             username: Yup.string()
+              .min(2, "Must be greater than 2 characters")
               .max(15, "Must be 15 characters or less")
               .required("Username required"),
             email: Yup.string()
