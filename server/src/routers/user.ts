@@ -1,6 +1,7 @@
 import * as argon2 from "argon2";
 import router, { Request, Response, Router } from "express";
 import { User } from "../entity/User";
+import { createSession } from "../lib/sessions";
 
 const userRouter: Router = router();
 
@@ -40,6 +41,14 @@ userRouter.post("/users/register", async (req: Request, res: Response) => {
     email: req.body.email,
     password: await argon2.hash(req.body.password),
   }).save();
+
+  const { token } = await createSession(result.id);
+
+  res.cookie("token", token, {
+    httpOnly: true,
+    sameSite: "lax",
+    maxAge: 1000 * 60 * 60 * 24 * 365 * 10, // 10 years
+  });
 
   return res.status(200).json({ result });
 });
