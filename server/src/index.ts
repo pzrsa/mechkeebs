@@ -1,3 +1,4 @@
+import cookieParser from "cookie-parser";
 import cors from "cors";
 import express, { Application } from "express";
 import "reflect-metadata";
@@ -13,7 +14,8 @@ const main = async () => {
 
   app.use(
     express.json(),
-    cors({ origin: process.env.CORS_ORIGIN, credentials: true })
+    cors({ origin: process.env.CORS_ORIGIN, credentials: true }),
+    cookieParser()
   );
 
   app.use("/api", userRouter, setupRouter);
