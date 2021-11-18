@@ -76,4 +76,10 @@ userRouter.post("/users/login", async (req: Request, res: Response) => {
     .json({ result: `User '${user.username}' successfully logged in` });
 });
 
+userRouter.delete("/users/logout", async (_, res: Response) => {
+  res.clearCookie("token");
+
+  return res.json({ message: "User successfully logged out" });
+});
+
 export default userRouter;
