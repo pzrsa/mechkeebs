@@ -7,7 +7,7 @@ interface IndexProps {}
 const Index: React.FC<IndexProps> = ({}) => {
   return (
     <Wrapper>
-      <Heading>Feed</Heading>
+      <Heading>Latest Setups</Heading>
     </Wrapper>
   );
 };
