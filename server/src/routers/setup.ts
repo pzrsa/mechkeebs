@@ -19,7 +19,6 @@ setupRouter.post("/setups/create", async (req: Request, res: Response) => {
   try {
     const result = await Setup.create({
       title: req.body.title,
-      description: req.body.description,
       items: req.body.items,
       creatorId: req.body.creatorId,
     }).save();

@@ -18,9 +18,6 @@ export class Setup extends BaseEntity {
   @Column()
   title: string;
 
-  @Column()
-  description: string;
-
   @Column({ type: "simple-array" })
   items: string[];
 
