@@ -15,7 +15,7 @@ const main = async () => {
   app.use(
     express.json(),
     cors({ origin: process.env.CORS_ORIGIN, credentials: true }),
-    cookieParser()
+    cookieParser(process.env.COOKIE_SECRET)
   );
 
   app.use("/api", userRouter, setupRouter);
