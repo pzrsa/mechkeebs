@@ -29,6 +29,10 @@ const Register: React.FC<RegisterProps> = ({}) => {
             username: Yup.string()
               .min(2, "Must be greater than 2 characters")
               .max(15, "Must be 15 characters or less")
+              .matches(
+                /^[aA-zZ\s]+$/,
+                "Must not contain any special characters"
+              )
               .required("Username required"),
             email: Yup.string()
               .email("Invalid email address")

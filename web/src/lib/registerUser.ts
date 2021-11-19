@@ -1,6 +1,8 @@
 import RegisterFormValues from "../interfaces/RegisterFormValues";
 
 const registerUser = async (values: RegisterFormValues) => {
+  values.username = values.username.toLowerCase();
+
   const response = await fetch("http://localhost:4000/api/users/register", {
     method: "POST",
     credentials: "include",
