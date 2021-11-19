@@ -1,5 +1,6 @@
 import * as argon2 from "argon2";
 import router, { Request, Response, Router } from "express";
+import { Session } from "../entity/Session";
 import { User } from "../entity/User";
 import { createSession } from "../lib/sessions";
 
@@ -70,7 +71,9 @@ userRouter.post("/users/login", async (req: Request, res: Response) => {
     .json({ result: `User '${user.username}' successfully logged in` });
 });
 
-userRouter.delete("/users/logout", async (_, res: Response) => {
+userRouter.delete("/users/logout", async (req: Request, res: Response) => {
+  await Session.delete({ token: req.signedCookies.token });
+
   res.clearCookie("token");
 
   return res.json({ message: "User successfully logged out" });
