@@ -2,25 +2,25 @@ import * as argon2 from "argon2";
 import router, { Request, Response, Router } from "express";
 import { Session } from "../entity/Session";
 import { User } from "../entity/User";
-import { createSession } from "../lib/sessions";
+import { createSession, getSession } from "../lib/sessions";
 
 const userRouter: Router = router();
 
-userRouter.get("/users", async (_, res: Response) => {
-  const results = await User.find({
-    relations: ["setups"],
-  });
+// userRouter.get("/users", async (_, res: Response) => {
+//   const results = await User.find({
+//     relations: ["setups"],
+//   });
 
-  return res.status(200).json({ results });
-});
+//   return res.status(200).json({ results });
+// });
 
-userRouter.get("/users/:id", async (req: Request, res: Response) => {
-  const result = await User.findOne(req.params.id, {
-    relations: ["setups"],
-  });
+// userRouter.get("/users/:id", async (req: Request, res: Response) => {
+//   const result = await User.findOne(req.params.id, {
+//     relations: ["setups"],
+//   });
 
-  return res.status(200).json({ result });
-});
+//   return res.status(200).json({ result });
+// });
 
 userRouter.post("/users/register", async (req: Request, res: Response) => {
   const existingUsername = await User.findOne({
@@ -76,7 +76,17 @@ userRouter.delete("/users/logout", async (req: Request, res: Response) => {
 
   res.clearCookie("token");
 
-  return res.json({ message: "User successfully logged out" });
+  return res.status(200).json(true);
+});
+
+userRouter.get("/users/me", async (req: Request, res: Response) => {
+  const result = await getSession(req);
+
+  if (result.error) {
+    return res.status(401).json({ error: result.error });
+  }
+
+  return res.status(200).json({ result });
 });
 
 export default userRouter;

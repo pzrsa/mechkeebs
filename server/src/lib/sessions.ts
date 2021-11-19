@@ -1,5 +1,5 @@
 import crypto from "crypto";
-import { Response } from "express";
+import { Request, Response } from "express";
 import { __prod__ } from "../constants";
 import { Session } from "../entity/Session";
 
@@ -22,4 +22,16 @@ export const createSession = async (res: Response, userId: number) => {
     sameSite: "lax",
     maxAge: 1000 * 60 * 60 * 24 * 365 * 10, // 10 years
   });
+};
+
+export const getSession = async (req: Request) => {
+  const token = req.signedCookies.token;
+
+  if (!token) {
+    return { error: "You are not logged in" };
+  }
+
+  const session = Session.findOne({ where: { token: token } });
+
+  return { session };
 };
