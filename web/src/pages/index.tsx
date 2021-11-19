@@ -9,9 +9,7 @@ const Index: React.FC<IndexProps> = ({}) => {
   return (
     <Wrapper>
       <Heading>Latest Setups</Heading>
-      <Button onClick={async () => console.log(await logoutUser())}>
-        logout
-      </Button>
+      <Button onClick={async () => await logoutUser()}>logout</Button>
     </Wrapper>
   );
 };
