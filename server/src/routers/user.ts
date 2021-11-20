@@ -50,25 +50,27 @@ userRouter.post("/users/register", async (req: Request, res: Response) => {
 
 userRouter.post("/users/login", async (req: Request, res: Response) => {
   const user = await User.findOne({
-    where: { username: req.body.username },
-    select: ["username", "password"],
+    where: { email: req.body.email },
+    select: ["id", "email", "password"],
   });
 
   if (!user) {
     return res
       .status(400)
-      .json({ error: "Account with that username doesn't exist" });
+      .json({ error: "Account with that email doesn't exist" });
   }
 
-  const valid = user.password === req.body.password;
+  const valid = await argon2.verify(user.password, req.body.password);
 
   if (!valid) {
     return res.status(400).json({ error: "Incorrect password" });
   }
 
+  await createSession(res, user.id);
+
   return res
     .status(200)
-    .json({ result: `User '${user.username}' successfully logged in` });
+    .json({ result: `User '${user.id}' successfully logged in` });
 });
 
 userRouter.delete("/users/logout", async (req: Request, res: Response) => {
@@ -82,7 +84,7 @@ userRouter.delete("/users/logout", async (req: Request, res: Response) => {
 userRouter.get("/users/me", async (req: Request, res: Response) => {
   const result = await getSession(req);
 
-  if (String(result).includes("not logged")) {
+  if (typeof result === "string") {
     return res.status(401).json({ error: result });
   }
 

@@ -24,7 +24,9 @@ export const createSession = async (res: Response, userId: number) => {
   });
 };
 
-export const getSession = async (req: Request) => {
+export const getSession = async (
+  req: Request
+): Promise<Session | string | undefined> => {
   const token = req.signedCookies.token;
 
   if (!token) {
