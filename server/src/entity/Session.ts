@@ -20,7 +20,7 @@ export class Session extends BaseEntity {
   @Column({ name: "user_id" })
   userId: number;
 
-  @OneToOne(() => User)
+  @OneToOne(() => User, { onDelete: "CASCADE" })
   @JoinColumn({ name: "user_id" })
   user: User;
 
