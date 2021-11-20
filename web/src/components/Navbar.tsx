@@ -14,7 +14,7 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
           </Link>
         </NextLink>
         <Box ml={"auto"}>
-          <NextLink href="#">
+          <NextLink href="/login">
             <Link mr={2}>Login</Link>
           </NextLink>
           <NextLink href="/register">
