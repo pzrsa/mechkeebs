@@ -28,10 +28,13 @@ export const getSession = async (req: Request) => {
   const token = req.signedCookies.token;
 
   if (!token) {
-    return { error: "You are not logged in" };
+    return "You are not logged in";
   }
 
-  const session = Session.findOne({ where: { token: token } });
+  const session = Session.findOne({
+    where: { token: token },
+    relations: ["user"],
+  });
 
-  return { session };
+  return session;
 };

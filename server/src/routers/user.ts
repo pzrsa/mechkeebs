@@ -82,8 +82,8 @@ userRouter.delete("/users/logout", async (req: Request, res: Response) => {
 userRouter.get("/users/me", async (req: Request, res: Response) => {
   const result = await getSession(req);
 
-  if (result.error) {
-    return res.status(401).json({ error: result.error });
+  if (String(result).includes("not logged")) {
+    return res.status(401).json({ error: result });
   }
 
   return res.status(200).json({ result });
