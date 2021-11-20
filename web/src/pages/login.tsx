@@ -35,8 +35,6 @@ const login: React.FC<loginProps> = ({}) => {
           onSubmit={async (values, { setErrors }) => {
             const response = await loginUser(values);
 
-            console.log(response);
-
             if (response.error?.includes("email")) {
               setErrors({ email: response.error });
             } else if (response.error?.includes("password")) {
