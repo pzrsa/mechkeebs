@@ -88,7 +88,7 @@ userRouter.get("/users/me", async (req: Request, res: Response) => {
     return res.status(401).json({ error: result });
   }
 
-  return res.status(200).json({ result });
+  return res.status(200).json({ ...result });
 });
 
 export default userRouter;
