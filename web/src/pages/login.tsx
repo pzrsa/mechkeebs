@@ -12,7 +12,7 @@ import useUser from "../lib/useUser";
 
 interface loginProps {}
 
-const login: React.FC<loginProps> = ({}) => {
+const Login: React.FC<loginProps> = ({}) => {
   const initialValues: LoginFormValues = {
     email: "",
     password: "",
@@ -63,4 +63,4 @@ const login: React.FC<loginProps> = ({}) => {
   );
 };
 
-export default login;
+export default Login;
