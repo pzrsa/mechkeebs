@@ -1,6 +1,6 @@
 import crypto from "crypto";
 import { Request, Response } from "express";
-import { __prod__ } from "../constants";
+import { COOKIE_NAME, __prod__ } from "../constants";
 import { Session } from "../entity/Session";
 
 const generateToken = async () => {
@@ -15,7 +15,7 @@ export const createSession = async (res: Response, userId: number) => {
     userId: userId,
   }).save();
 
-  return res.cookie("token", token, {
+  return res.cookie(COOKIE_NAME, token, {
     secure: __prod__,
     signed: true,
     httpOnly: true,

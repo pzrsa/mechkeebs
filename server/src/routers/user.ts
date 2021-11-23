@@ -1,5 +1,6 @@
 import * as argon2 from "argon2";
 import router, { Request, Response, Router } from "express";
+import { COOKIE_NAME } from "../constants";
 import { Session } from "../entity/Session";
 import { User } from "../entity/User";
 import { createSession, getSession } from "../lib/sessions";
@@ -76,7 +77,7 @@ userRouter.post("/users/login", async (req: Request, res: Response) => {
 userRouter.delete("/users/logout", async (req: Request, res: Response) => {
   await Session.delete({ token: req.signedCookies.token });
 
-  res.clearCookie("token");
+  res.clearCookie(COOKIE_NAME);
 
   return res.status(200).json(true);
 });
