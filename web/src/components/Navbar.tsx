@@ -1,4 +1,6 @@
+import { Button } from "@chakra-ui/button";
 import { Box, Flex, Heading, Link } from "@chakra-ui/layout";
+import { Spinner } from "@chakra-ui/spinner";
 import NextLink from "next/link";
 import React from "react";
 import logoutUser from "../lib/logoutUser";
@@ -12,14 +14,15 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
   let body;
 
   if (!user) {
+    body = <Spinner />;
   } else if (!user?.user) {
     body = (
       <>
         <NextLink href="/login">
-          <Link mr={2}>Login</Link>
+          <Button mr={2}>Login</Button>
         </NextLink>
         <NextLink href="/register">
-          <Link>Register</Link>
+          <Button>Register</Button>
         </NextLink>
       </>
     );
@@ -27,23 +30,23 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
     body = (
       <>
         <Link mr={2}>{user.user.username}</Link>
-        <Link
-          onClick={() => {
-            logoutUser();
+        <Button
+          onClick={async () => {
+            await logoutUser();
             mutate(null, true);
           }}
         >
-          Logout
-        </Link>
+          Log Out
+        </Button>
       </>
     );
   }
 
   return (
-    <Flex zIndex={1} bg="tan" position="sticky" top={0} p={4}>
+    <Flex zIndex={1} bg="teal" position="sticky" top={0} p={4}>
       <Flex flex={1} m="auto" align="center" maxW={800}>
         <NextLink href="/">
-          <Link>
+          <Link textColor="white">
             <Heading>SetupScope</Heading>
           </Link>
         </NextLink>
