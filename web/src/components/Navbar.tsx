@@ -29,7 +29,12 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
   } else {
     body = (
       <>
-        <Link mr={2}>{user.user.username}</Link>
+        <NextLink href="/post">
+          <Button>Post Setup</Button>
+        </NextLink>
+        <Link textColor="white" mx={2}>
+          {user.user.username}
+        </Link>
         <Button
           onClick={async () => {
             await logoutUser();
