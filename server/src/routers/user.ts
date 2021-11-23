@@ -86,7 +86,7 @@ userRouter.get("/users/me", async (req: Request, res: Response) => {
   const result = await getSession(req);
 
   if (typeof result === "string") {
-    return res.status(401).json({ error: result });
+    return res.json({ error: result });
   }
 
   return res.status(200).json({ ...result });
