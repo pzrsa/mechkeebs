@@ -38,7 +38,6 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
         </Link>
       </>
     );
-    console.log(user);
   }
 
   return (
