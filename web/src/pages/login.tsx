@@ -8,6 +8,7 @@ import InputField from "../components/InputField";
 import Wrapper from "../components/Wrapper";
 import LoginFormValues from "../interfaces/LoginFormValues";
 import loginUser from "../lib/loginUser";
+import useUser from "../lib/useUser";
 
 interface loginProps {}
 
@@ -16,6 +17,8 @@ const login: React.FC<loginProps> = ({}) => {
     email: "",
     password: "",
   };
+
+  const { mutate } = useUser();
   const router = useRouter();
 
   return (
@@ -40,6 +43,7 @@ const login: React.FC<loginProps> = ({}) => {
             } else if (response.error?.includes("password")) {
               setErrors({ password: response.error });
             } else if (response?.result) {
+              mutate(null, true);
               router.push("/");
             }
           }}

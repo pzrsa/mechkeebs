@@ -8,6 +8,7 @@ import InputField from "../components/InputField";
 import Wrapper from "../components/Wrapper";
 import RegisterFormValues from "../interfaces/RegisterFormValues";
 import registerUser from "../lib/registerUser";
+import useUser from "../lib/useUser";
 
 interface RegisterProps {}
 
@@ -17,6 +18,8 @@ const Register: React.FC<RegisterProps> = ({}) => {
     email: "",
     password: "",
   };
+
+  const { mutate } = useUser();
   const router = useRouter();
 
   return (
@@ -49,6 +52,7 @@ const Register: React.FC<RegisterProps> = ({}) => {
             } else if (response.error?.includes("Email")) {
               setErrors({ email: response.error });
             } else if (response?.result) {
+              mutate(null, true);
               router.push("/");
             }
           }}
