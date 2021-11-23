@@ -10,9 +10,9 @@ import LoginFormValues from "../interfaces/LoginFormValues";
 import loginUser from "../lib/loginUser";
 import useUser from "../lib/useUser";
 
-interface loginProps {}
+interface LoginProps {}
 
-const Login: React.FC<loginProps> = ({}) => {
+const Login: React.FC<LoginProps> = ({}) => {
   const initialValues: LoginFormValues = {
     email: "",
     password: "",
