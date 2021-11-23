@@ -32,17 +32,18 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
         <NextLink href="/post">
           <Button>Post Setup</Button>
         </NextLink>
-        <Link textColor="white" mx={2}>
+        <Link textColor="white" mx={3}>
           {user.user.username}
         </Link>
-        <Button
+        <Link
+          textColor="white"
           onClick={async () => {
             await logoutUser();
             mutate(null, true);
           }}
         >
           Log Out
-        </Button>
+        </Link>
       </>
     );
   }
