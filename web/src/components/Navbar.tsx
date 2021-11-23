@@ -12,7 +12,6 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
   let body;
 
   if (!user) {
-    body = "loading...";
   } else if (!user?.user) {
     body = (
       <>
