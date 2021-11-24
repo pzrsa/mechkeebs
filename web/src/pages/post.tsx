@@ -65,7 +65,7 @@ const Post: React.FC<PostProps> = ({}) => {
                           name={`items.${index}.item`}
                           placeholder="Item name"
                         />
-                        {values.items && values.items.length <= 2 ? null : (
+                        {values.items.length <= 2 ? null : (
                           <IconButton
                             ml={5}
                             aria-label="Remove item"
