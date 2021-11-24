@@ -52,7 +52,7 @@ const Post: React.FC<PostProps> = ({}) => {
                       type="button"
                       onClick={() => arrayHelpers.push("")}
                     />
-                    {values.items.map((items, index) => (
+                    {values.items.map((_, index) => (
                       <Flex direction="row" justifyContent="center" key={index}>
                         <MultiInputField name={`items.${index}.item`} />
                         {values.items && values.items.length <= 2 ? null : (
