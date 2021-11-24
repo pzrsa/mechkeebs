@@ -1,4 +1,5 @@
 import { Button, IconButton } from "@chakra-ui/button";
+import { FormLabel } from "@chakra-ui/form-control";
 import { AddIcon, MinusIcon } from "@chakra-ui/icons";
 import { Box, Flex, Heading } from "@chakra-ui/layout";
 import { FieldArray, Form, Formik } from "formik";
@@ -25,12 +26,14 @@ const Post: React.FC<PostProps> = ({}) => {
           initialValues={initialValues}
           validationSchema={Yup.object().shape({
             title: Yup.string()
-              .min(7, "Must be greater than 7 characters")
+              .min(5, "Must be greater than 5 characters")
               .required("Title required"),
 
             items: Yup.array().of(
               Yup.object().shape({
-                item: Yup.string().required("Item name required"),
+                item: Yup.string()
+                  .min(3, "Must be greater than 3 characters")
+                  .required("Item name required"),
               })
             ),
           })}
@@ -45,18 +48,26 @@ const Post: React.FC<PostProps> = ({}) => {
                 name="items"
                 render={(arrayHelpers) => (
                   <Box>
-                    <IconButton
-                      aria-label="Add item"
-                      icon={<AddIcon />}
-                      colorScheme="teal"
-                      type="button"
-                      onClick={() => arrayHelpers.push("")}
-                    />
+                    <Flex mb={5} mt={10} alignItems="center">
+                      <FormLabel>Items</FormLabel>
+                      <IconButton
+                        ml="auto"
+                        aria-label="Add item"
+                        icon={<AddIcon />}
+                        colorScheme="teal"
+                        type="button"
+                        onClick={() => arrayHelpers.unshift("")}
+                      />
+                    </Flex>
                     {values.items.map((_, index) => (
                       <Flex direction="row" justifyContent="center" key={index}>
-                        <MultiInputField name={`items.${index}.item`} />
+                        <MultiInputField
+                          name={`items.${index}.item`}
+                          placeholder="Item name"
+                        />
                         {values.items && values.items.length <= 2 ? null : (
                           <IconButton
+                            ml={5}
                             aria-label="Remove item"
                             icon={<MinusIcon />}
                             colorScheme="red"
