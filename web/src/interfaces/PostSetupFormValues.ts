@@ -1,6 +1,6 @@
 interface PostSetupFormValues {
   title: string;
-  items: string[];
+  items: object[];
 }
 
 export default PostSetupFormValues;

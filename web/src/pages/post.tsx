@@ -3,20 +3,25 @@ import { FormLabel } from "@chakra-ui/form-control";
 import { AddIcon, MinusIcon } from "@chakra-ui/icons";
 import { Box, Flex, Heading } from "@chakra-ui/layout";
 import { FieldArray, Form, Formik } from "formik";
+import { useRouter } from "next/router";
 import React from "react";
 import * as Yup from "yup";
 import InputField from "../components/InputField";
 import MultiInputField from "../components/MultiInputField";
 import Wrapper from "../components/Wrapper";
 import PostSetupFormValues from "../interfaces/PostSetupFormValues";
+import createSetup from "../lib/createSetup";
+import getUser from "../lib/getUser";
 
 interface PostProps {}
 
 const Post: React.FC<PostProps> = ({}) => {
   const initialValues: PostSetupFormValues = {
     title: "",
-    items: ["", ""],
+    items: [{ item: "" }, { item: "" }],
   };
+
+  const router = useRouter();
 
   return (
     <Wrapper>
@@ -37,11 +42,21 @@ const Post: React.FC<PostProps> = ({}) => {
               })
             ),
           })}
-          onSubmit={(values) => {
-            console.log(values);
+          onSubmit={async (values) => {
+            const { userId } = await getUser();
+
+            const items = values["items"].map((item: any): string => item.item);
+
+            const response = await createSetup(values.title, items, userId);
+
+            if (response?.error) {
+              console.error(response.error);
+            } else if (response?.result) {
+              router.push("/");
+            }
           }}
         >
-          {({ values, isSubmitting, errors }) => (
+          {({ values, isSubmitting }) => (
             <Form>
               <InputField name="title" label="Title" />
               <FieldArray
@@ -77,8 +92,6 @@ const Post: React.FC<PostProps> = ({}) => {
                         )}
                       </Flex>
                     ))}
-                    <pre>{JSON.stringify(values, null, 2)}</pre>
-                    <pre>{JSON.stringify(errors, null, 2)}</pre>
                   </Box>
                 )}
               />
