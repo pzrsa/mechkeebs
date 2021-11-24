@@ -5,6 +5,7 @@ import { FieldArray, Form, Formik } from "formik";
 import React from "react";
 import * as Yup from "yup";
 import InputField from "../components/InputField";
+import MultiInputField from "../components/MultiInputField";
 import Wrapper from "../components/Wrapper";
 import PostSetupFormValues from "../interfaces/PostSetupFormValues";
 
@@ -13,7 +14,7 @@ interface PostProps {}
 const Post: React.FC<PostProps> = ({}) => {
   const initialValues: PostSetupFormValues = {
     title: "",
-    items: [""],
+    items: ["", ""],
   };
 
   return (
@@ -27,9 +28,11 @@ const Post: React.FC<PostProps> = ({}) => {
               .min(7, "Must be greater than 7 characters")
               .required("Title required"),
 
-            items: Yup.array()
-              .min(2, "Minimum of 2 items")
-              .required("Must have items"),
+            items: Yup.array().of(
+              Yup.object().shape({
+                item: Yup.string().required("Item name required"),
+              })
+            ),
           })}
           onSubmit={(values) => {
             console.log(values);
@@ -37,7 +40,6 @@ const Post: React.FC<PostProps> = ({}) => {
         >
           {({ values, isSubmitting, errors }) => (
             <Form>
-              {console.log(errors)}
               <InputField name="title" label="Title" />
               <FieldArray
                 name="items"
@@ -50,23 +52,22 @@ const Post: React.FC<PostProps> = ({}) => {
                       type="button"
                       onClick={() => arrayHelpers.push("")}
                     />
-                    {values.items.map((_, index) => (
-                      <Flex
-                        direction="row"
-                        justifyContent="center"
-                        alignItems="center"
-                        key={index}
-                      >
-                        <InputField name={`items.${index}`} label="Item" />
-                        <IconButton
-                          aria-label="Remove item"
-                          icon={<MinusIcon />}
-                          colorScheme="red"
-                          type="button"
-                          onClick={() => arrayHelpers.remove(index)}
-                        />
+                    {values.items.map((items, index) => (
+                      <Flex direction="row" justifyContent="center" key={index}>
+                        <MultiInputField name={`items.${index}.item`} />
+                        {values.items && values.items.length <= 2 ? null : (
+                          <IconButton
+                            aria-label="Remove item"
+                            icon={<MinusIcon />}
+                            colorScheme="red"
+                            type="button"
+                            onClick={() => arrayHelpers.remove(index)}
+                          />
+                        )}
                       </Flex>
                     ))}
+                    <pre>{JSON.stringify(values, null, 2)}</pre>
+                    <pre>{JSON.stringify(errors, null, 2)}</pre>
                   </Box>
                 )}
               />
