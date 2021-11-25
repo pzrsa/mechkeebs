@@ -3,15 +3,14 @@ import { useEffect } from "react";
 import useUser from "./useUser";
 
 const withAuth = () => {
-  const { user } = useUser();
-
+  const { user, loading } = useUser();
   const router = useRouter();
 
   useEffect(() => {
-    if (!user) {
+    if (!loading && !user?.user) {
       router.replace("/login");
     }
-  }, [user, router]);
+  }, [loading, user, router]);
 };
 
 export default withAuth;
