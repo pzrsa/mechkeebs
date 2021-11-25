@@ -7,8 +7,8 @@ import * as Yup from "yup";
 import InputField from "../components/InputField";
 import Wrapper from "../components/Wrapper";
 import RegisterFormValues from "../interfaces/RegisterFormValues";
-import registerUser from "../lib/registerUser";
-import useUser from "../lib/useUser";
+import registerUser from "../utils/registerUser";
+import useUser from "../utils/useUser";
 
 interface RegisterProps {}
 

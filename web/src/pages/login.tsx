@@ -7,8 +7,8 @@ import * as Yup from "yup";
 import InputField from "../components/InputField";
 import Wrapper from "../components/Wrapper";
 import LoginFormValues from "../interfaces/LoginFormValues";
-import loginUser from "../lib/loginUser";
-import useUser from "../lib/useUser";
+import loginUser from "../utils/loginUser";
+import useUser from "../utils/useUser";
 
 interface LoginProps {}
 

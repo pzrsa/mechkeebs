@@ -3,7 +3,7 @@ import { AppProps } from "next/app";
 import React from "react";
 import { SWRConfig } from "swr";
 import Layout from "../components/Layout";
-import fetchJson from "../lib/fetchJson";
+import fetchJson from "../utils/fetchJson";
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (

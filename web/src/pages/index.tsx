@@ -10,7 +10,7 @@ import { GetServerSideProps } from "next";
 import React from "react";
 import Wrapper from "../components/Wrapper";
 import SetupFields from "../interfaces/SetupFields";
-import getSetups from "../lib/getSetups";
+import getSetups from "../utils/getSetups";
 
 interface IndexProps {
   setups: any;

@@ -3,8 +3,8 @@ import { Box, Flex, Heading, Link } from "@chakra-ui/layout";
 import { Spinner } from "@chakra-ui/spinner";
 import NextLink from "next/link";
 import React from "react";
-import logoutUser from "../lib/logoutUser";
-import useUser from "../lib/useUser";
+import logoutUser from "../utils/logoutUser";
+import useUser from "../utils/useUser";
 
 interface NavbarProps {}
 

@@ -10,9 +10,9 @@ import InputField from "../components/InputField";
 import MultiInputField from "../components/MultiInputField";
 import Wrapper from "../components/Wrapper";
 import PostSetupFormValues from "../interfaces/PostSetupFormValues";
-import createSetup from "../lib/createSetup";
-import getUser from "../lib/getUser";
-import withAuth from "../lib/withAuth";
+import createSetup from "../utils/createSetup";
+import getUser from "../utils/getUser";
+import withAuth from "../utils/withAuth";
 
 interface PostProps {}
 
