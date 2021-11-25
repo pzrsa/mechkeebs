@@ -1,4 +1,11 @@
-import { Box, Heading, ListItem, Stack, UnorderedList } from "@chakra-ui/react";
+import {
+  Box,
+  Heading,
+  ListItem,
+  Stack,
+  Text,
+  UnorderedList,
+} from "@chakra-ui/react";
 import { GetServerSideProps } from "next";
 import React from "react";
 import Wrapper from "../components/Wrapper";
@@ -6,7 +13,7 @@ import SetupFields from "../interfaces/SetupFields";
 import getSetups from "../lib/getSetups";
 
 interface IndexProps {
-  setups: [];
+  setups: any;
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
@@ -29,8 +36,9 @@ const Index: React.FC<IndexProps> = ({ setups }) => {
             <Heading mb={3} size="lg">
               {setup.title}
             </Heading>
+            <Text my={2}>posted by {setup.creator.username}</Text>
             <Heading mb={2} size="md">
-              Gear
+              Items
             </Heading>
             {setup.items.map((item) => (
               <UnorderedList key={item}>
