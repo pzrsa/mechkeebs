@@ -3,7 +3,7 @@ import router, { Request, Response, Router } from "express";
 import { COOKIE_NAME } from "../constants";
 import { Session } from "../entity/Session";
 import { User } from "../entity/User";
-import { createSession, getSession } from "../lib/sessions";
+import { createSession, getSession } from "../utils/sessions";
 
 const userRouter: Router = router();
 
