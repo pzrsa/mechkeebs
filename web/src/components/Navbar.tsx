@@ -9,11 +9,11 @@ import useUser from "../utils/useUser";
 interface NavbarProps {}
 
 const Navbar: React.FC<NavbarProps> = ({}) => {
-  const { user, mutate, loading } = useUser();
+  const { user, mutate } = useUser();
 
   let body;
 
-  if (loading) {
+  if (!user) {
     body = <Spinner />;
   } else if (!user?.user) {
     body = (
