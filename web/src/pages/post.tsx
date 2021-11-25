@@ -71,7 +71,7 @@ const Post: React.FC<PostProps> = ({}) => {
                         icon={<AddIcon />}
                         colorScheme="teal"
                         type="button"
-                        onClick={() => arrayHelpers.unshift("")}
+                        onClick={() => arrayHelpers.unshift({ item: "" })}
                       />
                     </Flex>
                     {values.items.map((_, index) => (
