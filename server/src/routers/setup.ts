@@ -4,7 +4,10 @@ import { Setup } from "../entity/Setup";
 const setupRouter: Router = router();
 
 setupRouter.get("/setups", async (_, res: Response) => {
-  const results = await Setup.find({ order: { createdAt: "DESC" } });
+  const results = await Setup.find({
+    order: { createdAt: "DESC" },
+    relations: ["creator"],
+  });
 
   return res.status(200).json({ results });
 });
