@@ -1,6 +1,6 @@
 import { Button, IconButton } from "@chakra-ui/button";
 import { FormLabel } from "@chakra-ui/form-control";
-import { AddIcon, MinusIcon } from "@chakra-ui/icons";
+import { MinusIcon } from "@chakra-ui/icons";
 import { Box, Flex, Heading } from "@chakra-ui/layout";
 import { FieldArray, Form, Formik } from "formik";
 import { useRouter } from "next/router";
@@ -65,14 +65,14 @@ const Post: React.FC<PostProps> = ({}) => {
                   <Box>
                     <Flex mb={5} mt={10} alignItems="center">
                       <FormLabel>Items</FormLabel>
-                      <IconButton
+                      <Button
                         ml="auto"
-                        aria-label="Add item"
-                        icon={<AddIcon />}
                         colorScheme="teal"
                         type="button"
                         onClick={() => arrayHelpers.unshift({ item: "" })}
-                      />
+                      >
+                        Add item
+                      </Button>
                     </Flex>
                     {values.items.map((_, index) => (
                       <Flex direction="row" justifyContent="center" key={index}>
