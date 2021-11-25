@@ -10,6 +10,12 @@ const generateToken = async () => {
 };
 
 export const createSession = async (res: Response, userId: number) => {
+  const existing = await Session.findOne({ where: { userId } });
+
+  if (existing) {
+    await Session.delete({ userId });
+  }
+
   const { token } = await Session.create({
     token: await generateToken(),
     userId: userId,
