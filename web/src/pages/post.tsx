@@ -12,10 +12,12 @@ import Wrapper from "../components/Wrapper";
 import PostSetupFormValues from "../interfaces/PostSetupFormValues";
 import createSetup from "../lib/createSetup";
 import getUser from "../lib/getUser";
+import withAuth from "../lib/withAuth";
 
 interface PostProps {}
 
 const Post: React.FC<PostProps> = ({}) => {
+  withAuth();
   const initialValues: PostSetupFormValues = {
     title: "",
     items: [{ item: "" }, { item: "" }],
