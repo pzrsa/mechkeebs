@@ -44,18 +44,13 @@ setupRouter.put("/setups/:id", async (req: Request, res: Response) => {
     .json({ result: `Setup ${setup.id} successfully updated` });
 });
 
-setupRouter.delete("/setups/:id", async (req: Request, res: Response) => {
-  const setup = await Setup.findOne(req.params.id);
+setupRouter.delete("/setups/delete", async (req: Request, res: Response) => {
+  const result = await Setup.delete({
+    id: req.body.id,
+    creatorId: req.body.creatorId,
+  });
 
-  if (!setup) {
-    return res.status(400).json({ error: "Setup does not exist to delete" });
-  }
-
-  await Setup.delete(setup.id);
-
-  return res
-    .status(200)
-    .json({ message: `Setup ${setup.id} successfully deleted` });
+  return res.status(200).json({ result });
 });
 
 export default setupRouter;
