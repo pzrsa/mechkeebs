@@ -60,9 +60,7 @@ const Index: React.FC<IndexProps> = ({ setups }) => {
                     ml="auto"
                     aria-label="Delete Setup"
                     icon={<DeleteIcon />}
-                    onClick={async () =>
-                      await deleteSetup(setup.id, user?.user?.id)
-                    }
+                    onClick={async () => await deleteSetup(setup.id)}
                   />
                 </Flex>
               ) : null}
