@@ -36,10 +36,10 @@ export const getSession = async (
   const token = req.signedCookies.token;
 
   if (!token) {
-    return "You are not logged in";
+    return "User not logged in";
   }
 
-  const session = Session.findOne({
+  const session = await Session.findOne({
     where: { token: token },
     relations: ["user"],
   });

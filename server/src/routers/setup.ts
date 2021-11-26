@@ -1,5 +1,6 @@
 import router, { Request, Response, Router } from "express";
 import { Setup } from "../entity/Setup";
+import { getSession } from "../utils/sessions";
 
 const setupRouter: Router = router();
 
@@ -45,9 +46,15 @@ setupRouter.put("/setups/:id", async (req: Request, res: Response) => {
 });
 
 setupRouter.delete("/setups/delete", async (req: Request, res: Response) => {
+  const session = await getSession(req);
+
+  if (typeof session === "string") {
+    return res.status(401).json({ error: session });
+  }
+
   const result = await Setup.delete({
-    id: req.body.id,
-    creatorId: req.body.creatorId,
+    id: req.body.postId,
+    creatorId: session?.userId,
   });
 
   return res.status(200).json({ result });
