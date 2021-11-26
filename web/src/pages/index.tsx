@@ -54,13 +54,17 @@ const Index: React.FC<IndexProps> = ({ fallback }) => {
         <Heading mb={5}>Latest Setups</Heading>
         <Stack spacing={8}>
           {setups?.map((setup: SetupFields) => (
-            <Skeleton key={setup.id} isLoaded={!loading}>
-              <Box key={setup.id} p={5} shadow="md" borderWidth="1px">
+            <Box key={setup.id} p={5} shadow="md" borderWidth="1px">
+              <Skeleton isLoaded={!loading}>
                 <Heading mb={3} size="lg">
                   {setup.title}
                 </Heading>
+              </Skeleton>
+              <Skeleton isLoaded={!loading}>
                 <Text my={2}>posted by {setup.creator.username}</Text>
-                <Box>
+              </Skeleton>
+              <Box>
+                <Skeleton isLoaded={!loading}>
                   <Heading mb={2} size="md">
                     Items
                   </Heading>
@@ -69,23 +73,24 @@ const Index: React.FC<IndexProps> = ({ fallback }) => {
                       <ListItem>{item}</ListItem>
                     </UnorderedList>
                   ))}
-                  {setup.creatorId === user?.user?.id ? (
-                    <Flex>
-                      <IconButton
-                        colorScheme="red"
-                        ml="auto"
-                        aria-label="Delete Setup"
-                        icon={<DeleteIcon />}
-                        onClick={async () => {
-                          await deleteSetup(setup.id);
-                          mutate(null, true);
-                        }}
-                      />
-                    </Flex>
-                  ) : null}
-                </Box>
+                </Skeleton>
+                {setup.creatorId === user?.user?.id ? (
+                  <Flex>
+                    <IconButton
+                      colorScheme="red"
+                      ml="auto"
+                      mt={2}
+                      aria-label="Delete Setup"
+                      icon={<DeleteIcon />}
+                      onClick={async () => {
+                        await deleteSetup(setup.id);
+                        mutate(null, true);
+                      }}
+                    />
+                  </Flex>
+                ) : null}
               </Box>
-            </Skeleton>
+            </Box>
           ))}
         </Stack>
       </Wrapper>
