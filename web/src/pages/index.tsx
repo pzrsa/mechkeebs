@@ -18,7 +18,7 @@ import getSetups from "../utils/getSetups";
 import useUser from "../utils/useUser";
 
 interface IndexProps {
-  setups: any;
+  setups: Array<SetupFields>;
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
@@ -38,7 +38,7 @@ const Index: React.FC<IndexProps> = ({ setups }) => {
     <Wrapper>
       <Heading mb={5}>Latest Setups</Heading>
       <Stack spacing={8}>
-        {setups?.map((setup: SetupFields) => (
+        {setups?.map((setup) => (
           <Box key={setup.id} p={5} shadow="md" borderWidth="1px">
             <Heading mb={3} size="lg">
               {setup.title}
