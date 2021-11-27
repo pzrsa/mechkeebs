@@ -6,8 +6,8 @@ type Setup = {
       items: string[];
       creatorId: number;
       creator: { username: string };
-      createdAt: Date;
-      updatedAt: Date;
+      createdAt: string;
+      updatedAt: string;
     }
   ];
 };

@@ -14,6 +14,7 @@ import React from "react";
 import deleteSetup from "../utils/deleteSetup";
 import useSetups from "../utils/useSetups";
 import useUser from "../utils/useUser";
+import DateFromNow from "./DateFromNow";
 
 interface SetupsProps {}
 
@@ -31,7 +32,10 @@ const Setups: React.FC<SetupsProps> = ({}) => {
             </Heading>
           </Skeleton>
           <Skeleton isLoaded={!loading}>
-            <Text my={2}>posted by {setup.creator.username}</Text>
+            <Text my={2}>
+              Posted <DateFromNow date={setup.createdAt} /> by{" "}
+              {setup.creator.username}
+            </Text>
           </Skeleton>
           <Box>
             <Skeleton isLoaded={!loading}>
