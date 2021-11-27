@@ -1,9 +1,7 @@
-import { DeleteIcon } from "@chakra-ui/icons";
 import {
   Box,
   Flex,
   Heading,
-  IconButton,
   ListItem,
   Skeleton,
   Stack,
@@ -11,16 +9,16 @@ import {
   UnorderedList,
 } from "@chakra-ui/react";
 import React from "react";
-import deleteSetup from "../utils/deleteSetup";
 import useSetups from "../utils/useSetups";
 import useUser from "../utils/useUser";
 import DateFromNow from "./DateFromNow";
+import DeleteSetup from "./DeleteSetup";
 
 interface SetupsProps {}
 
 const Setups: React.FC<SetupsProps> = ({}) => {
   const { user } = useUser();
-  const { setups, loading, mutate } = useSetups();
+  const { setups, loading } = useSetups();
 
   return (
     <Stack spacing={8}>
@@ -50,17 +48,7 @@ const Setups: React.FC<SetupsProps> = ({}) => {
             </Skeleton>
             {setup.creatorId === user?.user?.id ? (
               <Flex>
-                <IconButton
-                  colorScheme="red"
-                  ml="auto"
-                  mt={2}
-                  aria-label="Delete Setup"
-                  icon={<DeleteIcon />}
-                  onClick={async () => {
-                    await deleteSetup(setup.id);
-                    mutate(undefined, true);
-                  }}
-                />
+                <DeleteSetup setupId={setup.id} />
               </Flex>
             ) : null}
           </Box>
