@@ -44,16 +44,14 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
 const Index: React.FC<IndexProps> = ({ fallback }) => {
   const { user } = useUser();
-  const { setups: data, loading, mutate } = useSetups();
-
-  const setups = data?.results;
+  const { setups, loading, mutate } = useSetups();
 
   return (
     <SWRConfig value={{ fallback }}>
       <Wrapper>
         <Heading mb={5}>Latest Setups</Heading>
         <Stack spacing={8}>
-          {setups?.map((setup: SetupFields) => (
+          {setups?.results.map((setup: SetupFields) => (
             <Box key={setup.id} p={5} shadow="md" borderWidth="1px">
               <Skeleton isLoaded={!loading}>
                 <Heading mb={3} size="lg">
