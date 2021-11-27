@@ -42,11 +42,11 @@ const Setups: React.FC<SetupsProps> = ({}) => {
               <Heading mb={2} size="md">
                 Items
               </Heading>
-              {setup.items.map((item) => (
-                <UnorderedList key={item}>
-                  <ListItem>{item}</ListItem>
-                </UnorderedList>
-              ))}
+              <UnorderedList>
+                {setup.items.map((item) => (
+                  <ListItem key={item}>{item}</ListItem>
+                ))}
+              </UnorderedList>
             </Skeleton>
             {setup.creatorId === user?.user?.id ? (
               <Flex>
