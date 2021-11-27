@@ -1,5 +1,6 @@
 import {
   FormControl,
+  FormErrorIcon,
   FormErrorMessage,
   FormLabel,
   Input,
@@ -20,7 +21,10 @@ const InputField: React.FC<InputFieldProps> = ({ label, size, ...props }) => {
       <FormLabel htmlFor={field.name}>{label}</FormLabel>
       <Input {...field} {...props} id={field.name} placeholder={label} />
       {meta.touched && meta.error ? (
-        <FormErrorMessage>{meta.error}</FormErrorMessage>
+        <FormErrorMessage>
+          <FormErrorIcon />
+          {meta.error}
+        </FormErrorMessage>
       ) : null}
     </FormControl>
   );
