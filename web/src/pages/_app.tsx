@@ -7,7 +7,7 @@ import fetcher from "../utils/fetcher";
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
-    <SWRConfig value={{ fetcher: fetcher }}>
+    <SWRConfig value={{ fetcher }}>
       <ChakraProvider resetCSS>
         <Layout>
           <Component {...pageProps} />
