@@ -9,7 +9,7 @@ import * as Yup from "yup";
 import InputField from "../components/InputField";
 import MultiInputField from "../components/MultiInputField";
 import Wrapper from "../components/Wrapper";
-import PostSetupFormValues from "../interfaces/PostSetupFormValues";
+import PostSetupFormValues from "../types/PostSetupFormValues";
 import createSetup from "../utils/createSetup";
 import getUser from "../utils/getUser";
 import withAuth from "../utils/withAuth";

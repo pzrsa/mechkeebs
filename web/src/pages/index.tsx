@@ -14,7 +14,6 @@ import { GetServerSideProps } from "next";
 import React from "react";
 import { SWRConfig } from "swr";
 import Wrapper from "../components/Wrapper";
-import SetupFields from "../interfaces/SetupFields";
 import deleteSetup from "../utils/deleteSetup";
 import getSetups from "../utils/getSetups";
 import useSetups from "../utils/useSetups";
@@ -36,7 +35,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
   return {
     props: {
       fallback: {
-        useSetups: initialSetups,
+        setups: initialSetups,
       },
     },
   };
@@ -51,7 +50,7 @@ const Index: React.FC<IndexProps> = ({ fallback }) => {
       <Wrapper>
         <Heading mb={5}>Latest Setups</Heading>
         <Stack spacing={8}>
-          {setups?.results.map((setup: SetupFields) => (
+          {setups?.results.map((setup) => (
             <Box key={setup.id} p={5} shadow="md" borderWidth="1px">
               <Skeleton isLoaded={!loading}>
                 <Heading mb={3} size="lg">
@@ -82,7 +81,7 @@ const Index: React.FC<IndexProps> = ({ fallback }) => {
                       icon={<DeleteIcon />}
                       onClick={async () => {
                         await deleteSetup(setup.id);
-                        mutate(null, true);
+                        mutate(undefined, true);
                       }}
                     />
                   </Flex>

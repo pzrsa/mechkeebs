@@ -1,4 +1,4 @@
-import LoginFormValues from "../interfaces/LoginFormValues";
+import LoginFormValues from "../types/LoginFormValues";
 
 const loginUser = async (values: LoginFormValues) => {
   const response = await fetch("http://localhost:4000/api/users/login", {

@@ -1,4 +1,4 @@
-import PostSetupFormValues from "../interfaces/PostSetupFormValues";
+import PostSetupFormValues from "../types/PostSetupFormValues";
 
 const createSetup = async (
   title: PostSetupFormValues["title"],

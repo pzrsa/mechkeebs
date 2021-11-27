@@ -6,7 +6,7 @@ import React from "react";
 import * as Yup from "yup";
 import InputField from "../components/InputField";
 import Wrapper from "../components/Wrapper";
-import LoginFormValues from "../interfaces/LoginFormValues";
+import LoginFormValues from "../types/LoginFormValues";
 import loginUser from "../utils/loginUser";
 import useUser from "../utils/useUser";
 

@@ -1,4 +1,4 @@
-import RegisterFormValues from "../interfaces/RegisterFormValues";
+import RegisterFormValues from "../types/RegisterFormValues";
 
 const registerUser = async (values: RegisterFormValues) => {
   values.username = values.username.toLowerCase();
