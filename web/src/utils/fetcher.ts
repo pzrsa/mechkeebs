@@ -1,4 +1,4 @@
-const fetchJson = async (input: RequestInfo): Promise<JSON> => {
+const fetcher = async (input: RequestInfo): Promise<JSON> => {
   const response = await fetch(input, {
     method: "GET",
     credentials: "include",
@@ -16,4 +16,4 @@ const fetchJson = async (input: RequestInfo): Promise<JSON> => {
   return data;
 };
 
-export default fetchJson;
+export default fetcher;

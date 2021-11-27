@@ -3,13 +3,11 @@ import { AppProps } from "next/app";
 import React from "react";
 import { SWRConfig } from "swr";
 import Layout from "../components/Layout";
-import fetchJson from "../utils/fetchJson";
+import fetcher from "../utils/fetcher";
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
-    <SWRConfig
-      value={{ fetcher: fetchJson, onError: (err) => console.error(err) }}
-    >
+    <SWRConfig value={{ fetcher: fetcher }}>
       <ChakraProvider resetCSS>
         <Layout>
           <Component {...pageProps} />
