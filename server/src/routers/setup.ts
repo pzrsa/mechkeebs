@@ -54,7 +54,7 @@ setupRouter.delete("/setups/delete", async (req: Request, res: Response) => {
 
   const result = await Setup.delete({
     id: req.body.postId,
-    creatorId: session?.userId,
+    creatorId: session?.user.id,
   });
 
   return res.status(200).json({ result });
