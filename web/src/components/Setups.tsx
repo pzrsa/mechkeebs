@@ -8,6 +8,7 @@ import {
   Text,
   UnorderedList,
 } from "@chakra-ui/react";
+import crypto from "crypto";
 import React from "react";
 import useSetups from "../utils/useSetups";
 import useUser from "../utils/useUser";
@@ -42,7 +43,9 @@ const Setups: React.FC<SetupsProps> = ({}) => {
               </Heading>
               <UnorderedList>
                 {setup.items.map((item) => (
-                  <ListItem key={item}>{item}</ListItem>
+                  <ListItem key={crypto.randomBytes(12).toString("base64")}>
+                    {item}
+                  </ListItem>
                 ))}
               </UnorderedList>
             </Skeleton>
