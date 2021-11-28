@@ -39,7 +39,7 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
           textColor="white"
           onClick={async () => {
             await logoutUser();
-            mutate(null, true);
+            mutate(undefined, true);
           }}
         >
           Log Out
