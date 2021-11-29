@@ -1,3 +1,5 @@
+import User from "../types/User";
+
 const getUser = async () => {
   const response = await fetch("http://localhost:4000/api/users/me", {
     method: "GET",
@@ -7,7 +9,7 @@ const getUser = async () => {
     },
   });
 
-  const result = await response.json();
+  const result: User = await response.json();
 
   return result;
 };
