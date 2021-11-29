@@ -45,11 +45,11 @@ const Post: React.FC<PostProps> = ({}) => {
             ),
           })}
           onSubmit={async (values) => {
-            const { userId } = await getUser();
+            const { user } = await getUser();
 
             const items = values["items"].map((item: any): string => item.item);
 
-            const response = await createSetup(values.title, items, userId);
+            const response = await createSetup(values.title, items, user.id);
 
             if (response?.error) {
               console.error(response.error);
