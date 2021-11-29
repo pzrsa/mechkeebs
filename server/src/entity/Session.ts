@@ -9,7 +9,7 @@ import {
 } from "typeorm";
 import { User } from "./User";
 
-@Entity({ name: "sessions", orderBy: { id: "ASC" } })
+@Entity({ name: "sessions" })
 export class Session extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
