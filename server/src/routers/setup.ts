@@ -5,27 +5,23 @@ import { getSession } from "../utils/sessions";
 
 const setupRouter: Router = router();
 
-setupRouter.get(
-  "/setups/:limit/:cursor?",
-  async (req: Request, res: Response) => {
-    const qb = getConnection()
-      .getRepository(Setup)
-      .createQueryBuilder("s")
-      .innerJoinAndSelect("s.creator", "u", "u.id = s.creatorId")
-      .take(parseInt(req.params.limit))
-      .orderBy("s.createdAt", "DESC");
+setupRouter.get("/setups", async (req: Request, res: Response) => {
+  const qb = getConnection()
+    .getRepository(Setup)
+    .createQueryBuilder("s")
+    .innerJoinAndSelect("s.creator", "u", "u.id = s.creatorId")
+    .orderBy("s.createdAt", "DESC");
 
-    if (req.params.cursor) {
-      qb.where("s.createdAt < :cursor", {
-        cursor: new Date(parseInt(req.params.cursor)),
-      });
-    }
-
-    const results = await qb.getMany();
-
-    return res.status(200).json({ results });
+  if (req.query.limit && req.query.cursor) {
+    qb.take(parseInt(req.query.limit as string));
+    qb.where("s.createdAt < :cursor", {
+      cursor: new Date(parseInt(req.query.cursor as string)),
+    });
   }
-);
+  const results = await qb.getMany();
+
+  return res.status(200).json({ results });
+});
 
 // setupRouter.get("/setups/:id", async (req: Request, res: Response) => {
 //   const result = await Setup.findOne(req.params.id);
