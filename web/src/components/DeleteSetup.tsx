@@ -28,8 +28,7 @@ const DeleteSetup: React.FC<DeleteSetupProps> = ({ setupId }) => {
     <>
       <IconButton
         colorScheme="red"
-        ml="auto"
-        mt={2}
+        ml={2}
         aria-label="Delete Setup"
         icon={<DeleteIcon />}
         onClick={onOpen}

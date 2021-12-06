@@ -1,7 +1,9 @@
+import { EditIcon } from "@chakra-ui/icons";
 import {
   Box,
   Flex,
   Heading,
+  IconButton,
   ListItem,
   Skeleton,
   Stack,
@@ -50,7 +52,13 @@ const Setups: React.FC<SetupsProps> = ({}) => {
               </UnorderedList>
             </Skeleton>
             {setup.creatorId === user?.user?.id ? (
-              <Flex>
+              <Flex mt={2}>
+                <IconButton
+                  colorScheme="blue"
+                  ml="auto"
+                  aria-label="Edit Setup"
+                  icon={<EditIcon />}
+                />
                 <DeleteSetup setupId={setup.id} />
               </Flex>
             ) : null}
