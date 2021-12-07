@@ -29,7 +29,7 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
   } else {
     body = (
       <>
-        <NextLink href="/post">
+        <NextLink href="/setups/post">
           <Button>Post Setup</Button>
         </NextLink>
         <Link textColor="white" mx={3}>
