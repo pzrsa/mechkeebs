@@ -155,3 +155,6 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# IDE
+.idea
