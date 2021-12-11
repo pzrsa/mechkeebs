@@ -42,17 +42,22 @@ setupRouter.post("/setups/create", async (req: Request, res: Response) => {
   }
 });
 
-setupRouter.put("/setups/:id", async (req: Request, res: Response) => {
-  const setup = await Setup.findOne(req.params.id);
+setupRouter.put("/setups/update", async (req: Request, res: Response) => {
+  const session = await getSession(req);
 
-  if (!setup) {
-    return res.status(400).json({ error: "Setup does not exist to update" });
+  if (typeof session === "string") {
+    return res.status(401).json({ error: session });
   }
 
-  await Setup.update(req.params.id, req.body);
-  return res
-    .status(200)
-    .json({ result: `Setup ${setup.id} successfully updated` });
+  try {
+    const result = await Setup.update(
+      { id: req.body.setupId, creatorId: session?.user.id },
+      { title: req.body.title, items: req.body.items }
+    );
+    return res.status(200).json({ result });
+  } catch (err) {
+    return res.status(400).json({ error: err.detail });
+  }
 });
 
 setupRouter.delete("/setups/delete", async (req: Request, res: Response) => {
