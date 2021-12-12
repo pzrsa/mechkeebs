@@ -52,7 +52,7 @@ const Register: React.FC<RegisterProps> = ({}) => {
             } else if (response.error?.includes("Email")) {
               setErrors({ email: response.error });
             } else if (response?.result) {
-              mutate(null, true);
+              mutate(undefined, true);
               router.push("/");
             }
           }}

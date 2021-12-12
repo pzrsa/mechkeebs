@@ -43,7 +43,7 @@ const Login: React.FC<LoginProps> = ({}) => {
             } else if (response.error?.includes("password")) {
               setErrors({ password: response.error });
             } else if (response?.result) {
-              mutate(null, true);
+              mutate(undefined, true);
               router.push("/");
             }
           }}
