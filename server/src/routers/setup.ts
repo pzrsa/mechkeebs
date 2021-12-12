@@ -18,16 +18,16 @@ setupRouter.get("/setups", async (req: Request, res: Response) => {
       cursor: new Date(parseInt(req.query.cursor as string)),
     });
   }
+
+  if (req.query.id) {
+    const result = await Setup.findOne(parseInt(req.query.id as string));
+    return res.status(200).json({ result });
+  }
+
   const results = await qb.getMany();
 
   return res.status(200).json({ results });
 });
-
-// setupRouter.get("/setups/:id", async (req: Request, res: Response) => {
-//   const result = await Setup.findOne(req.params.id);
-
-//   return res.status(200).json({ result });
-// });
 
 setupRouter.post("/setups/create", async (req: Request, res: Response) => {
   try {
