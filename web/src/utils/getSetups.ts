@@ -1,4 +1,4 @@
-import Setup from "../types/Setup";
+import Setups from "../types/Setups";
 
 const getSetups = async () => {
   const response = await fetch("http://localhost:4000/api/setups", {
@@ -8,7 +8,7 @@ const getSetups = async () => {
     },
   });
 
-  const result: Setup = await response.json();
+  const result: Setups = await response.json();
 
   return result;
 };

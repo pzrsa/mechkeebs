@@ -1,4 +1,4 @@
-import Setup from "../types/Setup";
+import Setup from "../types/Setups";
 
 const getSetup = async (setupId: number) => {
   const response = await fetch(

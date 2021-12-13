@@ -1,12 +1,12 @@
 import useSWR from "swr";
-import Setup from "../types/Setup";
+import Setups from "../types/Setups";
 
 const useSetups = () => {
   const {
     data: setups,
     isValidating: loading,
     mutate,
-  } = useSWR<Setup>("http://localhost:4000/api/setups");
+  } = useSWR<Setups>("http://localhost:4000/api/setups");
 
   return { setups, loading, mutate };
 };
