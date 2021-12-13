@@ -11,6 +11,7 @@ import {
   UnorderedList,
 } from "@chakra-ui/react";
 import crypto from "crypto";
+import NextLink from "next/link";
 import React from "react";
 import useSetups from "../utils/useSetups";
 import useUser from "../utils/useUser";
@@ -53,12 +54,14 @@ const Setups: React.FC<SetupsProps> = ({}) => {
             </Skeleton>
             {setup.creatorId === user?.user?.id ? (
               <Flex mt={2}>
-                <IconButton
-                  colorScheme="blue"
-                  ml="auto"
-                  aria-label="Edit Setup"
-                  icon={<EditIcon />}
-                />
+                <NextLink href={`/setups/edit/${setup.id}`}>
+                  <IconButton
+                    colorScheme="blue"
+                    ml="auto"
+                    aria-label="Edit Setup"
+                    icon={<EditIcon />}
+                  />
+                </NextLink>
                 <DeleteSetup setupId={setup.id} />
               </Flex>
             ) : null}
