@@ -20,8 +20,12 @@ setupRouter.get("/setups", async (req: Request, res: Response) => {
   }
 
   if (req.query.id) {
-    const result = await Setup.findOne(parseInt(req.query.id as string));
-    return res.status(200).json({ result });
+    try {
+      const result = await Setup.findOne(parseInt(req.query.id as string));
+      return res.status(200).json({ result });
+    } catch (err) {
+      return res.status(400).json({ error: err.detail });
+    }
   }
 
   const results = await qb.getMany();
@@ -43,15 +47,9 @@ setupRouter.post("/setups/create", async (req: Request, res: Response) => {
 });
 
 setupRouter.put("/setups/update", async (req: Request, res: Response) => {
-  const session = await getSession(req);
-
-  if (typeof session === "string") {
-    return res.status(401).json({ error: session });
-  }
-
   try {
     const result = await Setup.update(
-      { id: req.body.setupId, creatorId: session?.user.id },
+      { id: req.body.setupId, creatorId: req.body.creatorId },
       { title: req.body.title, items: req.body.items }
     );
     return res.status(200).json({ result });
