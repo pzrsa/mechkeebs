@@ -52,7 +52,7 @@ const Login: React.FC<LoginProps> = ({}) => {
             <Form>
               <InputField name="email" label="Email" />
               <InputField name="password" type="password" label="Password" />
-              <Button colorScheme="teal" isLoading={isSubmitting} type="submit">
+              <Button isLoading={isSubmitting} type="submit">
                 Login
               </Button>
             </Form>

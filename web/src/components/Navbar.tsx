@@ -32,11 +32,8 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
         <NextLink href="/setups/post">
           <Button>Post Setup</Button>
         </NextLink>
-        <Link textColor="white" mx={3}>
-          {user.user.username}
-        </Link>
+        <Link mx={3}>{user.user.username}</Link>
         <Link
-          textColor="white"
           onClick={async () => {
             await logoutUser();
             mutate(undefined, true);
@@ -49,10 +46,10 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
   }
 
   return (
-    <Flex zIndex={1} bg="teal" position="sticky" top={0} p={4}>
+    <Flex zIndex={1} bg="white" boxShadow="md" position="sticky" top={0} p={4}>
       <Flex flex={1} m="auto" align="center" maxW={800}>
         <NextLink href="/">
-          <Link textColor="white">
+          <Link>
             <Heading>SetupScope</Heading>
           </Link>
         </NextLink>

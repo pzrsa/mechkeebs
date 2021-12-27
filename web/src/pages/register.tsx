@@ -62,7 +62,7 @@ const Register: React.FC<RegisterProps> = ({}) => {
               <InputField name="username" label="Username" />
               <InputField name="email" label="Email" />
               <InputField name="password" type="password" label="Password" />
-              <Button colorScheme="teal" isLoading={isSubmitting} type="submit">
+              <Button isLoading={isSubmitting} type="submit">
                 Register
               </Button>
             </Form>

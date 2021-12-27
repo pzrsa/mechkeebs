@@ -28,7 +28,7 @@ const Post: React.FC<PostProps> = ({}) => {
   return (
     <Wrapper>
       <Box width="750px" mx="auto">
-        <Heading my={5}>Post a setup</Heading>
+        <Heading my={5}>Post Setup</Heading>
         <Formik
           initialValues={initialValues}
           validationSchema={Yup.object().shape({
@@ -69,11 +69,10 @@ const Post: React.FC<PostProps> = ({}) => {
                       <FormLabel>Items</FormLabel>
                       <Button
                         ml="auto"
-                        colorScheme="teal"
                         type="button"
                         onClick={() => arrayHelpers.unshift({ item: "" })}
                       >
-                        Add item
+                        Add Item
                       </Button>
                     </Flex>
                     {values.items.map((_, index) => (
@@ -97,8 +96,8 @@ const Post: React.FC<PostProps> = ({}) => {
                   </Box>
                 )}
               />
-              <Button colorScheme="teal" isLoading={isSubmitting} type="submit">
-                Post Setup
+              <Button isLoading={isSubmitting} type="submit">
+                Post
               </Button>
             </Form>
           )}

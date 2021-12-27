@@ -1,5 +1,6 @@
 import { FormControl, FormErrorMessage } from "@chakra-ui/form-control";
 import { Input } from "@chakra-ui/input";
+import { FormErrorIcon } from "@chakra-ui/react";
 import { useField } from "formik";
 import React from "react";
 
@@ -18,7 +19,10 @@ const MultiInputField: React.FC<MultiInputFieldProps> = ({
     <FormControl mb={5} isInvalid={!!(meta.touched && meta.error)}>
       <Input {...field} {...props} id={field.name} placeholder={placeholder} />
       {meta.touched && meta.error ? (
-        <FormErrorMessage>{meta.error}</FormErrorMessage>
+        <FormErrorMessage>
+          <FormErrorIcon />
+          {meta.error}
+        </FormErrorMessage>
       ) : null}
     </FormControl>
   );

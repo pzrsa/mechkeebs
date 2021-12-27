@@ -5,7 +5,6 @@ import {
   Heading,
   IconButton,
   ListItem,
-  Skeleton,
   Stack,
   Text,
   UnorderedList,
@@ -28,35 +27,28 @@ const Setups: React.FC<SetupsProps> = ({}) => {
     <Stack spacing={8}>
       {setups?.results.map((setup) => (
         <Box key={setup.id} p={5} shadow="md" borderWidth="1px">
-          <Skeleton isLoaded={!loading}>
-            <Heading mb={3} size="lg">
-              {setup.title}
-            </Heading>
-          </Skeleton>
-          <Skeleton isLoaded={!loading}>
-            <Text my={2}>
-              Posted <DateFromNow date={setup.createdAt} /> by{" "}
-              {setup.creator.username}
-            </Text>
-          </Skeleton>
+          <Heading mb={3} size="lg">
+            {setup.title}
+          </Heading>
+          <Text my={2}>
+            Posted <DateFromNow date={setup.createdAt} /> by{" "}
+            {setup.creator.username}
+          </Text>
           <Box>
-            <Skeleton isLoaded={!loading}>
-              <Heading mb={2} size="md">
-                Items
-              </Heading>
-              <UnorderedList>
-                {setup.items.map((item) => (
-                  <ListItem key={crypto.randomBytes(12).toString("base64")}>
-                    {item}
-                  </ListItem>
-                ))}
-              </UnorderedList>
-            </Skeleton>
+            <Heading mb={2} size="md">
+              Items
+            </Heading>
+            <UnorderedList>
+              {setup.items.map((item) => (
+                <ListItem key={crypto.randomBytes(12).toString("base64")}>
+                  {item}
+                </ListItem>
+              ))}
+            </UnorderedList>
             {setup.creatorId === user?.user?.id ? (
               <Flex mt={2}>
                 <NextLink href={`/setups/edit/${setup.id}`}>
                   <IconButton
-                    colorScheme="blue"
                     ml="auto"
                     aria-label="Edit Setup"
                     icon={<EditIcon />}
