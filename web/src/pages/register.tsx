@@ -52,8 +52,8 @@ const Register: React.FC<RegisterProps> = ({}) => {
             } else if (response.error?.includes("Email")) {
               setErrors({ email: response.error });
             } else if (response?.result) {
-              mutate(undefined, true);
-              router.push("/");
+              await mutate(undefined, true);
+              await router.push("/");
             }
           }}
         >

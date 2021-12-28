@@ -43,8 +43,8 @@ const Login: React.FC<LoginProps> = ({}) => {
             } else if (response.error?.includes("password")) {
               setErrors({ password: response.error });
             } else if (response?.result) {
-              mutate(undefined, true);
-              router.push("/");
+              await mutate(undefined, true);
+              await router.push("/");
             }
           }}
         >

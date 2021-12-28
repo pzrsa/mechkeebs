@@ -36,7 +36,7 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
         <Link
           onClick={async () => {
             await logoutUser();
-            mutate(undefined, true);
+            await mutate(undefined, true);
           }}
         >
           Log Out
