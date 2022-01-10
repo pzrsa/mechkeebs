@@ -7,9 +7,11 @@ import {
   ListItem,
   Stack,
   Text,
+  Tooltip,
   UnorderedList,
 } from "@chakra-ui/react";
 import crypto from "crypto";
+import dayjs from "dayjs";
 import NextLink from "next/link";
 import React from "react";
 import useSetups from "../utils/useSetups";
@@ -31,8 +33,16 @@ const Setups: React.FC<SetupsProps> = ({}) => {
             {setup.title}
           </Heading>
           <Text my={2}>
-            Posted <DateFromNow date={setup.createdAt} /> by{" "}
-            {setup.creator.username}
+            Posted{" "}
+            <Tooltip
+              label={dayjs(setup.createdAt).format("ddd, MMM D, YYYY, HH:mm")}
+              aria-label="Full Setup Date"
+            >
+              <span>
+                <DateFromNow date={setup.createdAt} />
+              </span>
+            </Tooltip>{" "}
+            by {setup.creator.username}
           </Text>
           <Box>
             <Heading mb={2} size="md">
