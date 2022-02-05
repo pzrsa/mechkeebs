@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@google-cloud/storage": "^5.18.1",
     "argon2": "^0.28.2",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",

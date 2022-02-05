@@ -119,6 +119,8 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
+gcp-key.json
+
 
 # Web
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
