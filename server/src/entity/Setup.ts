@@ -21,8 +21,8 @@ export class Setup extends BaseEntity {
   @Column({ type: "simple-array" })
   items: string[];
 
-  @Column()
-  image: string;
+  @Column({ name: "image_name" })
+  imageName: string;
 
   @Column({ name: "creator_id" })
   creatorId: number;
