@@ -10,8 +10,6 @@ import InputField from "../../components/InputField";
 import MultiInputField from "../../components/MultiInputField";
 import Wrapper from "../../components/Wrapper";
 import PostSetupFormValues from "../../types/PostSetupFormValues";
-import createSetup from "../../utils/createSetup";
-import getUser from "../../utils/getUser";
 import withAuth from "../../utils/withAuth";
 
 interface PostProps {}
@@ -20,6 +18,7 @@ const Post: React.FC<PostProps> = ({}) => {
   withAuth();
   const initialValues: PostSetupFormValues = {
     title: "",
+    image: null,
     items: [{ item: "" }, { item: "" }],
   };
 
@@ -36,6 +35,8 @@ const Post: React.FC<PostProps> = ({}) => {
               .min(5, "Must be greater than 5 characters")
               .required("Title required"),
 
+            image: Yup.mixed().required("Image required"),
+
             items: Yup.array().of(
               Yup.object().shape({
                 item: Yup.string()
@@ -45,20 +46,21 @@ const Post: React.FC<PostProps> = ({}) => {
             ),
           })}
           onSubmit={async (values) => {
-            const { user } = await getUser();
+            // const { user } = await getUser();
 
-            const items = values["items"].map((item: any): string => item.item);
+            // const items = values["items"].map((item: any): string => item.item);
 
-            const response = await createSetup(values.title, items, user.id);
+            // const response = await createSetup(values.title, items, user.id);
 
-            if (response?.error) {
-              console.error(response.error);
-            } else if (response?.result) {
-              router.push("/");
-            }
+            // if (response?.error) {
+            //   console.error(response.error);
+            // } else if (response?.result) {
+            //   router.push("/");
+            // }
+            console.log(values);
           }}
         >
-          {({ values, isSubmitting }) => (
+          {({ values, isSubmitting, handleSubmit, setFieldValue }) => (
             <Form>
               <InputField name="title" label="Title" />
               <FieldArray
