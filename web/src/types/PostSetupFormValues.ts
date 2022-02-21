@@ -1,6 +1,6 @@
 interface PostSetupFormValues {
   title: string;
-  image: any;
+  image: File;
   items: object[];
 }
 
