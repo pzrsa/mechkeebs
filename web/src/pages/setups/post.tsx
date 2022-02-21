@@ -6,6 +6,7 @@ import { FieldArray, Form, Formik } from "formik";
 import { useRouter } from "next/router";
 import React from "react";
 import * as Yup from "yup";
+import FileInputField from "../../components/FileInputField";
 import InputField from "../../components/InputField";
 import MultiInputField from "../../components/MultiInputField";
 import Wrapper from "../../components/Wrapper";
@@ -18,7 +19,7 @@ const Post: React.FC<PostProps> = ({}) => {
   withAuth();
   const initialValues: PostSetupFormValues = {
     title: "",
-    image: null as any,
+    image: "" as any,
     items: [{ item: "" }, { item: "" }],
   };
 
@@ -60,17 +61,10 @@ const Post: React.FC<PostProps> = ({}) => {
             console.log(values);
           }}
         >
-          {({ values, isSubmitting, setFieldValue, errors }) => (
+          {({ values, isSubmitting, errors }) => (
             <Form>
               <InputField name="title" label="Title" />
-              <input
-                id="image"
-                name="image"
-                type="file"
-                onChange={(event) => {
-                  setFieldValue("image", event.currentTarget.files?.item(0));
-                }}
-              />
+              <FileInputField label="Image" name="image" />
               <FieldArray
                 name="items"
                 render={(arrayHelpers) => (
