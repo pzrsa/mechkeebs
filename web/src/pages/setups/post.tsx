@@ -18,7 +18,7 @@ const Post: React.FC<PostProps> = ({}) => {
   withAuth();
   const initialValues: PostSetupFormValues = {
     title: "",
-    image: null,
+    image: null as any,
     items: [{ item: "" }, { item: "" }],
   };
 
@@ -60,9 +60,17 @@ const Post: React.FC<PostProps> = ({}) => {
             console.log(values);
           }}
         >
-          {({ values, isSubmitting, handleSubmit, setFieldValue }) => (
+          {({ values, isSubmitting, setFieldValue, errors }) => (
             <Form>
               <InputField name="title" label="Title" />
+              <input
+                id="image"
+                name="image"
+                type="file"
+                onChange={(event) => {
+                  setFieldValue("image", event.currentTarget.files?.item(0));
+                }}
+              />
               <FieldArray
                 name="items"
                 render={(arrayHelpers) => (
