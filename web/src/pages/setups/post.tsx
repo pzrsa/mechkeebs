@@ -31,6 +31,7 @@ const Post: React.FC<PostProps> = ({}) => {
         <Heading my={5}>Post Setup</Heading>
         <Formik
           initialValues={initialValues}
+          validateOnBlur={false}
           validationSchema={Yup.object().shape({
             title: Yup.string()
               .min(5, "Must be greater than 5 characters")
