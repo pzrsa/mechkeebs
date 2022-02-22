@@ -8,11 +8,16 @@ import { useField } from "formik";
 import { InputHTMLAttributes } from "react";
 
 type FileInputFieldProps = InputHTMLAttributes<HTMLInputElement> & {
+  accept: "image" | "video" | "audio";
   label: string;
   name: string;
 };
 
-const FileInputField: React.FC<FileInputFieldProps> = ({ label, ...props }) => {
+const FileInputField: React.FC<FileInputFieldProps> = ({
+  label,
+  accept,
+  ...props
+}) => {
   const [field, meta, helpers] = useField(props);
 
   return (
@@ -20,6 +25,7 @@ const FileInputField: React.FC<FileInputFieldProps> = ({ label, ...props }) => {
       <FormLabel htmlFor={field.name}>{label}</FormLabel>
       <input
         type="file"
+        accept={`${accept}/*`}
         id={field.name}
         {...field}
         {...props}

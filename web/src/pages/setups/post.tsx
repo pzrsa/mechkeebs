@@ -61,10 +61,10 @@ const Post: React.FC<PostProps> = ({}) => {
             console.log(values);
           }}
         >
-          {({ values, isSubmitting, errors }) => (
+          {({ values, isSubmitting }) => (
             <Form>
               <InputField name="title" label="Title" />
-              <FileInputField label="Image" name="image" />
+              <FileInputField accept="image" label="Image" name="image" />
               <FieldArray
                 name="items"
                 render={(arrayHelpers) => (
