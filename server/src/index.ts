@@ -1,6 +1,7 @@
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import express, { Application } from "express";
+import fileUpload from "express-fileupload";
 import "reflect-metadata";
 import { createConnection } from "typeorm";
 import setupRouter from "./routers/setup";
@@ -15,7 +16,8 @@ const main = async () => {
   app.use(
     express.json(),
     cors({ origin: process.env.CORS_ORIGIN, credentials: true }),
-    cookieParser(process.env.COOKIE_SECRET)
+    cookieParser(process.env.COOKIE_SECRET),
+    fileUpload()
   );
 
   app.use("/api", userRouter, setupRouter);
