@@ -18,11 +18,11 @@ export class Setup extends BaseEntity {
   @Column()
   title: string;
 
-  @Column({ type: "simple-array" })
-  items: string[];
-
   @Column({ name: "image_name" })
   imageName: string;
+
+  @Column({ type: "simple-array" })
+  items: string[];
 
   @Column({ name: "creator_id" })
   creatorId: number;
