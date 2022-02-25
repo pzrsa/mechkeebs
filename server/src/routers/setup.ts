@@ -1,16 +1,14 @@
-import { Storage } from "@google-cloud/storage";
 import router, { Request, Response, Router } from "express";
-import path from "path";
 import { getConnection } from "typeorm";
 import { Setup } from "../entity/Setup";
 import { getSession } from "../utils/sessions";
 
 const setupRouter: Router = router();
 
-const gcs = new Storage({
-  keyFilename: path.join(__dirname, "../../gcp-key.json"),
-  projectId: "setupscope",
-});
+// const gcs = new Storage({
+//   keyFilename: path.join(__dirname, "../../gcp-key.json"),
+//   projectId: "setupscope",
+// });
 
 setupRouter.get("/setups", async (req: Request, res: Response) => {
   const qb = getConnection()
