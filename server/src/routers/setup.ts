@@ -40,10 +40,17 @@ setupRouter.get("/setups", async (req: Request, res: Response) => {
 
 setupRouter.post("/setups/create", async (req: Request, res: Response) => {
   try {
+    const session = await getSession(req);
+
+    if (typeof session === "string") {
+      return res.status(401).json({ error: session });
+    }
+
     const result = await Setup.create({
       title: req.body.title,
+      imageName: req.body.imageName,
       items: req.body.items,
-      creatorId: req.body.creatorId,
+      creatorId: session?.user.id,
     }).save();
 
     return res.status(200).json({ result });
@@ -54,8 +61,14 @@ setupRouter.post("/setups/create", async (req: Request, res: Response) => {
 
 setupRouter.put("/setups/update", async (req: Request, res: Response) => {
   try {
+    const session = await getSession(req);
+
+    if (typeof session === "string") {
+      return res.status(401).json({ error: session });
+    }
+
     const result = await Setup.update(
-      { id: req.body.setupId, creatorId: req.body.creatorId },
+      { id: req.body.setupId, creatorId: session?.user.id },
       { title: req.body.title, items: req.body.items }
     );
     return res.status(200).json({ result });
