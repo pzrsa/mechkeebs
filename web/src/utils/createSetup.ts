@@ -1,7 +1,7 @@
 const createSetup = async (
   title: string,
-  items: string[],
-  creatorId: number
+  imageName: string,
+  items: string[]
 ) => {
   const response = await fetch("http://localhost:4000/api/setups/create", {
     method: "POST",
@@ -11,8 +11,8 @@ const createSetup = async (
     },
     body: JSON.stringify({
       title,
+      imageName,
       items,
-      creatorId,
     }),
   });
 

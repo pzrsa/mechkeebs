@@ -11,6 +11,7 @@ import InputField from "../../components/InputField";
 import MultiInputField from "../../components/MultiInputField";
 import Wrapper from "../../components/Wrapper";
 import PostSetupFormValues from "../../types/PostSetupFormValues";
+import createSetup from "../../utils/createSetup";
 import withAuth from "../../utils/withAuth";
 
 interface PostProps {}
@@ -48,18 +49,19 @@ const Post: React.FC<PostProps> = ({}) => {
             ),
           })}
           onSubmit={async (values) => {
-            // const { user } = await getUser();
+            const items = values["items"].map((item: any): string => item.item);
 
-            // const items = values["items"].map((item: any): string => item.item);
+            const response = await createSetup(
+              values.title,
+              "cool image of setup",
+              items
+            );
 
-            // const response = await createSetup(values.title, items, user.id);
-
-            // if (response?.error) {
-            //   console.error(response.error);
-            // } else if (response?.result) {
-            //   router.push("/");
-            // }
-            console.log(values);
+            if (response?.error) {
+              console.error(response.error);
+            } else if (response?.result) {
+              router.push("/");
+            }
           }}
         >
           {({ values, isSubmitting }) => (
