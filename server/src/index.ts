@@ -15,9 +15,9 @@ const main = async () => {
 
   app.use(
     express.json(),
+    fileUpload(),
     cors({ origin: process.env.CORS_ORIGIN, credentials: true }),
-    cookieParser(process.env.COOKIE_SECRET),
-    fileUpload()
+    cookieParser(process.env.COOKIE_SECRET)
   );
 
   app.use("/api", userRouter, setupRouter);
