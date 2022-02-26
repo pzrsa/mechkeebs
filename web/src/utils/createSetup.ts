@@ -1,19 +1,8 @@
-const createSetup = async (
-  title: string,
-  imageName: string,
-  items: string[]
-) => {
+const createSetup = async (formData: FormData) => {
   const response = await fetch("http://localhost:4000/api/setups/create", {
     method: "POST",
     credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      title,
-      imageName,
-      items,
-    }),
+    body: formData,
   });
 
   const result = await response.json();

@@ -49,19 +49,22 @@ const Post: React.FC<PostProps> = ({}) => {
             ),
           })}
           onSubmit={async (values) => {
+            const formData = new FormData();
+
+            formData.append("title", values.title);
+
+            formData.append("image", values.image);
+
             const items = values["items"].map((item: any): string => item.item);
+            formData.append("items", JSON.stringify(items));
 
-            const response = await createSetup(
-              values.title,
-              "cool image of setup",
-              items
-            );
+            const response = await createSetup(formData);
 
-            if (response?.error) {
-              console.error(response.error);
-            } else if (response?.result) {
-              router.push("/");
-            }
+            // if (response?.error) {
+            //   console.error(response.error);
+            // } else if (response?.result) {
+            //   router.push("/");
+            // }
           }}
         >
           {({ values, isSubmitting }) => (
