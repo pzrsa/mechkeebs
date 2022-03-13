@@ -1,14 +1,17 @@
+import { Storage } from "@google-cloud/storage";
 import router, { Request, Response, Router } from "express";
+import { UploadedFile } from "express-fileupload";
+import path from "path";
 import { getConnection } from "typeorm";
 import { Setup } from "../entity/Setup";
 import { getSession } from "../utils/sessions";
 
 const setupRouter: Router = router();
 
-// const gcs = new Storage({
-//   keyFilename: path.join(__dirname, "../../gcp-key.json"),
-//   projectId: "setupscope",
-// });
+const storage = new Storage({
+  keyFilename: path.join(__dirname, "../../gcp-key.json"),
+  projectId: "setupscope",
+});
 
 setupRouter.get("/setups", async (req: Request, res: Response) => {
   const qb = getConnection()
@@ -39,23 +42,32 @@ setupRouter.get("/setups", async (req: Request, res: Response) => {
 });
 
 setupRouter.post("/setups/create", async (req: Request, res: Response) => {
+  const bucket = storage.bucket("setupscope");
+
   try {
-    // const session = await getSession(req);
+    const session = await getSession(req);
 
-    // if (typeof session === "string") {
-    //   return res.status(401).json({ error: session });
-    // }
+    if (typeof session === "string") {
+      return res.status(401).json({ error: session });
+    }
 
-    // const result = await Setup.create({
-    //   title: req.body.title,
-    //   imageName: req.body.imageName,
-    //   items: req.body.items,
-    //   creatorId: session?.user.id,
-    // }).save();
+    const blob = bucket.file((req.files!.image as UploadedFile).name);
+    const blobStream = blob.createWriteStream({ resumable: false, gzip: true });
 
-    // return res.status(200).json({ result });
-    console.log(req.files);
-    console.log(req.body);
+    blobStream.on("finish", () => {
+      console.log("file uploaded");
+    });
+
+    blobStream.end((req.files!.image as UploadedFile).data);
+
+    const result = await Setup.create({
+      title: req.body.title,
+      imageName: (req.files!.image as UploadedFile).name,
+      items: JSON.parse(req.body.items),
+      creatorId: session?.user.id,
+    }).save();
+
+    return res.status(200).json({ result });
   } catch (err) {
     return res.status(400).json({ error: err.detail });
   }
