@@ -6,12 +6,13 @@ import { FieldArray, Form, Formik } from "formik";
 import { useRouter } from "next/router";
 import React from "react";
 import * as Yup from "yup";
-import FileInputField from "../../components/FileInputField";
+import ImageInputField from "../../components/ImageInputField";
 import InputField from "../../components/InputField";
 import MultiInputField from "../../components/MultiInputField";
 import Wrapper from "../../components/Wrapper";
 import PostSetupFormValues from "../../types/PostSetupFormValues";
 import createSetup from "../../utils/createSetup";
+import createSetupFormData from "../../utils/createSetupFormData";
 import withAuth from "../../utils/withAuth";
 
 interface PostProps {}
@@ -32,7 +33,6 @@ const Post: React.FC<PostProps> = ({}) => {
         <Heading my={5}>Post Setup</Heading>
         <Formik
           initialValues={initialValues}
-          validateOnBlur={false}
           validationSchema={Yup.object().shape({
             title: Yup.string()
               .min(5, "Must be greater than 5 characters")
@@ -49,28 +49,21 @@ const Post: React.FC<PostProps> = ({}) => {
             ),
           })}
           onSubmit={async (values) => {
-            const formData = new FormData();
-
-            formData.append("title", values.title);
-
-            formData.append("image", values.image);
-
-            const items = values["items"].map((item: any): string => item.item);
-            formData.append("items", JSON.stringify(items));
+            const formData = createSetupFormData(values);
 
             const response = await createSetup(formData);
 
-            // if (response?.error) {
-            //   console.error(response.error);
-            // } else if (response?.result) {
-            //   router.push("/");
-            // }
+            if (response?.error) {
+              console.error(response.error);
+            } else if (response?.result) {
+              router.push("/");
+            }
           }}
         >
           {({ values, isSubmitting }) => (
             <Form>
               <InputField name="title" label="Title" />
-              <FileInputField accept="image" label="Image" name="image" />
+              <ImageInputField label="Image" name="image" />
               <FieldArray
                 name="items"
                 render={(arrayHelpers) => (
