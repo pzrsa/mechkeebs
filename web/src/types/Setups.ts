@@ -3,6 +3,7 @@ type Setups = {
     {
       id: number;
       title: string;
+      imageName: string;
       items: string[];
       creatorId: number;
       creator: { username: string };
