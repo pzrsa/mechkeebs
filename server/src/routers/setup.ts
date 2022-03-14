@@ -54,10 +54,6 @@ setupRouter.post("/setups/create", async (req: Request, res: Response) => {
     const blob = bucket.file((req.files!.image as UploadedFile).name);
     const blobStream = blob.createWriteStream({ resumable: false, gzip: true });
 
-    blobStream.on("finish", () => {
-      console.log("file uploaded");
-    });
-
     blobStream.end((req.files!.image as UploadedFile).data);
 
     const result = await Setup.create({
