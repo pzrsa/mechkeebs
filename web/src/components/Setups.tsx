@@ -12,7 +12,6 @@ import {
 } from "@chakra-ui/react";
 import crypto from "crypto";
 import dayjs from "dayjs";
-import NextImage from "next/image";
 import NextLink from "next/link";
 import React from "react";
 import useSetups from "../utils/useSetups";
@@ -45,12 +44,6 @@ const Setups: React.FC<SetupsProps> = ({}) => {
             </Tooltip>{" "}
             by {setup.creator.username}
           </Text>
-          <Box height={460} width={760} position="relative">
-            <NextImage
-              src={`https://storage.googleapis.com/setupscope/${setup.imageName}`}
-              layout="fill"
-            />
-          </Box>
           <Box>
             <Heading mb={2} size="md">
               Items
