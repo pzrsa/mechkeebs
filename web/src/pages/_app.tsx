@@ -3,6 +3,7 @@ import { AppProps } from "next/app";
 import { useRouter } from "next/router";
 import NProgress from "nprogress";
 import React, { useEffect } from "react";
+import { QueryClient, QueryClientProvider } from "react-query";
 import { SWRConfig } from "swr";
 import Layout from "../components/Layout";
 import "../styles/nprogress.css";
@@ -10,6 +11,8 @@ import fetcher from "../utils/fetcher";
 
 const App = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
+
+  const queryClient = new QueryClient();
 
   useEffect(() => {
     const handleStart = () => {
@@ -31,13 +34,15 @@ const App = ({ Component, pageProps }: AppProps) => {
   }, [router]);
 
   return (
-    <SWRConfig value={{ fetcher }}>
-      <ChakraProvider resetCSS>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </ChakraProvider>
-    </SWRConfig>
+    <QueryClientProvider client={queryClient}>
+      <SWRConfig value={{ fetcher }}>
+        <ChakraProvider resetCSS>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </ChakraProvider>
+      </SWRConfig>
+    </QueryClientProvider>
   );
 };
 
