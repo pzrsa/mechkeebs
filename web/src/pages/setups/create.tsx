@@ -11,13 +11,12 @@ import InputField from "../../components/InputField";
 import MultiInputField from "../../components/MultiInputField";
 import Wrapper from "../../components/Wrapper";
 import PostSetupFormValues from "../../types/PostSetupFormValues";
-import createSetup from "../../utils/createSetup";
 import createSetupFormData from "../../utils/createSetupFormData";
 import withAuth from "../../utils/withAuth";
 
-interface PostProps {}
+interface CreateProps {}
 
-const Post: React.FC<PostProps> = ({}) => {
+const Create: React.FC<CreateProps> = ({}) => {
   withAuth();
   const initialValues: PostSetupFormValues = {
     title: "",
@@ -30,7 +29,7 @@ const Post: React.FC<PostProps> = ({}) => {
   return (
     <Wrapper>
       <Box width="750px" mx="auto">
-        <Heading my={5}>Post Setup</Heading>
+        <Heading my={5}>Create Setup</Heading>
         <Formik
           initialValues={initialValues}
           validationSchema={Yup.object().shape({
@@ -50,14 +49,6 @@ const Post: React.FC<PostProps> = ({}) => {
           })}
           onSubmit={async (values) => {
             const formData = createSetupFormData(values);
-
-            const response = await createSetup(formData);
-
-            if (response?.error) {
-              console.error(response.error);
-            } else if (response?.result) {
-              router.push("/");
-            }
           }}
         >
           {({ values, isSubmitting }) => (
@@ -110,4 +101,4 @@ const Post: React.FC<PostProps> = ({}) => {
   );
 };
 
-export default Post;
+export default Create;
