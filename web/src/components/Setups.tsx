@@ -1,33 +1,16 @@
-import { EditIcon } from "@chakra-ui/icons";
-import {
-  Box,
-  Flex,
-  Heading,
-  IconButton,
-  ListItem,
-  Stack,
-  Text,
-  Tooltip,
-  UnorderedList,
-} from "@chakra-ui/react";
-import crypto from "crypto";
-import dayjs from "dayjs";
-import NextLink from "next/link";
+import { Stack } from "@chakra-ui/react";
 import React from "react";
-import useSetups from "../utils/useSetups";
-import useUser from "../utils/useUser";
-import DateFromNow from "./DateFromNow";
-import DeleteSetup from "./DeleteSetup";
+import { useQuery } from "react-query";
+import { fetchAllSetups } from "../lib/queries";
 
 interface SetupsProps {}
 
 const Setups: React.FC<SetupsProps> = ({}) => {
-  const { user } = useUser();
-  const { setups, loading } = useSetups();
+  const query = useQuery("setups", fetchAllSetups);
 
   return (
     <Stack spacing={8}>
-      {setups?.results.map((setup) => (
+      {/* {setups?.results.map((setup) => (
         <Box key={setup.id} p={5} shadow="md" borderWidth="1px">
           <Heading mb={3} size="lg">
             {setup.title}
@@ -69,7 +52,7 @@ const Setups: React.FC<SetupsProps> = ({}) => {
             ) : null}
           </Box>
         </Box>
-      ))}
+      ))} */}
     </Stack>
   );
 };
