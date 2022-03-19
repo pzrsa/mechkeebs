@@ -8,6 +8,7 @@ import { SWRConfig } from "swr";
 import Layout from "../components/Layout";
 import "../styles/nprogress.css";
 import fetcher from "../utils/fetcher";
+import { ReactQueryDevtools } from "react-query/devtools";
 
 const App = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
@@ -42,6 +43,7 @@ const App = ({ Component, pageProps }: AppProps) => {
           </Layout>
         </ChakraProvider>
       </SWRConfig>
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 };
