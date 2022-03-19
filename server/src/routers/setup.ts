@@ -1,16 +1,8 @@
-import { Storage } from "@google-cloud/storage";
 import router, { Request, Response, Router } from "express";
-import { UploadedFile } from "express-fileupload";
-import path from "path";
 import { Setup } from "../entity/Setup";
 import { getSession } from "../utils/sessions";
 
 const setupRouter: Router = router();
-
-const storage = new Storage({
-  keyFilename: path.join(__dirname, "../../gcp-key.json"),
-  projectId: "setupscope",
-});
 
 setupRouter.get("/setups", async (_: Request, res: Response) => {
   const result = await Setup.find();
@@ -19,8 +11,6 @@ setupRouter.get("/setups", async (_: Request, res: Response) => {
 });
 
 setupRouter.post("/setups/create", async (req: Request, res: Response) => {
-  const bucket = storage.bucket("setupscope");
-
   try {
     const session = await getSession(req);
 
@@ -28,14 +18,10 @@ setupRouter.post("/setups/create", async (req: Request, res: Response) => {
       return res.status(401).json({ error: session });
     }
 
-    const blob = bucket.file((req.files!.image as UploadedFile).name);
-    const blobStream = blob.createWriteStream({ resumable: false, gzip: true });
-
-    blobStream.end((req.files!.image as UploadedFile).data);
-
     const result = await Setup.create({
       title: req.body.title,
-      imageName: (req.files!.image as UploadedFile).name,
+      // dummy for now until i sort out image handling
+      imageName: "setup.png",
       items: JSON.parse(req.body.items),
       creatorId: session?.user.id,
     }).save();
