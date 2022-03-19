@@ -1,5 +1,5 @@
 import useSWR from "swr";
-import Setups from "../types/Setups";
+import Setups from "../types/Setup";
 
 const useSetups = () => {
   const {
