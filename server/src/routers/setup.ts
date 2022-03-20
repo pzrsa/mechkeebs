@@ -5,7 +5,7 @@ import { getSession } from "../utils/sessions";
 const setupRouter: Router = router();
 
 setupRouter.get("/setups", async (_: Request, res: Response) => {
-  const result = await Setup.find();
+  const result = await Setup.find({ order: { createdAt: "DESC" } });
 
   return res.status(200).json({ result });
 });
