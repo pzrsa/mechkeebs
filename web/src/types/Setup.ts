@@ -1,4 +1,4 @@
-export type Setups = {
+export interface Setups {
   result: [
     {
       id: number;
@@ -10,9 +10,9 @@ export type Setups = {
       updatedAt: string;
     }
   ];
-};
+}
 
-export type Setup = {
+export interface Setup {
   result: {
     id: number;
     title: string;
@@ -21,7 +21,7 @@ export type Setup = {
     createdAt: string;
     updatedAt: string;
   };
-};
+}
 
 export interface SetupFormValues {
   title: string;

@@ -1,4 +1,4 @@
-type User = {
+export interface User {
   id: number;
   user: {
     id: number;
@@ -6,6 +6,15 @@ type User = {
     createdAt: string;
     updatedAt: string;
   };
-};
+}
 
-export default User;
+export interface LoginFormValues {
+  email: string;
+  password: string;
+}
+
+export interface RegisterFormValues {
+  username: string;
+  email: string;
+  password: string;
+}
