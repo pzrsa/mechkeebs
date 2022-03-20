@@ -11,18 +11,16 @@ import {
 } from "@chakra-ui/react";
 import { FieldArray, Form, Formik } from "formik";
 import Error from "next/error";
-import router from "next/router";
 import * as Yup from "yup";
 import InputField from "../../../components/InputField";
 import MultiInputField from "../../../components/MultiInputField";
 import Wrapper from "../../../components/Wrapper";
-import PostSetupFormValues from "../../../types/PostSetupFormValues";
 import getSetupFromUrl from "../../../utils/getSetupFromUrl";
 import getUser from "../../../utils/getUser";
-import updateSetup from "../../../utils/updateSetup";
 import useSetup from "../../../utils/useSetup";
 import useUser from "../../../utils/useUser";
 import withAuth from "../../../utils/withAuth";
+import { SetupFormValues } from "../../../types/Setup";
 
 interface EditSetupProps {}
 
@@ -34,11 +32,11 @@ const EditSetup: React.FC<EditSetupProps> = ({}) => {
 
   const { user, loading: userLoading } = useUser();
 
-  const initialValues: PostSetupFormValues = {
+  const initialValues: SetupFormValues = {
     title: !setupLoading && data?.result ? data.result.title : "",
     items:
       !setupLoading && data?.result
-        ? data?.result?.items.map((itemName) => ({ item: itemName }))
+        ? data?.result?.items.map((itemName: string) => ({ item: itemName }))
         : [{ item: "" }, { item: "" }],
   };
 
@@ -82,19 +80,6 @@ const EditSetup: React.FC<EditSetupProps> = ({}) => {
                 const items = values["items"]!.map(
                   (item: any): string => item.item
                 );
-
-                const response = await updateSetup(
-                  data!.result.id,
-                  values.title,
-                  items,
-                  user.id
-                );
-
-                if (response?.error) {
-                  console.error(response.error);
-                } else if (response?.result) {
-                  await router.push("/");
-                }
               }}
             >
               {({ values, isSubmitting }) => (
