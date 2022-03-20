@@ -5,22 +5,24 @@ import { Box, Flex, Heading } from "@chakra-ui/layout";
 import { FieldArray, Form, Formik } from "formik";
 import { useRouter } from "next/router";
 import React from "react";
+import { useMutation } from "react-query";
 import * as Yup from "yup";
-import ImageInputField from "../../components/ImageInputField";
 import InputField from "../../components/InputField";
 import MultiInputField from "../../components/MultiInputField";
 import Wrapper from "../../components/Wrapper";
-import PostSetupFormValues from "../../types/PostSetupFormValues";
+import { createSetup } from "../../lib/mutations";
 import createSetupFormData from "../../utils/createSetupFormData";
 import withAuth from "../../utils/withAuth";
+import { SetupFormValues } from "../../types/Setup";
 
 interface CreateProps {}
 
 const Create: React.FC<CreateProps> = ({}) => {
   withAuth();
-  const initialValues: PostSetupFormValues = {
+  const mutation = useMutation(createSetup);
+
+  const initialValues: SetupFormValues = {
     title: "",
-    image: "" as any,
     items: [{ item: "" }, { item: "" }],
   };
 
@@ -37,8 +39,6 @@ const Create: React.FC<CreateProps> = ({}) => {
               .min(5, "Must be greater than 5 characters")
               .required("Title required"),
 
-            image: Yup.mixed().required("Image required"),
-
             items: Yup.array().of(
               Yup.object().shape({
                 item: Yup.string()
@@ -49,12 +49,18 @@ const Create: React.FC<CreateProps> = ({}) => {
           })}
           onSubmit={async (values) => {
             const formData = createSetupFormData(values);
+
+            await mutation.mutateAsync(formData);
+
+            if (!mutation.isError) {
+              await router.push("/");
+            }
           }}
         >
-          {({ values, isSubmitting }) => (
+          {({ values, isSubmitting, errors }) => (
             <Form>
               <InputField name="title" label="Title" />
-              <ImageInputField label="Image" name="image" />
+              {/*<ImageInputField label="Image" name="image" />*/}
               <FieldArray
                 name="items"
                 render={(arrayHelpers) => (
@@ -91,8 +97,10 @@ const Create: React.FC<CreateProps> = ({}) => {
                 )}
               />
               <Button isLoading={isSubmitting} type="submit">
-                Post
+                Create
               </Button>
+              <pre>{JSON.stringify(values, null, 2)}</pre>
+              <pre>{JSON.stringify(errors, null, 2)}</pre>
             </Form>
           )}
         </Formik>
