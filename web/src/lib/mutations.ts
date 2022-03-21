@@ -11,3 +11,12 @@ export const createSetup = async (formData: FormData) => {
 
   return response.json();
 };
+
+export const logoutUser = async () => {
+  const response = await fetch("http://localhost:4000/api/users/logout", {
+    method: "DELETE",
+    credentials: "include",
+  });
+
+  return response.json();
+};
