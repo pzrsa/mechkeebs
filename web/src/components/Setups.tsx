@@ -18,7 +18,7 @@ import * as crypto from "crypto";
 interface SetupsProps {}
 
 const Setups: React.FC<SetupsProps> = ({}) => {
-  const query = useQuery<Setups>("setups", fetchAllSetups);
+  const query = useQuery<Setups>("allSetups", fetchAllSetups);
 
   return (
     <Stack spacing={8}>

@@ -9,3 +9,16 @@ export const fetchAllSetups = async () => {
 
   return response.json();
 };
+
+export const fetchCurrentUser = async () => {
+  const response = await fetch("http://localhost:4000/api/users/me", {
+    method: "GET",
+    credentials: "include",
+  });
+
+  if (!response.ok) {
+    throw new Error("Network response was not ok");
+  }
+
+  return response.json();
+};

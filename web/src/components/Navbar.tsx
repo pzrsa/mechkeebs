@@ -4,18 +4,22 @@ import { Spinner } from "@chakra-ui/spinner";
 import NextLink from "next/link";
 import React from "react";
 import logoutUser from "../utils/logoutUser";
-import useUser from "../utils/useUser";
+import { useMutation, useQueryClient } from "react-query";
+import { useUser } from "../hooks/user";
 
 interface NavbarProps {}
 
 const Navbar: React.FC<NavbarProps> = ({}) => {
-  const { user, mutate } = useUser();
+  const queryClient = useQueryClient();
+
+  const { data } = useUser();
+  const mutation = useMutation(logoutUser, { mutationKey: "logoutUser" });
 
   let body;
 
-  if (!user) {
+  if (!data) {
     body = <Spinner />;
-  } else if (!user?.user) {
+  } else if (!data?.user) {
     body = (
       <>
         <NextLink href="/login">
@@ -32,11 +36,11 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
         <NextLink href="/setups/create">
           <Button>Create Setup</Button>
         </NextLink>
-        <Link mx={3}>{user.user.username}</Link>
+        <Link mx={3}>{data.user.username}</Link>
         <Link
           onClick={async () => {
-            await logoutUser();
-            await mutate(undefined, true);
+            mutation.mutate();
+            await queryClient.invalidateQueries("me");
           }}
         >
           Log Out

@@ -6,20 +6,20 @@ import React from "react";
 import * as Yup from "yup";
 import InputField from "../components/InputField";
 import Wrapper from "../components/Wrapper";
-import LoginFormValues from "../types/LoginFormValues";
 import loginUser from "../utils/loginUser";
-import useUser from "../utils/useUser";
+import { useQueryClient } from "react-query";
+import { LoginFormValues } from "../types/User";
 
 interface LoginProps {}
 
 const Login: React.FC<LoginProps> = ({}) => {
+  const queryClient = useQueryClient();
+  const router = useRouter();
+
   const initialValues: LoginFormValues = {
     email: "",
     password: "",
   };
-
-  const { mutate } = useUser();
-  const router = useRouter();
 
   return (
     <Wrapper>
@@ -43,8 +43,8 @@ const Login: React.FC<LoginProps> = ({}) => {
             } else if (response.error?.includes("password")) {
               setErrors({ password: response.error });
             } else if (response?.result) {
-              await mutate(undefined, true);
               await router.push("/");
+              await queryClient.invalidateQueries("me");
             }
           }}
         >
