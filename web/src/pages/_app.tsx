@@ -4,10 +4,8 @@ import { useRouter } from "next/router";
 import NProgress from "nprogress";
 import React, { useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { SWRConfig } from "swr";
 import Layout from "../components/Layout";
 import "../styles/nprogress.css";
-import fetcher from "../utils/fetcher";
 import { ReactQueryDevtools } from "react-query/devtools";
 
 const App = ({ Component, pageProps }: AppProps) => {
@@ -36,13 +34,11 @@ const App = ({ Component, pageProps }: AppProps) => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <SWRConfig value={{ fetcher }}>
-        <ChakraProvider resetCSS>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </ChakraProvider>
-      </SWRConfig>
+      <ChakraProvider resetCSS>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </ChakraProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );

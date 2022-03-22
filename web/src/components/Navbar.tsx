@@ -3,17 +3,18 @@ import { Box, Flex, Heading, Link } from "@chakra-ui/layout";
 import { Spinner } from "@chakra-ui/spinner";
 import NextLink from "next/link";
 import React from "react";
-import logoutUser from "../utils/logoutUser";
 import { useMutation, useQueryClient } from "react-query";
 import { useUser } from "../hooks/user";
+import { logoutUser } from "../lib/mutations";
 
 interface NavbarProps {}
 
 const Navbar: React.FC<NavbarProps> = ({}) => {
   const queryClient = useQueryClient();
-
   const { data } = useUser();
   const mutation = useMutation(logoutUser, { mutationKey: "logoutUser" });
+
+  console.log(data);
 
   let body;
 
@@ -39,7 +40,7 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
         <Link mx={3}>{data.user.username}</Link>
         <Link
           onClick={async () => {
-            mutation.mutate();
+            await mutation.mutateAsync();
             await queryClient.invalidateQueries("me");
           }}
         >
