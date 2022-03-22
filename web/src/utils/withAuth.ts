@@ -1,16 +1,16 @@
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import useUser from "./useUser";
+import { useUser } from "../hooks/user";
 
 const withAuth = () => {
-  const { user, loading } = useUser();
+  const { data, isFetching } = useUser();
   const router = useRouter();
 
   useEffect(() => {
-    if (!loading && !user?.user) {
+    if (!isFetching && !data?.user) {
       router.replace("/login");
     }
-  }, [loading, user, router]);
+  }, [isFetching, data, router]);
 };
 
 export default withAuth;
