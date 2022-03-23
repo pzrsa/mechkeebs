@@ -14,8 +14,6 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
   const { data } = useUser();
   const mutation = useMutation(logoutUser, { mutationKey: "logoutUser" });
 
-  console.log(data);
-
   let body;
 
   if (!data) {
