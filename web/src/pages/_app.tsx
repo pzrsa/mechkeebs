@@ -3,15 +3,11 @@ import { AppProps } from "next/app";
 import { useRouter } from "next/router";
 import NProgress from "nprogress";
 import React, { useEffect } from "react";
-import { QueryClient, QueryClientProvider } from "react-query";
 import Layout from "../components/Layout";
 import "../styles/nprogress.css";
-import { ReactQueryDevtools } from "react-query/devtools";
 
 const App = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
-
-  const queryClient = new QueryClient();
 
   useEffect(() => {
     const handleStart = () => {
@@ -33,14 +29,11 @@ const App = ({ Component, pageProps }: AppProps) => {
   }, [router]);
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <ChakraProvider resetCSS>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </ChakraProvider>
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
+    <ChakraProvider resetCSS>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </ChakraProvider>
   );
 };
 
