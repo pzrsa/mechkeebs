@@ -3,11 +3,10 @@ import { Button } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import { useRouter } from "next/router";
 import React from "react";
+import { useQueryClient } from "react-query";
 import * as Yup from "yup";
 import InputField from "../components/InputField";
 import Wrapper from "../components/Wrapper";
-import loginUser from "../utils/loginUser";
-import { useQueryClient } from "react-query";
 import { LoginFormValues } from "../types/User";
 
 interface LoginProps {}

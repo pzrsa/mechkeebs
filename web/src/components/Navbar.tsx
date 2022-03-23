@@ -3,17 +3,10 @@ import { Box, Flex, Heading, Link } from "@chakra-ui/layout";
 import { Spinner } from "@chakra-ui/spinner";
 import NextLink from "next/link";
 import React from "react";
-import { useMutation, useQueryClient } from "react-query";
-import { useUser } from "../hooks/user";
-import { logoutUser } from "../lib/mutations";
 
 interface NavbarProps {}
 
 const Navbar: React.FC<NavbarProps> = ({}) => {
-  const queryClient = useQueryClient();
-  const { data } = useUser();
-  const mutation = useMutation(logoutUser, { mutationKey: "logoutUser" });
-
   let body;
 
   if (!data) {
