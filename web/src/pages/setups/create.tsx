@@ -5,21 +5,18 @@ import { Box, Flex, Heading } from "@chakra-ui/layout";
 import { FieldArray, Form, Formik } from "formik";
 import { useRouter } from "next/router";
 import React from "react";
-import { useMutation } from "react-query";
 import * as Yup from "yup";
 import InputField from "../../components/InputField";
 import MultiInputField from "../../components/MultiInputField";
 import Wrapper from "../../components/Wrapper";
-import { createSetup } from "../../lib/mutations";
+import { SetupFormValues } from "../../types/Setup";
 import createSetupFormData from "../../utils/createSetupFormData";
 import withAuth from "../../utils/withAuth";
-import { SetupFormValues } from "../../types/Setup";
 
 interface CreateProps {}
 
 const Create: React.FC<CreateProps> = ({}) => {
   withAuth();
-  const mutation = useMutation(createSetup);
 
   const initialValues: SetupFormValues = {
     title: "",
@@ -49,12 +46,6 @@ const Create: React.FC<CreateProps> = ({}) => {
           })}
           onSubmit={async (values) => {
             const formData = createSetupFormData(values);
-
-            await mutation.mutateAsync(formData);
-
-            if (!mutation.isError) {
-              await router.push("/");
-            }
           }}
         >
           {({ values, isSubmitting, errors }) => (
