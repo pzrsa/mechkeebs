@@ -1,7 +1,13 @@
-import { useQuery } from "react-query";
+import useSWR from "swr";
 import { fetchCurrentUser } from "../lib/queries";
-import { User } from "../types/User";
 
 export const useUser = () => {
-  return useQuery<User>("me", fetchCurrentUser);
+  const { data, mutate, error } = useSWR("me", fetchCurrentUser);
+
+  return {
+    user: data,
+    isLoading: !error && !data,
+    isError: error,
+    mutate,
+  };
 };

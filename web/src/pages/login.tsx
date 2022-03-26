@@ -3,7 +3,6 @@ import { Button } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import { useRouter } from "next/router";
 import React from "react";
-import { useQueryClient } from "react-query";
 import * as Yup from "yup";
 import InputField from "../components/InputField";
 import Wrapper from "../components/Wrapper";
@@ -12,7 +11,6 @@ import { LoginFormValues } from "../types/User";
 interface LoginProps {}
 
 const Login: React.FC<LoginProps> = ({}) => {
-  const queryClient = useQueryClient();
   const router = useRouter();
 
   const initialValues: LoginFormValues = {
@@ -43,7 +41,6 @@ const Login: React.FC<LoginProps> = ({}) => {
               setErrors({ password: response.error });
             } else if (response?.result) {
               await router.push("/");
-              await queryClient.invalidateQueries("me");
             }
           }}
         >

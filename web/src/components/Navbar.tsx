@@ -3,15 +3,17 @@ import { Box, Flex, Heading, Link } from "@chakra-ui/layout";
 import { Spinner } from "@chakra-ui/spinner";
 import NextLink from "next/link";
 import React from "react";
+import { useUser } from "../hooks/user";
 
 interface NavbarProps {}
 
 const Navbar: React.FC<NavbarProps> = ({}) => {
-  let body;
+  const { user, isLoading } = useUser();
 
-  if (!data) {
+  let body;
+  if (isLoading) {
     body = <Spinner />;
-  } else if (!data?.user) {
+  } else if (!user?.user) {
     body = (
       <>
         <NextLink href="/login">
@@ -28,15 +30,8 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
         <NextLink href="/setups/create">
           <Button>Create Setup</Button>
         </NextLink>
-        <Link mx={3}>{data.user.username}</Link>
-        <Link
-          onClick={async () => {
-            await mutation.mutateAsync();
-            await queryClient.invalidateQueries("me");
-          }}
-        >
-          Log Out
-        </Link>
+        <Link mx={3}>{user.user.username}</Link>
+        <Link onClick={async () => {}}>Log Out</Link>
       </>
     );
   }
