@@ -9,21 +9,23 @@ import * as Yup from "yup";
 import InputField from "../../components/InputField";
 import MultiInputField from "../../components/MultiInputField";
 import Wrapper from "../../components/Wrapper";
+import { useSetups } from "../../hooks/setup";
+import { createSetup } from "../../lib/mutations";
 import { SetupFormValues } from "../../types/Setup";
-import createSetupFormData from "../../utils/createSetupFormData";
 import withAuth from "../../utils/withAuth";
 
 interface CreateProps {}
 
 const Create: React.FC<CreateProps> = ({}) => {
   withAuth();
+  const router = useRouter();
+
+  const { mutate } = useSetups();
 
   const initialValues: SetupFormValues = {
     title: "",
     items: [{ item: "" }, { item: "" }],
   };
-
-  const router = useRouter();
 
   return (
     <Wrapper>
@@ -45,10 +47,18 @@ const Create: React.FC<CreateProps> = ({}) => {
             ),
           })}
           onSubmit={async (values) => {
-            const formData = createSetupFormData(values);
+            const response = await createSetup(values);
+
+            if (response.error) {
+              console.error(response.error);
+            }
+            if (response.result) {
+              await router.push("/");
+              mutate(null);
+            }
           }}
         >
-          {({ values, isSubmitting, errors }) => (
+          {({ values, isSubmitting }) => (
             <Form>
               <InputField name="title" label="Title" />
               {/*<ImageInputField label="Image" name="image" />*/}

@@ -1,10 +1,12 @@
+import { SetupFormValues } from "../types/Setup";
 import { LoginFormValues } from "../types/User";
+import createSetupFormData from "../utils/createSetupFormData";
 
-export const createSetup = async (formData: FormData) => {
+export const createSetup = async (setupFormValues: SetupFormValues) => {
   const response = await fetch("http://localhost:4000/api/setups/create", {
     method: "POST",
     credentials: "include",
-    body: formData,
+    body: createSetupFormData(setupFormValues),
   });
 
   if (!response.ok) {
