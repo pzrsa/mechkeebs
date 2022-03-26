@@ -3,14 +3,14 @@ import { useEffect } from "react";
 import { useUser } from "../hooks/user";
 
 const withAuth = () => {
-  const { data, isFetching } = useUser();
+  const { user, isLoading } = useUser();
   const router = useRouter();
 
   useEffect(() => {
-    if (!isFetching && !data?.user) {
+    if (!user && !isLoading) {
       router.replace("/login");
     }
-  }, [isFetching, data, router]);
+  }, [isLoading, user, router]);
 };
 
 export default withAuth;
