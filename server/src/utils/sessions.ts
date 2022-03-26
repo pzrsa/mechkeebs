@@ -32,7 +32,7 @@ export const createSession = async (res: Response, userId: number) => {
 
 export const getSession = async (
   req: Request
-): Promise<Session | string | undefined> => {
+): Promise<Session | string | null> => {
   const token = req.signedCookies.token;
 
   if (!token) {

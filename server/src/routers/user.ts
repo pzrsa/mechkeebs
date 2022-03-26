@@ -69,9 +69,7 @@ userRouter.post("/users/login", async (req: Request, res: Response) => {
 
   await createSession(res, user.id);
 
-  return res
-    .status(200)
-    .json({ result: `User '${user.id}' successfully logged in` });
+  return res.status(200).json({ result: "User logged in" });
 });
 
 userRouter.delete("/users/logout", async (req: Request, res: Response) => {
@@ -86,7 +84,7 @@ userRouter.get("/users/me", async (req: Request, res: Response) => {
   const result = await getSession(req);
 
   if (typeof result === "string") {
-    return res.json({ error: result });
+    return res.status(403).json({ error: result });
   }
 
   return res.status(200).json({ ...result });

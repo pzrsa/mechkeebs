@@ -6,12 +6,15 @@ import React from "react";
 import * as Yup from "yup";
 import InputField from "../components/InputField";
 import Wrapper from "../components/Wrapper";
+import { useUser } from "../hooks/user";
+import { loginUser } from "../lib/mutations";
 import { LoginFormValues } from "../types/User";
 
 interface LoginProps {}
 
 const Login: React.FC<LoginProps> = ({}) => {
   const router = useRouter();
+  const { mutate } = useUser();
 
   const initialValues: LoginFormValues = {
     email: "",
@@ -37,10 +40,13 @@ const Login: React.FC<LoginProps> = ({}) => {
 
             if (response.error?.includes("email")) {
               setErrors({ email: response.error });
-            } else if (response.error?.includes("password")) {
+            }
+            if (response.error?.includes("password")) {
               setErrors({ password: response.error });
-            } else if (response?.result) {
+            }
+            if (response?.result) {
               await router.push("/");
+              mutate();
             }
           }}
         >

@@ -17,7 +17,10 @@ export const fetchCurrentUser = async () => {
   });
 
   if (!response.ok) {
-    throw new Error("Network response was not ok");
+    const error: any = new Error("An error occurred while fetching the data.");
+    error.info = await response.json();
+    error.status = response.status;
+    throw error;
   }
 
   return response.json();

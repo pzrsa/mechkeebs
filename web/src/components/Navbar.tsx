@@ -4,16 +4,18 @@ import { Spinner } from "@chakra-ui/spinner";
 import NextLink from "next/link";
 import React from "react";
 import { useUser } from "../hooks/user";
+import { logoutUser } from "../lib/mutations";
 
 interface NavbarProps {}
 
 const Navbar: React.FC<NavbarProps> = ({}) => {
-  const { user, isLoading } = useUser();
+  const { user, isLoading, mutate } = useUser();
 
   let body;
   if (isLoading) {
     body = <Spinner />;
-  } else if (!user?.user) {
+  }
+  if (!user?.user) {
     body = (
       <>
         <NextLink href="/login">
@@ -24,14 +26,22 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
         </NextLink>
       </>
     );
-  } else {
+  }
+  if (user?.user) {
     body = (
       <>
         <NextLink href="/setups/create">
           <Button>Create Setup</Button>
         </NextLink>
         <Link mx={3}>{user.user.username}</Link>
-        <Link onClick={async () => {}}>Log Out</Link>
+        <Link
+          onClick={() => {
+            logoutUser();
+            mutate(null);
+          }}
+        >
+          Log Out
+        </Link>
       </>
     );
   }
