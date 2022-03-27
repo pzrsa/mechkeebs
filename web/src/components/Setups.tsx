@@ -39,6 +39,8 @@ const Setups: React.FC<SetupsProps> = ({}) => {
         <Wrap spacing={7}>
           {setups.result.map((setup) => (
             <Box
+              shadow={"md"}
+              key={setup.id}
               maxW="sm"
               borderWidth="1px"
               borderRadius="lg"
@@ -51,7 +53,7 @@ const Setups: React.FC<SetupsProps> = ({}) => {
                 width={800}
                 height={500}
               />
-              <Box p="6">
+              <Box p="3">
                 <Box
                   fontWeight="semibold"
                   as="h4"
