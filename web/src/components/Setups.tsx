@@ -1,56 +1,83 @@
-import { Stack } from "@chakra-ui/react";
+import {
+  Box,
+  Center,
+  Heading,
+  ListItem,
+  Spinner,
+  Stack,
+  UnorderedList,
+  Wrap,
+} from "@chakra-ui/react";
+import crypto from "crypto";
+import Image from "next/image";
 import React from "react";
+import { useSetups } from "../hooks/setup";
 import { Setups } from "../types/Setup";
 
 interface SetupsProps {}
 
 const Setups: React.FC<SetupsProps> = ({}) => {
-  return (
-    <Stack spacing={8}>
-      {/* {data?.result.map((setup) => (
-        <Box key={setup.id} p={5} shadow="md" borderWidth="1px">
-          <Heading mb={3} size="lg">
-            {setup.title}
-          </Heading>
-          <Text my={2}>
-            Posted{" "}
-            <Tooltip
-              label={dayjs(setup.createdAt).format("ddd, MMM D, YYYY, HH:mm")}
-              aria-label="Full Setup Date"
+  const { setups, isLoading } = useSetups();
+
+  let body;
+  if (isLoading) {
+    body = (
+      <Center>
+        <Spinner size={"xl"} />
+      </Center>
+    );
+  } else if (!setups?.result.length) {
+    body = (
+      <Center>
+        <Heading size={"md"}>No setups to display.</Heading>
+      </Center>
+    );
+  }
+  if (setups?.result.length) {
+    body = (
+      <Stack direction="row">
+        <Wrap spacing={7}>
+          {setups.result.map((setup) => (
+            <Box
+              maxW="sm"
+              borderWidth="1px"
+              borderRadius="lg"
+              overflow="hidden"
             >
-              <span>
-                <DateFromNow date={setup.createdAt} />
-              </span>
-            </Tooltip>
-          </Text>
-          <Box>
-            <Heading mb={2} size="md">
-              Items
-            </Heading>
-            <UnorderedList>
-              {setup.items.map((item) => (
-                <ListItem key={crypto.randomBytes(12).toString("base64")}>
-                  {item}
-                </ListItem>
-              ))}
-            </UnorderedList>
-            {setup.creatorId === user?.user?.id ? (
-              <Flex mt={2}>
-                <NextLink href={`/setups/edit/${setup.id}`}>
-                  <IconButton
-                    ml="auto"
-                    aria-label="Edit Setup"
-                    icon={<EditIcon />}
-                  />
-                </NextLink>
-                <DeleteSetup setupId={setup.id} />
-              </Flex>
-            ) : null}
-          </Box>
-        </Box>
-      ))} */}
-    </Stack>
-  );
+              <Image
+                src={
+                  "https://images.unsplash.com/photo-1616763355548-1b606f439f86?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8"
+                }
+                width={800}
+                height={500}
+              />
+              <Box p="6">
+                <Box
+                  fontWeight="semibold"
+                  as="h4"
+                  lineHeight="tight"
+                  isTruncated
+                >
+                  {setup.title}
+                </Box>
+                <Box display="flex" mt="2" alignItems="center">
+                  <UnorderedList>
+                    {setup.items.map((item) => (
+                      <ListItem key={crypto.randomBytes(12).toString("base64")}>
+                        {item}
+                      </ListItem>
+                    ))}
+                  </UnorderedList>
+                </Box>
+              </Box>
+            </Box>
+          ))}
+        </Wrap>
+      </Stack>
+    );
+  }
+
+  return <>{body}</>;
 };
 
 export default Setups;

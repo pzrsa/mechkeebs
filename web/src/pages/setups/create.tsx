@@ -54,7 +54,7 @@ const Create: React.FC<CreateProps> = ({}) => {
             }
             if (response.result) {
               await router.push("/");
-              mutate(null);
+              mutate(undefined);
             }
           }}
         >

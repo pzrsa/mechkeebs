@@ -14,8 +14,7 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
   let body;
   if (isLoading) {
     body = <Spinner />;
-  }
-  if (!user?.user) {
+  } else if (!user?.user) {
     body = (
       <>
         <NextLink href="/login">
