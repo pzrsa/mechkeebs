@@ -9,12 +9,30 @@ import { logoutUser } from "../lib/mutations";
 interface NavbarProps {}
 
 const Navbar: React.FC<NavbarProps> = ({}) => {
-  const { user, isLoading, mutate } = useUser();
+  const { user, isLoading, loggedOut, mutate } = useUser();
 
   let body;
   if (isLoading) {
     body = <Spinner />;
-  } else if (!user?.user) {
+  } else if (user?.user) {
+    body = (
+      <>
+        <NextLink href="/setups/create">
+          <Button>Create Setup</Button>
+        </NextLink>
+        <Link mx={3}>{user.user.username}</Link>
+        <Link
+          onClick={async () => {
+            await logoutUser();
+            mutate(undefined);
+          }}
+        >
+          Log Out
+        </Link>
+      </>
+    );
+  }
+  if (loggedOut) {
     body = (
       <>
         <NextLink href="/login">
@@ -23,24 +41,6 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
         <NextLink href="/register">
           <Button>Register</Button>
         </NextLink>
-      </>
-    );
-  }
-  if (user?.user) {
-    body = (
-      <>
-        <NextLink href="/setups/create">
-          <Button>Create Setup</Button>
-        </NextLink>
-        <Link mx={3}>{user.user.username}</Link>
-        <Link
-          onClick={() => {
-            logoutUser();
-            mutate(null);
-          }}
-        >
-          Log Out
-        </Link>
       </>
     );
   }
