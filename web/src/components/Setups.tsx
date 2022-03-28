@@ -1,4 +1,5 @@
 import {
+  AspectRatio,
   Box,
   Center,
   Heading,
@@ -35,24 +36,26 @@ const Setups: React.FC<SetupsProps> = ({}) => {
   }
   if (setups?.result.length) {
     body = (
-      <Stack direction="row">
-        <Wrap spacing={7}>
+      <Stack>
+        <Wrap spacing={10}>
           {setups.result.map((setup) => (
             <Box
-              shadow={"md"}
+              shadow={"lg"}
               key={setup.id}
-              maxW="sm"
               borderWidth="1px"
-              borderRadius="lg"
+              borderRadius="xl"
               overflow="hidden"
+              w={"full"}
             >
-              <Image
-                src={
-                  "https://images.unsplash.com/photo-1616763355548-1b606f439f86?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8"
-                }
-                width={800}
-                height={500}
-              />
+              <AspectRatio ratio={1}>
+                <Image
+                  src={
+                    "https://images.unsplash.com/photo-1614624532983-4ce03382d63d"
+                  }
+                  layout="fill"
+                  objectFit="cover"
+                />
+              </AspectRatio>
               <Box p="3">
                 <Box
                   fontWeight="semibold"
@@ -62,7 +65,7 @@ const Setups: React.FC<SetupsProps> = ({}) => {
                 >
                   {setup.title}
                 </Box>
-                <Box display="flex" mt="2" alignItems="center">
+                <Box mt="2">
                   <UnorderedList>
                     {setup.items.map((item) => (
                       <ListItem key={crypto.randomBytes(12).toString("base64")}>
