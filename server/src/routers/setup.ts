@@ -15,7 +15,7 @@ setupRouter.post("/setups/create", async (req: Request, res: Response) => {
     const session = await getSession(req);
 
     if (typeof session === "string") {
-      return res.status(401).json({ error: session });
+      return res.status(403).json({ error: session });
     }
 
     const result = await Setup.create({
@@ -54,15 +54,15 @@ setupRouter.delete("/setups/delete", async (req: Request, res: Response) => {
   const session = await getSession(req);
 
   if (typeof session === "string") {
-    return res.status(401).json({ error: session });
+    return res.status(403).json({ error: session });
   }
 
-  const result = await Setup.delete({
+  await Setup.delete({
     id: req.body.setupId,
     creatorId: session?.user.id,
   });
 
-  return res.status(200).json({ result });
+  return res.status(200).json(true);
 });
 
 export default setupRouter;

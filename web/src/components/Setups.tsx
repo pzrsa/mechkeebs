@@ -2,6 +2,7 @@ import {
   AspectRatio,
   Box,
   Center,
+  Flex,
   Heading,
   ListItem,
   Spinner,
@@ -13,12 +14,15 @@ import crypto from "crypto";
 import Image from "next/image";
 import React from "react";
 import { useSetups } from "../hooks/setup";
+import { useUser } from "../hooks/user";
 import { Setups } from "../types/Setup";
+import DeleteSetupButton from "./DeleteSetupButton";
 
 interface SetupsProps {}
 
 const Setups: React.FC<SetupsProps> = ({}) => {
   const { setups, isLoading } = useSetups();
+  const { user } = useUser();
 
   let body;
   if (isLoading) {
@@ -73,6 +77,11 @@ const Setups: React.FC<SetupsProps> = ({}) => {
                       </ListItem>
                     ))}
                   </UnorderedList>
+                  {setup.creatorId === user?.user.id ? (
+                    <Flex>
+                      <DeleteSetupButton setupId={setup.id} />
+                    </Flex>
+                  ) : null}
                 </Box>
               </Box>
             </Box>
