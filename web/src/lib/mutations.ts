@@ -1,5 +1,5 @@
 import { SetupFormValues } from "../types/Setup";
-import { LoginFormValues } from "../types/User";
+import { LoginFormValues, RegisterFormValues } from "../types/User";
 import createSetupFormData from "../utils/createSetupFormData";
 
 export const createSetup = async (setupFormValues: SetupFormValues) => {
@@ -12,6 +12,19 @@ export const createSetup = async (setupFormValues: SetupFormValues) => {
   if (!response.ok) {
     throw new Error("Network response was not ok");
   }
+
+  return response.json();
+};
+
+export const registerUser = async (registerInfo: RegisterFormValues) => {
+  const response = await fetch("http://localhost:4000/api/users/register", {
+    method: "POST",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ ...registerInfo }),
+  });
 
   return response.json();
 };

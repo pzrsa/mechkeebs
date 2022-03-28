@@ -6,9 +6,9 @@ import React from "react";
 import * as Yup from "yup";
 import InputField from "../components/InputField";
 import Wrapper from "../components/Wrapper";
-import RegisterFormValues from "../types/RegisterFormValues";
-import registerUser from "../utils/registerUser";
-import useUser from "../utils/useUser";
+import { useUser } from "../hooks/user";
+import { registerUser } from "../lib/mutations";
+import { RegisterFormValues } from "../types/User";
 
 interface RegisterProps {}
 
@@ -52,8 +52,8 @@ const Register: React.FC<RegisterProps> = ({}) => {
             } else if (response.error?.includes("Email")) {
               setErrors({ email: response.error });
             } else if (response?.result) {
-              await mutate(undefined, true);
               await router.push("/");
+              mutate(undefined);
             }
           }}
         >
