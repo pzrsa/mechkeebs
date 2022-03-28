@@ -11,14 +11,14 @@ import {
   AlertDialogOverlay,
 } from "@chakra-ui/modal";
 import React, { useRef } from "react";
-import deleteSetup from "../utils/deleteSetup";
-import useSetups from "../utils/useSetups";
+import { useSetups } from "../hooks/setup";
+import { deleteSetup } from "../lib/mutations";
 
-interface DeleteSetupProps {
+interface DeleteSetupButtonProps {
   setupId: number;
 }
 
-const DeleteSetup: React.FC<DeleteSetupProps> = ({ setupId }) => {
+const DeleteSetupButton: React.FC<DeleteSetupButtonProps> = ({ setupId }) => {
   const { mutate } = useSetups();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -28,7 +28,7 @@ const DeleteSetup: React.FC<DeleteSetupProps> = ({ setupId }) => {
     <>
       <IconButton
         colorScheme="red"
-        ml={2}
+        ml={"auto"}
         aria-label="Delete Setup"
         icon={<DeleteIcon />}
         onClick={onOpen}
@@ -58,7 +58,7 @@ const DeleteSetup: React.FC<DeleteSetupProps> = ({ setupId }) => {
               onClick={async () => {
                 onClose();
                 await deleteSetup(setupId);
-                mutate(undefined, true);
+                mutate(undefined);
               }}
             >
               Yes
@@ -70,4 +70,4 @@ const DeleteSetup: React.FC<DeleteSetupProps> = ({ setupId }) => {
   );
 };
 
-export default DeleteSetup;
+export default DeleteSetupButton;
