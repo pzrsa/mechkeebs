@@ -1,5 +1,6 @@
 import { Button } from "@chakra-ui/button";
 import { Box, Flex, Heading, Link } from "@chakra-ui/layout";
+import { Spacer } from "@chakra-ui/react";
 import { Spinner } from "@chakra-ui/spinner";
 import NextLink from "next/link";
 import React from "react";
@@ -47,13 +48,14 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
 
   return (
     <Flex zIndex={1} bg="white" boxShadow="md" position="sticky" top={0} p={4}>
-      <Flex flex={1} m="auto" align="center" maxW={800}>
+      <Flex flex={1} m="auto" align="center" maxW={"1250px"}>
         <NextLink href="/">
           <Link>
             <Heading>SetupScope</Heading>
           </Link>
         </NextLink>
-        <Box ml={"auto"}>{body}</Box>
+        <Spacer />
+        <Box>{body}</Box>
       </Flex>
     </Flex>
   );
