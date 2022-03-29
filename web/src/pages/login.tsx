@@ -1,5 +1,5 @@
 import { Box, Heading } from "@chakra-ui/layout";
-import { Button } from "@chakra-ui/react";
+import { Button, useToast } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import { useRouter } from "next/router";
 import React from "react";
@@ -15,6 +15,8 @@ interface LoginProps {}
 const Login: React.FC<LoginProps> = ({}) => {
   const router = useRouter();
   const { mutate } = useUser();
+
+  const toast = useToast();
 
   const initialValues: LoginFormValues = {
     email: "",
@@ -46,6 +48,13 @@ const Login: React.FC<LoginProps> = ({}) => {
             }
             if (response?.result) {
               await router.push("/");
+              toast({
+                title: "Logged in",
+                description: "Sucessfully logged in, welcome back.",
+                status: "success",
+                duration: 3000,
+                position: "bottom-right",
+              });
               mutate();
             }
           }}
