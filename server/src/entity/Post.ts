@@ -10,8 +10,8 @@ import {
 } from "typeorm";
 import { User } from "./User";
 
-@Entity({ name: "setups" })
-export class Setup extends BaseEntity {
+@Entity({ name: "posts" })
+export class Post extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -27,7 +27,7 @@ export class Setup extends BaseEntity {
   @Column({ name: "creator_id" })
   creatorId: number;
 
-  @ManyToOne(() => User, (user) => user.setups, { onDelete: "CASCADE" }) // if the user gets deleted, then delete posts associated with that creatorid
+  @ManyToOne(() => User, (user) => user.posts, { onDelete: "CASCADE" })
   @JoinColumn({ name: "creator_id" })
   creator: User;
 

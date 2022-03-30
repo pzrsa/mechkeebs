@@ -7,7 +7,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
-import { Setup } from "./Setup";
+import { Post } from "./Post";
 
 @Entity({ name: "users" })
 export class User extends BaseEntity {
@@ -23,8 +23,8 @@ export class User extends BaseEntity {
   @Column({ select: false })
   password: string;
 
-  @OneToMany(() => Setup, (setup) => setup.creator)
-  setups: Setup[];
+  @OneToMany(() => Post, (post) => post.creator)
+  posts: Post[];
 
   @CreateDateColumn({ name: "created_at" })
   createdAt: Date;

@@ -1,16 +1,16 @@
 import router, { Request, Response, Router } from "express";
-import { Setup } from "../entity/Setup";
+import { Post } from "../entity/Post";
 import { getSession } from "../utils/sessions";
 
-const setupRouter: Router = router();
+const postRouter: Router = router();
 
-setupRouter.get("/setups", async (_: Request, res: Response) => {
-  const result = await Setup.find({ order: { createdAt: "DESC" } });
+postRouter.get("/posts", async (_: Request, res: Response) => {
+  const result = await Post.find({ order: { createdAt: "DESC" } });
 
   return res.status(200).json({ result });
 });
 
-setupRouter.post("/setups/create", async (req: Request, res: Response) => {
+postRouter.post("/posts/create", async (req: Request, res: Response) => {
   try {
     const session = await getSession(req);
 
@@ -18,10 +18,10 @@ setupRouter.post("/setups/create", async (req: Request, res: Response) => {
       return res.status(403).json({ error: session });
     }
 
-    const result = await Setup.create({
+    const result = await Post.create({
       title: req.body.title,
       // dummy for now until i sort out image handling
-      imageName: "setup.png",
+      imageName: "image.png",
       items: JSON.parse(req.body.items),
       creatorId: session?.user.id,
     }).save();
@@ -32,7 +32,7 @@ setupRouter.post("/setups/create", async (req: Request, res: Response) => {
   }
 });
 
-setupRouter.put("/setups/update", async (req: Request, res: Response) => {
+postRouter.put("/posts/update", async (req: Request, res: Response) => {
   try {
     const session = await getSession(req);
 
@@ -40,7 +40,7 @@ setupRouter.put("/setups/update", async (req: Request, res: Response) => {
       return res.status(401).json({ error: session });
     }
 
-    const result = await Setup.update(
+    const result = await Post.update(
       { id: req.body.setupId, creatorId: session?.user.id },
       { title: req.body.title, items: req.body.items }
     );
@@ -50,14 +50,14 @@ setupRouter.put("/setups/update", async (req: Request, res: Response) => {
   }
 });
 
-setupRouter.delete("/setups/delete", async (req: Request, res: Response) => {
+postRouter.delete("/posts/delete", async (req: Request, res: Response) => {
   const session = await getSession(req);
 
   if (typeof session === "string") {
     return res.status(403).json({ error: session });
   }
 
-  await Setup.delete({
+  await Post.delete({
     id: req.body.setupId,
     creatorId: session?.user.id,
   });
@@ -65,4 +65,4 @@ setupRouter.delete("/setups/delete", async (req: Request, res: Response) => {
   return res.status(200).json(true);
 });
 
-export default setupRouter;
+export default postRouter;

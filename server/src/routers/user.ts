@@ -7,22 +7,6 @@ import { createSession, getSession } from "../utils/sessions";
 
 const userRouter: Router = router();
 
-// userRouter.get("/users", async (_, res: Response) => {
-//   const results = await User.find({
-//     relations: ["setups"],
-//   });
-
-//   return res.status(200).json({ results });
-// });
-
-// userRouter.get("/users/:id", async (req: Request, res: Response) => {
-//   const result = await User.findOne(req.params.id, {
-//     relations: ["setups"],
-//   });
-
-//   return res.status(200).json({ result });
-// });
-
 userRouter.post("/users/register", async (req: Request, res: Response) => {
   const existingUsername = await User.findOne({
     where: { username: req.body.username },

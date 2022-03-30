@@ -4,7 +4,7 @@ import express, { Application } from "express";
 import fileUpload from "express-fileupload";
 import "reflect-metadata";
 import { createConnection } from "typeorm";
-import setupRouter from "./routers/setup";
+import postRouter from "./routers/post";
 import userRouter from "./routers/user";
 
 const main = async () => {
@@ -20,8 +20,7 @@ const main = async () => {
     cookieParser(process.env.COOKIE_SECRET)
   );
 
-  app.use("/api", userRouter, setupRouter);
-
+  app.use("/api", userRouter, postRouter);
   app.set("json spaces", 2);
 
   app.listen(4000, () => {
