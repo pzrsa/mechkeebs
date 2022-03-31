@@ -5,9 +5,9 @@ import { Session } from "../entity/Session";
 import { User } from "../entity/User";
 import { createSession, getSession } from "../utils/sessions";
 
-const userRouter: Router = router();
+const usersRouter: Router = router();
 
-userRouter.post("/users/register", async (req: Request, res: Response) => {
+usersRouter.post("/users/register", async (req: Request, res: Response) => {
   const existingUsername = await User.findOne({
     where: { username: req.body.username },
   });
@@ -33,7 +33,7 @@ userRouter.post("/users/register", async (req: Request, res: Response) => {
   return res.status(200).json({ result });
 });
 
-userRouter.post("/users/login", async (req: Request, res: Response) => {
+usersRouter.post("/users/login", async (req: Request, res: Response) => {
   const user = await User.findOne({
     where: { email: req.body.email },
     select: ["id", "email", "password"],
@@ -56,7 +56,7 @@ userRouter.post("/users/login", async (req: Request, res: Response) => {
   return res.status(200).json({ result: "User logged in" });
 });
 
-userRouter.delete("/users/logout", async (req: Request, res: Response) => {
+usersRouter.delete("/users/logout", async (req: Request, res: Response) => {
   await Session.delete({ token: req.signedCookies.token });
 
   res.clearCookie(COOKIE_NAME);
@@ -64,7 +64,7 @@ userRouter.delete("/users/logout", async (req: Request, res: Response) => {
   return res.status(200).json(true);
 });
 
-userRouter.get("/users/me", async (req: Request, res: Response) => {
+usersRouter.get("/users/me", async (req: Request, res: Response) => {
   const result = await getSession(req);
 
   if (typeof result === "string") {
@@ -74,4 +74,4 @@ userRouter.get("/users/me", async (req: Request, res: Response) => {
   return res.status(200).json({ ...result });
 });
 
-export default userRouter;
+export default usersRouter;

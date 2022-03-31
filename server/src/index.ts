@@ -4,8 +4,8 @@ import express, { Application } from "express";
 import fileUpload from "express-fileupload";
 import "reflect-metadata";
 import { createConnection } from "typeorm";
-import postRouter from "./routers/post";
-import userRouter from "./routers/user";
+import postsRouter from "./routers/post";
+import usersRouter from "./routers/user";
 
 const main = async () => {
   // @ts-ignore - initialise db connection here to be fetched later with "getConnection"
@@ -20,7 +20,7 @@ const main = async () => {
     cookieParser(process.env.COOKIE_SECRET)
   );
 
-  app.use("/api", userRouter, postRouter);
+  app.use("/api", usersRouter, postsRouter);
   app.set("json spaces", 2);
 
   app.listen(4000, () => {
