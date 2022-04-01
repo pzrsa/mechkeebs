@@ -10,12 +10,11 @@ import usersRouter from "./routers/user";
 
 export const dataSource = new DataSource({
   type: "postgres",
-
   host: "localhost",
   port: 5432,
   username: "parsa",
   password: "parsa",
-  database: "setupscope",
+  database: "mechkeebs",
   synchronize: !__prod__,
   logging: true,
   entities: ["dist/entity/*.js"],
