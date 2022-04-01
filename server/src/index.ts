@@ -3,14 +3,35 @@ import cors from "cors";
 import express, { Application } from "express";
 import fileUpload from "express-fileupload";
 import "reflect-metadata";
-import { createConnection } from "typeorm";
+import { DataSource } from "typeorm";
+import { __prod__ } from "./constants";
 import postsRouter from "./routers/post";
 import usersRouter from "./routers/user";
 
-const main = async () => {
-  // @ts-ignore - initialise db connection here to be fetched later with "getConnection"
-  const conn = await createConnection();
+export const dataSource = new DataSource({
+  type: "postgres",
 
+  host: "localhost",
+  port: 5432,
+  username: "parsa",
+  password: "parsa",
+  database: "setupscope",
+  synchronize: !__prod__,
+  logging: true,
+  entities: ["dist/entity/*.js"],
+  migrations: ["dist/migrations/*.js"],
+});
+
+const main = async () => {
+  // @ts-ignore
+  const conn = await dataSource
+    .initialize()
+    .then(() => {
+      console.log("Data Source has been initialized");
+    })
+    .catch((err) => {
+      console.error("Error during Data Source initialization", err);
+    });
   const app: Application = express();
 
   app.use(
