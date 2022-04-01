@@ -10,7 +10,7 @@ import InputField from "../../components/InputField";
 import MultiInputField from "../../components/MultiInputField";
 import Wrapper from "../../components/Wrapper";
 import { usePosts } from "../../hooks/post";
-import { createSetup } from "../../lib/mutations";
+import { createPost } from "../../lib/mutations";
 import { PostFormValues } from "../../types/Post";
 import withAuth from "../../utils/withAuth";
 
@@ -47,7 +47,7 @@ const Create: React.FC<CreateProps> = ({}) => {
             ),
           })}
           onSubmit={async (values) => {
-            const response = await createSetup(values);
+            const response = await createPost(values);
 
             if (response.error) {
               console.error(response.error);

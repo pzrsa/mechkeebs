@@ -1,58 +1,37 @@
-import { MinusIcon } from "@chakra-ui/icons";
-import {
-  Box,
-  Button,
-  Center,
-  Flex,
-  FormLabel,
-  Heading,
-  IconButton,
-  Spinner,
-} from "@chakra-ui/react";
-import { FieldArray, Form, Formik } from "formik";
-import Error from "next/error";
-import * as Yup from "yup";
-import InputField from "../../../components/InputField";
-import MultiInputField from "../../../components/MultiInputField";
+import { Box } from "@chakra-ui/react";
 import Wrapper from "../../../components/Wrapper";
-import getSetupFromUrl from "../../../utils/getSetupFromUrl";
-import getUser from "../../../utils/getUser";
-import useSetup from "../../../utils/useSetup";
-import useUser from "../../../utils/useUser";
-import withAuth from "../../../utils/withAuth";
-import { SetupFormValues } from "../../../types/Setup";
 
-interface EditSetupProps {}
+interface EditPostProps {}
 
-const EditSetup: React.FC<EditSetupProps> = ({}) => {
-  withAuth();
+const EditPost: React.FC<EditPostProps> = ({}) => {
+  // withAuth();
 
-  const id = getSetupFromUrl();
-  const { data, loading: setupLoading } = useSetup(id);
+  // const id = getSetupFromUrl();
+  // const { data, loading: setupLoading } = use(id);
 
-  const { user, loading: userLoading } = useUser();
+  // const { user, loading: userLoading } = useUser();
 
-  const initialValues: SetupFormValues = {
-    title: !setupLoading && data?.result ? data.result.title : "",
-    items:
-      !setupLoading && data?.result
-        ? data?.result?.items.map((itemName: string) => ({ item: itemName }))
-        : [{ item: "" }, { item: "" }],
-  };
+  // const initialValues: SetupFormValues = {
+  //   title: !setupLoading && data?.result ? data.result.title : "",
+  //   items:
+  //     !setupLoading && data?.result
+  //       ? data?.result?.items.map((itemName: string) => ({ item: itemName }))
+  //       : [{ item: "" }, { item: "" }],
+  // };
 
-  if (!setupLoading && !data?.result) return <Error statusCode={404} />;
+  // if (!setupLoading && !data?.result) return <Error statusCode={404} />;
 
-  if (
-    !userLoading &&
-    !setupLoading &&
-    data?.result?.creatorId !== user?.user?.id
-  )
-    return <Error statusCode={401} />;
+  // if (
+  //   !userLoading &&
+  //   !setupLoading &&
+  //   data?.result?.creatorId !== user?.user?.id
+  // )
+  //   return <Error statusCode={401} />;
 
   return (
     <Wrapper>
       <Box width="750px" mx="auto">
-        {setupLoading ? (
+        {/* {setupLoading ? (
           <Center>
             <Spinner size="xl" />
           </Center>
@@ -131,10 +110,10 @@ const EditSetup: React.FC<EditSetupProps> = ({}) => {
               )}
             </Formik>
           </>
-        )}
+        )} */}
       </Box>
     </Wrapper>
   );
 };
 
-export default EditSetup;
+export default EditPost;
