@@ -19,7 +19,7 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
     body = (
       <>
         <NextLink href="/setups/create">
-          <Button>Create Setup</Button>
+          <Button>Post Keeb</Button>
         </NextLink>
         <Link mx={3}>{user.user.username}</Link>
         <Link
@@ -51,7 +51,7 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
       <Flex flex={1} m="auto" align="center" maxW={"1250px"}>
         <NextLink href="/">
           <Link>
-            <Heading>SetupScope</Heading>
+            <Heading>MechKeebs</Heading>
           </Link>
         </NextLink>
         <Spacer />
