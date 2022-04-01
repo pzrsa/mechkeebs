@@ -1,5 +1,6 @@
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import dotenv from "dotenv";
 import express, { Application } from "express";
 import fileUpload from "express-fileupload";
 import "reflect-metadata";
@@ -7,6 +8,8 @@ import { DataSource } from "typeorm";
 import { __prod__ } from "./constants";
 import postsRouter from "./routers/post";
 import usersRouter from "./routers/user";
+
+dotenv.config();
 
 export const dataSource = new DataSource({
   type: "postgres",
