@@ -9,9 +9,9 @@ import * as Yup from "yup";
 import InputField from "../../components/InputField";
 import MultiInputField from "../../components/MultiInputField";
 import Wrapper from "../../components/Wrapper";
-import { useSetups } from "../../hooks/setup";
+import { usePosts } from "../../hooks/post";
 import { createSetup } from "../../lib/mutations";
-import { SetupFormValues } from "../../types/Setup";
+import { PostFormValues } from "../../types/Post";
 import withAuth from "../../utils/withAuth";
 
 interface CreateProps {}
@@ -20,9 +20,9 @@ const Create: React.FC<CreateProps> = ({}) => {
   withAuth();
   const router = useRouter();
 
-  const { mutate } = useSetups();
+  const { mutate } = usePosts();
 
-  const initialValues: SetupFormValues = {
+  const initialValues: PostFormValues = {
     title: "",
     items: [{ item: "" }, { item: "" }],
   };

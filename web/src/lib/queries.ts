@@ -1,5 +1,5 @@
-export const fetchAllSetups = async () => {
-  const response = await fetch("http://localhost:4000/api/setups", {
+export const fetchAllPosts = async () => {
+  const response = await fetch("http://localhost:4000/api/posts", {
     method: "GET",
   });
 
