@@ -24,14 +24,8 @@ export const dataSource = new DataSource({
 
 const main = async () => {
   // @ts-ignore
-  const conn = await dataSource
-    .initialize()
-    .then(() => {
-      console.log("Data Source has been initialized");
-    })
-    .catch((err) => {
-      console.error("Error during Data Source initialization", err);
-    });
+  const conn = await dataSource.initialize();
+
   const app: Application = express();
 
   app.use(
@@ -49,4 +43,8 @@ const main = async () => {
   });
 };
 
-main().catch((err) => console.error(err));
+main()
+  .then(() => {
+    console.log("Data Source has been initialized");
+  })
+  .catch((err) => console.error(err));

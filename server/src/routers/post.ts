@@ -5,7 +5,11 @@ import { getSession } from "../utils/sessions";
 const postsRouter: Router = router();
 
 postsRouter.get("/posts", async (_: Request, res: Response) => {
-  const result = await Post.find({ order: { createdAt: "DESC" } });
+  const result = await Post.find({
+    relations: { keyboard: true, creator: true },
+    select: ["id", "imageName", "creator", "keyboard", "createdAt"],
+    order: { createdAt: "DESC" },
+  });
 
   return res.status(200).json({ result });
 });
@@ -19,7 +23,7 @@ postsRouter.post("/posts/create", async (req: Request, res: Response) => {
     }
 
     const result = await Post.create({
-      // dummy for now until i sort out image handling
+      // dummy for now
       imageName: "image.png",
       keyboard: {
         name: req.body.keyboard.name,
@@ -27,7 +31,7 @@ postsRouter.post("/posts/create", async (req: Request, res: Response) => {
         keycaps: req.body.keyboard.keycaps,
         stabilizers: req.body.keyboard.stabilizers,
       },
-      creatorId: 1,
+      creatorId: session?.user.id,
     }).save();
 
     return res.status(200).json({ result });

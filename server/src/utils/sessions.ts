@@ -41,8 +41,7 @@ export const getSession = async (
 
   const session = await Session.findOne({
     where: { token: token },
-    select: ["id"],
-    relations: ["user"],
+    relations: { user: true },
   });
 
   return session;
