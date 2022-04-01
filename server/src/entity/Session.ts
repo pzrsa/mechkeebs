@@ -1,7 +1,7 @@
 import {
   BaseEntity,
+  BeforeInsert,
   Column,
-  CreateDateColumn,
   Entity,
   JoinColumn,
   OneToOne,
@@ -20,10 +20,15 @@ export class Session extends BaseEntity {
   @Column({ name: "user_id" })
   userId: number;
 
-  @OneToOne(() => User, { onDelete: "CASCADE" })
+  @OneToOne(() => User)
   @JoinColumn({ name: "user_id" })
   user: User;
 
-  @CreateDateColumn({ name: "created_at" })
-  createdAt: Date;
+  @Column({ name: "created_at" })
+  createdAt: number;
+
+  @BeforeInsert()
+  public setCreatedAt() {
+    this.createdAt = Math.floor(Date.now() / 1000);
+  }
 }

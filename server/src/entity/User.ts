@@ -1,11 +1,11 @@
 import {
   BaseEntity,
+  BeforeInsert,
+  BeforeUpdate,
   Column,
-  CreateDateColumn,
   Entity,
   OneToMany,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
 } from "typeorm";
 import { Post } from "./Post";
 
@@ -26,9 +26,19 @@ export class User extends BaseEntity {
   @OneToMany(() => Post, (post) => post.creator)
   posts: Post[];
 
-  @CreateDateColumn({ name: "created_at" })
-  createdAt: Date;
+  @Column({ name: "created_at" })
+  createdAt: number;
 
-  @UpdateDateColumn({ name: "updated_at" })
-  updatedAt: Date;
+  @Column({ name: "updated_at", nullable: true })
+  updatedAt: number;
+
+  @BeforeInsert()
+  public setCreatedAt() {
+    this.createdAt = Math.floor(Date.now() / 1000);
+  }
+
+  @BeforeUpdate()
+  public setUpdatedAt() {
+    this.updatedAt = Math.floor(Date.now() / 1000);
+  }
 }

@@ -1,13 +1,15 @@
 import {
   BaseEntity,
+  BeforeInsert,
+  BeforeUpdate,
   Column,
-  CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToOne,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
 } from "typeorm";
+import { Keyboard } from "./Keyboard";
 import { User } from "./User";
 
 @Entity({ name: "posts" })
@@ -15,14 +17,15 @@ export class Post extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  title: string;
-
   @Column({ name: "image_name" })
   imageName: string;
 
-  @Column({ type: "simple-array" })
-  items: string[];
+  @Column({ name: "keyboard_id" })
+  keyboardId: number;
+
+  @OneToOne(() => Keyboard, { cascade: true, onDelete: "CASCADE" })
+  @JoinColumn({ name: "keyboard_id" })
+  keyboard: Keyboard;
 
   @Column({ name: "creator_id" })
   creatorId: number;
@@ -31,9 +34,19 @@ export class Post extends BaseEntity {
   @JoinColumn({ name: "creator_id" })
   creator: User;
 
-  @CreateDateColumn({ name: "created_at" })
-  createdAt: Date;
+  @Column({ name: "created_at" })
+  createdAt: number;
 
-  @UpdateDateColumn({ name: "updated_at" })
-  updatedAt: Date;
+  @Column({ name: "updated_at", nullable: true })
+  updatedAt: number;
+
+  @BeforeInsert()
+  public setCreatedAt() {
+    this.createdAt = Math.floor(Date.now() / 1000);
+  }
+
+  @BeforeUpdate()
+  public setUpdatedAt() {
+    this.updatedAt = Math.floor(Date.now() / 1000);
+  }
 }
