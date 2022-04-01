@@ -1,6 +1,6 @@
-import { SetupFormValues } from "../types/Setup";
+import { PostFormValues } from "../types/Post";
 
-const createSetupFormData = (values: SetupFormValues) => {
+const createPostFormData = (values: PostFormValues) => {
   const formData = new FormData();
 
   formData.append("title", values.title);
@@ -11,4 +11,4 @@ const createSetupFormData = (values: SetupFormValues) => {
   return formData;
 };
 
-export default createSetupFormData;
+export default createPostFormData;
