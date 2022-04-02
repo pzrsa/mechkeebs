@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import * as Yup from "yup";
 import InputField from "../../components/InputField";
+import SelectField from "../../components/SelectField";
 import Wrapper from "../../components/Wrapper";
 import { usePosts } from "../../hooks/post";
 import { createPost } from "../../lib/mutations";
@@ -22,6 +23,14 @@ const Create: React.FC<CreateProps> = ({}) => {
     image: "" as any,
     keyboard: { name: "", switches: "", keycaps: "", stabilizers: "" },
   };
+
+  const switchOptions = [
+    {
+      value: "Gateron Ink Black",
+      label: "Gateron Ink Black",
+    },
+    { value: "Cherry MX Brown", label: "Cherry MX Brown" },
+  ];
 
   return (
     <Wrapper>
@@ -56,7 +65,11 @@ const Create: React.FC<CreateProps> = ({}) => {
           {({ isSubmitting, values, errors }) => (
             <Form>
               <InputField name="keyboard.name" label="Name" />
-              <InputField name="keyboard.switches" label="Switches" />
+              <SelectField
+                name="keyboard.switches"
+                label="Switches"
+                options={switchOptions}
+              />
               <InputField name="keyboard.keycaps" label="Keycaps" />
               <InputField name="keyboard.stabilizers" label="Stabilizers" />
               <Button isLoading={isSubmitting} type="submit">

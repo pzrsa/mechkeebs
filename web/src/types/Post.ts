@@ -1,3 +1,5 @@
+import { OptionBase } from "chakra-react-select";
+
 export interface Posts {
   result: [
     {
@@ -54,4 +56,9 @@ export interface PostFormValues {
     switches: string;
     stabilizers: string;
   };
+}
+
+export interface SwitchOption extends OptionBase {
+  label: string;
+  value: string;
 }
