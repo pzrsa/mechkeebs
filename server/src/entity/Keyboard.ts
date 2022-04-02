@@ -21,9 +21,6 @@ export class Keyboard extends BaseEntity {
   @Column()
   keycaps: string;
 
-  @Column()
-  stabilizers: string;
-
   @Column({ name: "created_at" })
   createdAt: number;
 

@@ -1,4 +1,3 @@
-import { Button } from "@chakra-ui/button";
 import { Box, Flex, Heading, Link } from "@chakra-ui/layout";
 import { Spacer } from "@chakra-ui/react";
 import { Spinner } from "@chakra-ui/spinner";
@@ -19,7 +18,7 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
     body = (
       <>
         <NextLink href="/posts/create">
-          <Button>Create Post</Button>
+          <Link>create post</Link>
         </NextLink>
         <Link mx={3}>{user.user.username}</Link>
         <Link
@@ -28,7 +27,7 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
             mutate(undefined);
           }}
         >
-          Log Out
+          log out
         </Link>
       </>
     );
@@ -37,10 +36,10 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
     body = (
       <>
         <NextLink href="/login">
-          <Button mr={2}>Login</Button>
+          <Link mr={3}>login</Link>
         </NextLink>
         <NextLink href="/register">
-          <Button>Register</Button>
+          <Link>register</Link>
         </NextLink>
       </>
     );
@@ -51,7 +50,7 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
       <Flex flex={1} m="auto" align="center" maxW={"1250px"}>
         <NextLink href="/">
           <Link>
-            <Heading>MechKeebs</Heading>
+            <Heading>mechkeebs</Heading>
           </Link>
         </NextLink>
         <Spacer />

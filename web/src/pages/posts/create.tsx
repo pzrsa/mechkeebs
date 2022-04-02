@@ -22,7 +22,7 @@ const Create: React.FC<CreateProps> = ({}) => {
 
   const initialValues: PostFormValues = {
     image: "" as any,
-    keyboard: { name: "", switches: "", keycaps: "", stabilizers: "" },
+    keyboard: { name: "", switches: "", keycaps: "" },
   };
 
   return (
@@ -38,9 +38,6 @@ const Create: React.FC<CreateProps> = ({}) => {
               name: Yup.string().required("Keyboard name required"),
               switches: Yup.string().required("Keyboard switches required"),
               keycaps: Yup.string().required("Keyboard keycaps required"),
-              stabilizers: Yup.string().required(
-                "Keyboard stabilizers required"
-              ),
             }),
           })}
           onSubmit={async (values) => {
@@ -64,7 +61,6 @@ const Create: React.FC<CreateProps> = ({}) => {
                 options={switchOptions}
               />
               <InputField name="keyboard.keycaps" label="Keycaps" />
-              <InputField name="keyboard.stabilizers" label="Stabilizers" />
               <Button isLoading={isSubmitting} type="submit">
                 Post
               </Button>

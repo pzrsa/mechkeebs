@@ -7,11 +7,10 @@ import {
 import { Select } from "chakra-react-select";
 import { useField } from "formik";
 import { InputHTMLAttributes } from "react";
-import { SwitchOption } from "../types/Post";
 
 type SelectFieldProps = InputHTMLAttributes<HTMLInputElement> & {
   name: string;
-  options: SwitchOption[];
+  options: { label: string; value: string }[];
   label: string;
 };
 

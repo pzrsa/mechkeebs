@@ -27,7 +27,7 @@ const Setups: React.FC<SetupsProps> = ({}) => {
     body = (
       <Box>
         {posts.result.map((post) => (
-          <pre>{JSON.stringify(post, null, 2)}</pre>
+          <pre key={post.id}>{JSON.stringify(post, null, 2)}</pre>
         ))}
       </Box>
     );
