@@ -18,8 +18,8 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
   } else if (user?.user) {
     body = (
       <>
-        <NextLink href="/setups/create">
-          <Button>Post Keeb</Button>
+        <NextLink href="/posts/create">
+          <Button>Create Post</Button>
         </NextLink>
         <Link mx={3}>{user.user.username}</Link>
         <Link
