@@ -7,6 +7,7 @@ import * as Yup from "yup";
 import InputField from "../../components/InputField";
 import SelectField from "../../components/SelectField";
 import Wrapper from "../../components/Wrapper";
+import { switchOptions } from "../../data/data";
 import { usePosts } from "../../hooks/post";
 import { createPost } from "../../lib/mutations";
 import { PostFormValues } from "../../types/Post";
@@ -23,14 +24,6 @@ const Create: React.FC<CreateProps> = ({}) => {
     image: "" as any,
     keyboard: { name: "", switches: "", keycaps: "", stabilizers: "" },
   };
-
-  const switchOptions = [
-    {
-      value: "Gateron Ink Black",
-      label: "Gateron Ink Black",
-    },
-    { value: "Cherry MX Brown", label: "Cherry MX Brown" },
-  ];
 
   return (
     <Wrapper>
