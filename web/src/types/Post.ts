@@ -47,6 +47,11 @@ export interface Post {
 }
 
 export interface PostFormValues {
-  title: string;
-  items: object[];
+  image: File;
+  keyboard: {
+    name: string;
+    keycaps: string;
+    switches: string;
+    stabilizers: string;
+  };
 }
