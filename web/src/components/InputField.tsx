@@ -9,8 +9,8 @@ import { useField } from "formik";
 import React, { InputHTMLAttributes } from "react";
 
 type InputFieldProps = InputHTMLAttributes<HTMLInputElement> & {
-  label: string;
   name: string;
+  label: string;
 };
 
 const InputField: React.FC<InputFieldProps> = ({ label, size, ...props }) => {

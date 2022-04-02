@@ -4,6 +4,7 @@ import { Form, Formik } from "formik";
 import { useRouter } from "next/router";
 import React from "react";
 import * as Yup from "yup";
+import InputField from "../../components/InputField";
 import Wrapper from "../../components/Wrapper";
 import { usePosts } from "../../hooks/post";
 import { createPost } from "../../lib/mutations";
@@ -29,7 +30,7 @@ const Create: React.FC<CreateProps> = ({}) => {
         <Formik
           initialValues={initialValues}
           validationSchema={Yup.object().shape({
-            image: Yup.mixed().required("Image required"),
+            // image: Yup.mixed().required("Image required"),
 
             keyboard: Yup.object().shape({
               name: Yup.string().required("Keyboard name required"),
@@ -54,8 +55,12 @@ const Create: React.FC<CreateProps> = ({}) => {
         >
           {({ isSubmitting, values, errors }) => (
             <Form>
+              <InputField name="keyboard.name" label="Name" />
+              <InputField name="keyboard.switches" label="Switches" />
+              <InputField name="keyboard.keycaps" label="Keycaps" />
+              <InputField name="keyboard.stabilizers" label="Stabilizers" />
               <Button isLoading={isSubmitting} type="submit">
-                Create
+                Post
               </Button>
               <pre>{JSON.stringify(values, null, 2)}</pre>
               <pre>{JSON.stringify(errors, null, 2)}</pre>

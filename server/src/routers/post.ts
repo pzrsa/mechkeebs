@@ -26,10 +26,10 @@ postsRouter.post("/posts/create", async (req: Request, res: Response) => {
       // dummy for now
       imageName: "image.png",
       keyboard: {
-        name: req.body.keyboard.name,
-        switches: req.body.keyboard.switches,
-        keycaps: req.body.keyboard.keycaps,
-        stabilizers: req.body.keyboard.stabilizers,
+        name: req.body.keyboardName,
+        switches: req.body.keyboardSwitches,
+        keycaps: req.body.keyboardKeycaps,
+        stabilizers: req.body.keyboardStabilizers,
       },
       creatorId: session?.user.id,
     }).save();
