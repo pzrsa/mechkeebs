@@ -1,5 +1,5 @@
 import React from "react";
-import Setups from "../components/Setups";
+import Posts from "../components/Posts";
 import Wrapper from "../components/Wrapper";
 
 interface IndexProps {}
@@ -7,7 +7,7 @@ interface IndexProps {}
 const Index: React.FC<IndexProps> = () => {
   return (
     <Wrapper>
-      <Setups />
+      <Posts />
     </Wrapper>
   );
 };

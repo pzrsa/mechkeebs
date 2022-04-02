@@ -50,7 +50,7 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
       <Flex flex={1} m="auto" align="center" maxW={"1250px"}>
         <NextLink href="/">
           <Link>
-            <Heading>mechkeebs</Heading>
+            <Heading fontWeight={"black"}>mechkeebs</Heading>
           </Link>
         </NextLink>
         <Spacer />
