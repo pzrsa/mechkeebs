@@ -1,15 +1,18 @@
 import router, { Request, Response, Router } from "express";
 import { Post } from "../entity/Post";
+import { dataSource } from "../index";
 import { getSession } from "../utils/sessions";
 
 const postsRouter: Router = router();
 
 postsRouter.get("/posts", async (_: Request, res: Response) => {
-  const result = await Post.find({
-    relations: { keyboard: true, creator: true },
-    select: ["id", "imageName", "creator", "keyboard", "createdAt"],
-    order: { createdAt: "DESC" },
-  });
+  const qb = dataSource
+    .createQueryBuilder(Post, "p")
+    .leftJoinAndSelect("p.keyboard", "keyboard")
+    .leftJoinAndSelect("p.creator", "creator")
+    .orderBy("p.createdAt", "DESC");
+
+  const result = await qb.getMany();
 
   return res.status(200).json({ result });
 });
