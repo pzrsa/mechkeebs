@@ -52,7 +52,7 @@ const Create: React.FC<CreateProps> = ({}) => {
             }
           }}
         >
-          {({ isSubmitting, values, errors }) => (
+          {({ isSubmitting }) => (
             <Form>
               <InputField name="keyboard.name" label="Name" />
               <SelectField

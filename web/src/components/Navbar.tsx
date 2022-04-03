@@ -18,16 +18,15 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
     body = (
       <>
         <NextLink href="/posts/create">
-          <Link>create post</Link>
+          <Link mr={2}>Create Post</Link>
         </NextLink>
-        <Link mx={3}>{user.user.username}</Link>
         <Link
           onClick={async () => {
             await logoutUser();
             mutate(undefined);
           }}
         >
-          log out
+          Log Out
         </Link>
       </>
     );
@@ -35,22 +34,24 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
   if (loggedOut) {
     body = (
       <>
-        <NextLink href="/login">
-          <Link mr={3}>login</Link>
-        </NextLink>
         <NextLink href="/register">
-          <Link>register</Link>
+          <Link mr={2}>Register</Link>
+        </NextLink>
+        <NextLink href="/login">
+          <Link>Login</Link>
         </NextLink>
       </>
     );
   }
 
   return (
-    <Flex zIndex={1} bg="white" boxShadow="md" position="sticky" top={0} p={4}>
-      <Flex flex={1} m="auto" align="center" maxW={"1250px"}>
+    <Flex zIndex={1} bg="white" boxShadow="sm" position="sticky" top={0} p={3}>
+      <Flex flex={1} m="auto" align="center" maxW={"1200px"}>
         <NextLink href="/">
           <Link>
-            <Heading fontWeight={"black"}>mechkeebs</Heading>
+            <Heading size={"lg"} fontWeight={"black"}>
+              MechKeebs
+            </Heading>
           </Link>
         </NextLink>
         <Spacer />
