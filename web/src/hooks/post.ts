@@ -1,4 +1,5 @@
 import useSWR from "swr";
+import useSWRInfinite from "swr/infinite";
 import { fetchAllPosts } from "../lib/queries";
 import { Posts } from "../types/Post";
 
@@ -11,4 +12,19 @@ export const usePosts = () => {
     isError: error,
     mutate,
   };
+};
+
+const getQuery = (pageIndex: number, previousPageData: Posts) => {
+  // reached the end
+  if (previousPageData && !previousPageData.result) return null;
+
+  // first page, we don't have `previousPageData`
+  if (pageIndex === 0) return `?limit=6`;
+
+  // add the cursor to the API endpoint
+  return `?cursor=${previousPageData.nextCursor}&limit=6`;
+};
+
+export const usePaginatedPosts = () => {
+  const {} = useSWRInfinite(getQuery);
 };
