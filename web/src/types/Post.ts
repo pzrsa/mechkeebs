@@ -20,6 +20,7 @@ export interface Posts {
       };
     }
   ];
+  nextCursor: number | null;
 }
 
 export interface Post {
