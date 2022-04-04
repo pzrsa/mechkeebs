@@ -5,16 +5,36 @@ import { getSession } from "../utils/sessions";
 
 const postsRouter: Router = router();
 
-postsRouter.get("/posts", async (_: Request, res: Response) => {
+postsRouter.get("/posts", async (req: Request, res: Response) => {
   const qb = dataSource
     .createQueryBuilder(Post, "p")
     .leftJoinAndSelect("p.keyboard", "keyboard")
     .leftJoinAndSelect("p.creator", "creator")
     .orderBy("p.createdAt", "DESC");
 
+  if (req.query.limit) {
+    try {
+      qb.take(parseInt(req.query.limit as string));
+    } catch (err) {
+      return res.status(400).json({ error: err });
+    }
+  }
+  if (req.query.cursor) {
+    try {
+      qb.where("p.createdAt < :createdAt", {
+        createdAt: parseInt(req.query.cursor as string),
+      });
+    } catch (err) {
+      return res.status(400).json({ error: err.detail });
+    }
+  }
+
   const result = await qb.getMany();
 
-  return res.status(200).json({ result });
+  return res.status(200).json({
+    result,
+    nextCursor: result.length ? result[result.length - 1].createdAt : null,
+  });
 });
 
 postsRouter.post("/posts/create", async (req: Request, res: Response) => {
