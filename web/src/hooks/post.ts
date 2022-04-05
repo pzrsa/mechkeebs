@@ -19,10 +19,10 @@ const getQuery = (pageIndex: number, previousPageData: Posts) => {
   if (previousPageData && !previousPageData.result) return null;
 
   // first page, we don't have `previousPageData`
-  if (pageIndex === 0) return `?limit=6`;
+  if (pageIndex === 0) return `limit=6`;
 
   // add the cursor to the API endpoint
-  return `?cursor=${previousPageData.nextCursor}&limit=6`;
+  return `limit=6&cursor=${previousPageData.nextCursor}`;
 };
 
 export const usePaginatedPosts = () => {
