@@ -10,6 +10,18 @@ export const fetchAllPosts = async () => {
   return response.json();
 };
 
+export const fetchPaginatedPosts = async (query: string) => {
+  const response = await fetch(`http://localhost:4000/api/posts?${query}`, {
+    method: "GET",
+  });
+
+  if (!response.ok) {
+    throw new Error("Network response was not ok");
+  }
+
+  return response.json();
+};
+
 export const fetchCurrentUser = async () => {
   const response = await fetch("http://localhost:4000/api/users/me", {
     method: "GET",
