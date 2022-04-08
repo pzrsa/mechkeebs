@@ -45,8 +45,4 @@ const main = async () => {
   });
 };
 
-main()
-  .then(() => {
-    console.log("Data Source has been initialized");
-  })
-  .catch((err) => console.error(err));
+main().catch((err) => console.error(err));
