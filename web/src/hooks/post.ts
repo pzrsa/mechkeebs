@@ -1,6 +1,6 @@
 import useSWR from "swr";
-import useSWRInfinite from "swr/infinite";
-import { fetchAllPosts } from "../lib/queries";
+import useSWRInfinite, { SWRInfiniteKeyLoader } from "swr/infinite";
+import { fetchAllPosts, fetchPaginatedPosts } from "../lib/queries";
 import { Posts } from "../types/Post";
 
 export const usePosts = () => {
@@ -14,7 +14,10 @@ export const usePosts = () => {
   };
 };
 
-const getQuery = (pageIndex: number, previousPageData: Posts) => {
+const getQuery: SWRInfiniteKeyLoader = (
+  pageIndex: number,
+  previousPageData: Posts
+) => {
   // reached the end
   if (previousPageData && !previousPageData.result) return null;
 
@@ -26,5 +29,25 @@ const getQuery = (pageIndex: number, previousPageData: Posts) => {
 };
 
 export const usePaginatedPosts = () => {
-  const {} = useSWRInfinite(getQuery);
+  const { data, error, isValidating, mutate, size, setSize } =
+    useSWRInfinite<Posts>(getQuery, fetchPaginatedPosts);
+
+  const isLoadingInitialData = !data && !error;
+  const isLoadingMore =
+    isLoadingInitialData ||
+    (size > 0 && data && typeof data[size - 1] === "undefined");
+  const isEmpty = data?.at(0)?.result.length === null;
+  const isReachingEnd =
+    isEmpty || (data && data[data.length - 1]?.result.length < 6);
+
+  return {
+    posts: data,
+    isLoading: !error && !data,
+    isLoadingMore,
+    isReachingEnd,
+    isError: error,
+    size,
+    setSize,
+    mutate,
+  };
 };
