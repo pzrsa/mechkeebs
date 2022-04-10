@@ -1,3 +1,4 @@
+import { ChevronDownIcon, NotAllowedIcon } from "@chakra-ui/icons";
 import {
   AspectRatio,
   Box,
@@ -73,16 +74,21 @@ const Posts: React.FC<PostsProps> = ({}) => {
           ))
         )}
       </SimpleGrid>
-      <Button
-        disabled={isLoadingMore || isReachingEnd}
-        onClick={() => setSize(size + 1)}
-      >
-        {isLoadingMore
-          ? "loading..."
-          : isReachingEnd
-          ? "no more posts"
-          : "load more"}
-      </Button>
+      <Center>
+        <Button
+          disabled={isLoadingMore || isReachingEnd}
+          onClick={() => setSize(size + 1)}
+          mt={5}
+        >
+          {isLoadingMore ? (
+            <Spinner />
+          ) : isReachingEnd ? (
+            <NotAllowedIcon />
+          ) : (
+            <ChevronDownIcon />
+          )}
+        </Button>
+      </Center>
     </>
   );
 };
