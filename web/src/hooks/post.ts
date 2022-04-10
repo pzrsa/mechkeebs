@@ -1,7 +1,8 @@
 import useSWR from "swr";
-import useSWRInfinite, { SWRInfiniteKeyLoader } from "swr/infinite";
+import useSWRInfinite from "swr/infinite";
 import { fetchAllPosts, fetchPaginatedPosts } from "../lib/queries";
 import { Posts } from "../types/Post";
+import getQuery from "../utils/getQuery";
 
 export const usePosts = () => {
   const { data, error, mutate } = useSWR<Posts>("posts", fetchAllPosts);
@@ -12,20 +13,6 @@ export const usePosts = () => {
     isError: error,
     mutate,
   };
-};
-
-const getQuery: SWRInfiniteKeyLoader = (
-  pageIndex: number,
-  previousPageData: Posts
-) => {
-  // reached the end
-  if (previousPageData && !previousPageData.result) return null;
-
-  // first page, we don't have `previousPageData`
-  if (pageIndex === 0) return `limit=6`;
-
-  // add the cursor to the API endpoint
-  return `limit=6&cursor=${previousPageData.nextCursor}`;
 };
 
 export const usePaginatedPosts = () => {
