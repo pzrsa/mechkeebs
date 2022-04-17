@@ -16,8 +16,10 @@ export const usePosts = () => {
 };
 
 export const usePaginatedPosts = () => {
-  const { data, error, isValidating, mutate, size, setSize } =
-    useSWRInfinite<Posts>(getQuery, fetchPaginatedPosts);
+  const { data, error, mutate, size, setSize } = useSWRInfinite<Posts>(
+    getQuery,
+    fetchPaginatedPosts
+  );
 
   const isLoadingInitialData = !data && !error;
   const isLoadingMore =

@@ -8,7 +8,7 @@ import InputField from "../../components/InputField";
 import SelectField from "../../components/SelectField";
 import Wrapper from "../../components/Wrapper";
 import { switchOptions } from "../../data/data";
-import { usePosts } from "../../hooks/post";
+import { usePaginatedPosts } from "../../hooks/post";
 import { createPost } from "../../lib/mutations";
 import { PostFormValues } from "../../types/Post";
 import withAuth from "../../utils/withAuth";
@@ -18,7 +18,7 @@ interface CreateProps {}
 const Create: React.FC<CreateProps> = ({}) => {
   withAuth();
   const router = useRouter();
-  const { mutate } = usePosts();
+  const { mutate } = usePaginatedPosts();
 
   const initialValues: PostFormValues = {
     image: "" as any,
