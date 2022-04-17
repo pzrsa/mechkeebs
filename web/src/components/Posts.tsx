@@ -5,10 +5,12 @@ import {
   Button,
   Center,
   Heading,
+  Link,
   SimpleGrid,
   Spinner,
 } from "@chakra-ui/react";
 import NextImage from "next/image";
+import NextLink from "next/link";
 import React from "react";
 import { usePaginatedPosts } from "../hooks/post";
 
@@ -18,7 +20,6 @@ const Posts: React.FC<PostsProps> = ({}) => {
   const {
     posts,
     isLoading,
-    mutate,
     size,
     setSize,
     isError,
@@ -61,7 +62,9 @@ const Posts: React.FC<PostsProps> = ({}) => {
 
               <Box p={5}>
                 <Box fontSize={"lg"} fontWeight="black">
-                  {post.keyboard.name}
+                  <NextLink href={`posts/${post.id}`}>
+                    <Link>{post.keyboard.name}</Link>
+                  </NextLink>
                 </Box>
                 <Box fontSize={"md"} fontWeight="semibold">
                   {post.keyboard.keycaps} · {post.keyboard.switches}
