@@ -28,6 +28,15 @@ postsRouter.get("/posts", async (req: Request, res: Response) => {
       return res.status(400).json({ error: err.detail });
     }
   }
+  if (req.query.postId) {
+    try {
+      qb.where("p.id = :id", {
+        id: parseInt(req.query.postId as string),
+      });
+    } catch (err) {
+      return res.status(400).json({ error: err });
+    }
+  }
 
   const result = await qb.getMany();
 
