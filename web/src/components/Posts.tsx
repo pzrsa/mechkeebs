@@ -5,7 +5,8 @@ import {
   Button,
   Center,
   Heading,
-  Link,
+  LinkBox,
+  LinkOverlay,
   SimpleGrid,
   Spinner,
 } from "@chakra-ui/react";
@@ -46,9 +47,9 @@ const Posts: React.FC<PostsProps> = ({}) => {
       <SimpleGrid minChildWidth={"350px"} spacing={4}>
         {posts.map((posts) =>
           posts.result.map((post) => (
-            <Box
+            <LinkBox
               overflow={"hidden"}
-              borderRadius={"md"}
+              rounded={"md"}
               shadow={"md"}
               key={post.id}
             >
@@ -61,11 +62,11 @@ const Posts: React.FC<PostsProps> = ({}) => {
               </AspectRatio>
 
               <Box p={5}>
-                <Box fontSize={"lg"} fontWeight="black">
-                  <NextLink href={`posts/${post.id}`}>
-                    <Link>{post.keyboard.name}</Link>
+                <Heading fontSize={"lg"} fontWeight="black">
+                  <NextLink href={`posts/${post.id}`} passHref>
+                    <LinkOverlay>{post.keyboard.name}</LinkOverlay>
                   </NextLink>
-                </Box>
+                </Heading>
                 <Box fontSize={"md"} fontWeight="semibold">
                   {post.keyboard.keycaps} · {post.keyboard.switches}
                 </Box>
@@ -73,7 +74,7 @@ const Posts: React.FC<PostsProps> = ({}) => {
                   by {post.creator.username}
                 </Box>
               </Box>
-            </Box>
+            </LinkBox>
           ))
         )}
       </SimpleGrid>
