@@ -1,7 +1,7 @@
 import useSWR from "swr";
 import useSWRInfinite from "swr/infinite";
 import { fetchAllPosts, fetchPaginatedPosts, fetchPost } from "../lib/queries";
-import { Posts } from "../types/Post";
+import { Post, Posts } from "../types/Post";
 import getPostFromUrlId from "../utils/getPostFromUrl";
 import getQuery from "../utils/getQuery";
 
@@ -43,9 +43,9 @@ export const usePaginatedPosts = () => {
 };
 
 export const usePost = () => {
-  const intId = getPostFromUrlId();
+  const postId = getPostFromUrlId();
 
-  const { data, error, mutate } = useSWR(`${intId}`, fetchPost);
+  const { data, error, mutate } = useSWR<Post>(`${postId}`, fetchPost);
 
   return {
     post: data,
