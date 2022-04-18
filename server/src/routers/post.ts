@@ -5,7 +5,7 @@ import { getSession } from "../utils/sessions";
 
 const postsRouter: Router = router();
 
-postsRouter.get("/posts", async (req: Request, res: Response) => {
+postsRouter.get("/posts/:id?", async (req: Request, res: Response) => {
   const qb = dataSource
     .createQueryBuilder(Post, "p")
     .leftJoinAndSelect("p.keyboard", "keyboard")
@@ -28,11 +28,15 @@ postsRouter.get("/posts", async (req: Request, res: Response) => {
       return res.status(400).json({ error: err.detail });
     }
   }
-  if (req.query.postId) {
+  if (req.params.id) {
     try {
       qb.where("p.id = :id", {
-        id: parseInt(req.query.postId as string),
+        id: parseInt(req.params.id as string),
       });
+
+      const result = await qb.getOne();
+
+      return res.status(200).json({ result });
     } catch (err) {
       return res.status(400).json({ error: err });
     }
