@@ -23,12 +23,9 @@ export const fetchPaginatedPosts = async (query: string) => {
 };
 
 export const fetchPost = async (postId: string) => {
-  const response = await fetch(
-    `http://localhost:4000/api/posts?postId=${postId}`,
-    {
-      method: "GET",
-    }
-  );
+  const response = await fetch(`http://localhost:4000/api/posts/${postId}`, {
+    method: "GET",
+  });
 
   if (!response.ok) {
     throw new Error("Network response was not ok");
