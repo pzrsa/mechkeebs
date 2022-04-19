@@ -1,4 +1,5 @@
 import { AspectRatio, Box, Center, Heading, Spinner } from "@chakra-ui/react";
+import Error from "next/error";
 import NextImage from "next/image";
 import Wrapper from "../../components/Wrapper";
 import { usePost } from "../../hooks/post";
@@ -15,11 +16,7 @@ const Post: React.FC<PostProps> = ({}) => {
       </Center>
     );
   } else if (!post?.result) {
-    return (
-      <Center>
-        <Heading size={"md"}>No post to display</Heading>
-      </Center>
-    );
+    return <Error statusCode={404} />;
   }
 
   return (
