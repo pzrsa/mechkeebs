@@ -24,7 +24,12 @@ const Post: React.FC<PostProps> = ({}) => {
 
   return (
     <Wrapper>
-      <AspectRatio ratio={16 / 9}>
+      <AspectRatio
+        overflow={"hidden"}
+        rounded={"md"}
+        shadow={"md"}
+        ratio={16 / 9}
+      >
         <NextImage
           src={"https://pbs.twimg.com/media/FKHb6g4VkAAfwvI?format=jpg"}
           layout="fill"
@@ -33,11 +38,13 @@ const Post: React.FC<PostProps> = ({}) => {
       </AspectRatio>
 
       <Box p={5}>
-        <Heading fontSize={"lg"} fontWeight="black"></Heading>
-        <Box fontSize={"md"} fontWeight="semibold">
+        <Heading fontSize={"xl"} fontWeight="black">
+          {post.result.keyboard.name}
+        </Heading>
+        <Box fontSize={"lg"} fontWeight="semibold">
           {post.result.keyboard.keycaps} · {post.result.keyboard.switches}
         </Box>
-        <Box fontSize={"sm"} fontWeight="medium">
+        <Box fontSize={"md"} fontWeight="medium">
           by {post.result.creator.username}
         </Box>
       </Box>
