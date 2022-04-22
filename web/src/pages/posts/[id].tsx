@@ -1,4 +1,13 @@
-import { AspectRatio, Box, Center, Heading, Spinner } from "@chakra-ui/react";
+import { DeleteIcon } from "@chakra-ui/icons";
+import { Flex } from "@chakra-ui/layout";
+import {
+  AspectRatio,
+  Box,
+  Center,
+  Heading,
+  IconButton,
+  Spinner,
+} from "@chakra-ui/react";
 import Error from "next/error";
 import NextImage from "next/image";
 import Wrapper from "../../components/Wrapper";
@@ -44,6 +53,14 @@ const Post: React.FC<PostProps> = ({}) => {
         <Box fontSize={"md"} fontWeight="medium">
           by {post.result.creator.username}
         </Box>
+        <Flex>
+          <IconButton
+            ml={"auto"}
+            aria-label={"Delete Post"}
+            icon={<DeleteIcon />}
+            colorScheme="red"
+          />
+        </Flex>
       </Box>
     </Wrapper>
   );
