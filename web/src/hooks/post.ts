@@ -26,7 +26,7 @@ export const usePaginatedPosts = () => {
   const isLoadingMore =
     isLoadingInitialData ||
     (size > 0 && data && typeof data[size - 1] === "undefined");
-  const isEmpty = data?.at(0)?.result.length === null;
+  const isEmpty = !data?.at(0)?.result.length;
   const isReachingEnd =
     isEmpty || (data && data[data.length - 1]?.result.length < 6);
 
@@ -36,6 +36,7 @@ export const usePaginatedPosts = () => {
     isLoadingMore,
     isReachingEnd,
     isError: error,
+    isEmpty,
     size,
     setSize,
     mutate,

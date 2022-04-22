@@ -10,13 +10,20 @@ import {
 } from "@chakra-ui/react";
 import Error from "next/error";
 import NextImage from "next/image";
+import { useRouter } from "next/router";
 import Wrapper from "../../components/Wrapper";
-import { usePost } from "../../hooks/post";
+import { usePaginatedPosts, usePost } from "../../hooks/post";
+import { useUser } from "../../hooks/user";
+import { deletePost } from "../../lib/mutations";
 
 interface PostProps {}
 
 const Post: React.FC<PostProps> = ({}) => {
+  const router = useRouter();
+
   const { post, isLoading } = usePost();
+  const { user } = useUser();
+  const { mutate } = usePaginatedPosts();
 
   if (isLoading) {
     return (
@@ -53,14 +60,21 @@ const Post: React.FC<PostProps> = ({}) => {
         <Box fontSize={"md"} fontWeight="medium">
           by {post.result.creator.username}
         </Box>
-        <Flex>
-          <IconButton
-            ml={"auto"}
-            aria-label={"Delete Post"}
-            icon={<DeleteIcon />}
-            colorScheme="red"
-          />
-        </Flex>
+        {post.result.creator.id === user?.user.id ? (
+          <Flex>
+            <IconButton
+              ml={"auto"}
+              aria-label={"Delete Post"}
+              icon={<DeleteIcon />}
+              colorScheme="red"
+              onClick={async () => {
+                await deletePost(post.result.id);
+                await router.push("/");
+                mutate();
+              }}
+            />
+          </Flex>
+        ) : null}
       </Box>
     </Wrapper>
   );

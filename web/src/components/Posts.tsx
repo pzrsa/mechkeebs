@@ -23,9 +23,9 @@ const Posts: React.FC<PostsProps> = ({}) => {
     isLoading,
     size,
     setSize,
-    isError,
     isLoadingMore,
     isReachingEnd,
+    isEmpty,
   } = usePaginatedPosts();
 
   if (isLoading) {
@@ -34,7 +34,7 @@ const Posts: React.FC<PostsProps> = ({}) => {
         <Spinner size={"xl"} />
       </Center>
     );
-  } else if (!posts?.length) {
+  } else if (isEmpty) {
     return (
       <Center>
         <Heading size={"md"}>No posts to display.</Heading>
@@ -45,7 +45,7 @@ const Posts: React.FC<PostsProps> = ({}) => {
   return (
     <>
       <SimpleGrid minChildWidth={"350px"} spacing={4}>
-        {posts.map((posts) =>
+        {posts!.map((posts) =>
           posts.result.map((post) => (
             <LinkBox
               overflow={"hidden"}
