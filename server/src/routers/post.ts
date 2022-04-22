@@ -107,7 +107,7 @@ postsRouter.delete("/posts/delete", async (req: Request, res: Response) => {
   }
 
   await Post.delete({
-    id: req.body.setupId,
+    id: req.body.postId,
     creatorId: session?.user.id,
   });
 
