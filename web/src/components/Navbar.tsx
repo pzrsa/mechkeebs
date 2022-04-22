@@ -24,7 +24,7 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
         <Link
           onClick={async () => {
             await logoutUser();
-            mutate();
+            mutate(undefined);
           }}
         >
           Log Out
@@ -46,7 +46,7 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
   }
 
   return (
-    <Flex zIndex={1} bg="white" boxShadow="sm" position="sticky" top={0} p={3}>
+    <Flex zIndex={1} boxShadow="sm" top={0} p={3}>
       <Flex flex={1} m="auto" align="center" maxW={"1200px"}>
         <NextLink href="/">
           <Link>

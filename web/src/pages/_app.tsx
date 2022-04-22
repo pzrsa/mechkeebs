@@ -1,4 +1,8 @@
-import { ChakraProvider } from "@chakra-ui/react";
+import {
+  ChakraProvider,
+  extendTheme,
+  type ThemeConfig,
+} from "@chakra-ui/react";
 import { AppProps } from "next/app";
 import { useRouter } from "next/router";
 import NProgress from "nprogress";
@@ -28,8 +32,15 @@ const App = ({ Component, pageProps }: AppProps) => {
     };
   }, [router]);
 
+  const config: ThemeConfig = {
+    initialColorMode: "light",
+    useSystemColorMode: true,
+  };
+
+  const theme = extendTheme({ config });
+
   return (
-    <ChakraProvider resetCSS>
+    <ChakraProvider theme={theme}>
       <Layout>
         <Component {...pageProps} />
       </Layout>
