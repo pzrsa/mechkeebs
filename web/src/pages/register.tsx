@@ -53,7 +53,7 @@ const Register: React.FC<RegisterProps> = ({}) => {
               setErrors({ email: response.error });
             } else if (response?.result) {
               await router.push("/");
-              mutate(undefined);
+              mutate();
             }
           }}
         >
