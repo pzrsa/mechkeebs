@@ -18,8 +18,9 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
     body = (
       <>
         <NextLink href="/posts/create">
-          <Link mr={2}>Create Post</Link>
+          <Link>Create Post</Link>
         </NextLink>
+        <Link mx={2}>{user.user.username}</Link>
         <Link
           onClick={async () => {
             await logoutUser();
