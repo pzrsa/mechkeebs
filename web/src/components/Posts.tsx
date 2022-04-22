@@ -1,4 +1,4 @@
-import { ChevronDownIcon, NotAllowedIcon } from "@chakra-ui/icons";
+import { ArrowDownIcon, NotAllowedIcon } from "@chakra-ui/icons";
 import {
   AspectRatio,
   Box,
@@ -92,7 +92,7 @@ const Posts: React.FC<PostsProps> = ({}) => {
           ) : isReachingEnd ? (
             <NotAllowedIcon />
           ) : (
-            <ChevronDownIcon />
+            <ArrowDownIcon />
           )}
         </Button>
       </Center>
