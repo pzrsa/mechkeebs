@@ -3,8 +3,9 @@ import {
   FormErrorIcon,
   FormErrorMessage,
   FormLabel,
+  useColorModeValue,
 } from "@chakra-ui/react";
-import { Select } from "chakra-react-select";
+import { ChakraStylesConfig, Select } from "chakra-react-select";
 import { useField } from "formik";
 import { InputHTMLAttributes } from "react";
 
@@ -12,6 +13,14 @@ type SelectFieldProps = InputHTMLAttributes<HTMLInputElement> & {
   name: string;
   options: { label: string; value: string }[];
   label: string;
+};
+
+const chakraStyles: ChakraStylesConfig = {
+  menuList: (provided) => ({
+    ...provided,
+    color: useColorModeValue("#111", "#fff"),
+    bg: useColorModeValue("#fff", "#111"),
+  }),
 };
 
 const SelectField: React.FC<SelectFieldProps> = ({
@@ -28,6 +37,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
       <Select
         instanceId={field.name}
         id={field.name}
+        chakraStyles={chakraStyles}
         options={options}
         onChange={(option: any) => helpers.setValue(option.value)}
         value={
