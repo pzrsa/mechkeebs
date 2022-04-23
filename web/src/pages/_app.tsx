@@ -1,14 +1,11 @@
-import {
-  ChakraProvider,
-  extendTheme,
-  type ThemeConfig,
-} from "@chakra-ui/react";
+import { ChakraProvider } from "@chakra-ui/react";
 import { AppProps } from "next/app";
 import { useRouter } from "next/router";
 import NProgress from "nprogress";
 import React, { useEffect } from "react";
 import Layout from "../components/Layout";
 import "../styles/nprogress.css";
+import theme from "../theme";
 
 const App = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
@@ -31,13 +28,6 @@ const App = ({ Component, pageProps }: AppProps) => {
       router.events.off("routeChangeError", handleStop);
     };
   }, [router]);
-
-  const config: ThemeConfig = {
-    initialColorMode: "light",
-    useSystemColorMode: true,
-  };
-
-  const theme = extendTheme({ config });
 
   return (
     <ChakraProvider theme={theme}>
