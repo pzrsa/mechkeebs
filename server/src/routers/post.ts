@@ -98,8 +98,8 @@ postsRouter.post("/posts/create", async (req: Request, res: Response) => {
     blobStream.end(
       await sharp((req.files!.image as UploadedFile).data)
         .jpeg({ quality: 85 })
-        .png({ quality: 80 })
-        .heif({ quality: 80 })
+        .png({ quality: 85 })
+        .heif({ quality: 85 })
         .resize({ width: 1920, height: 1080, withoutEnlargement: true })
         .toBuffer()
     );
