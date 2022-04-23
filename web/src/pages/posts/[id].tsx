@@ -44,7 +44,7 @@ const Post: React.FC<PostProps> = ({}) => {
         ratio={16 / 9}
       >
         <NextImage
-          src={"https://pbs.twimg.com/media/FKHb6g4VkAAfwvI?format=jpg"}
+          src={`https://storage.googleapis.com/mechkeebs/${post.result.imageName}`}
           layout="fill"
           objectFit="cover"
         />
