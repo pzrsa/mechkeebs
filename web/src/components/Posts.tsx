@@ -44,7 +44,7 @@ const Posts: React.FC<PostsProps> = ({}) => {
 
   return (
     <>
-      <SimpleGrid minChildWidth={"350px"} spacing={4}>
+      <SimpleGrid minChildWidth={"350px"} spacing={3}>
         {posts!.map((posts) =>
           posts.result.map((post) => (
             <LinkBox
@@ -53,7 +53,7 @@ const Posts: React.FC<PostsProps> = ({}) => {
               shadow={"md"}
               key={post.id}
             >
-              <AspectRatio ratio={1}>
+              <AspectRatio ratio={16 / 9}>
                 <NextImage
                   src={`https://storage.googleapis.com/mechkeebs/${post.imageName}`}
                   layout="fill"
