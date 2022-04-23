@@ -52,9 +52,6 @@ const Posts: React.FC<PostsProps> = ({}) => {
               rounded={"md"}
               shadow={"md"}
               key={post.id}
-              _hover={{ opacity: "75%" }}
-              transition={"ease-in-out"}
-              transitionDuration={"250ms"}
             >
               <AspectRatio ratio={1}>
                 <NextImage
