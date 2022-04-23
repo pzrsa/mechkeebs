@@ -55,7 +55,7 @@ const Posts: React.FC<PostsProps> = ({}) => {
             >
               <AspectRatio ratio={1}>
                 <NextImage
-                  src={"https://pbs.twimg.com/media/FKHb6g4VkAAfwvI?format=jpg"}
+                  src={`https://storage.googleapis.com/mechkeebs/${post.imageName}`}
                   layout="fill"
                   objectFit="cover"
                 />
