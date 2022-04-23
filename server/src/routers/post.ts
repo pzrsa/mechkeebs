@@ -2,6 +2,7 @@ import { Storage } from "@google-cloud/storage";
 import router, { Request, Response, Router } from "express";
 import { UploadedFile } from "express-fileupload";
 import path from "path";
+import sharp from "sharp";
 import { Post } from "../entity/Post";
 import { dataSource } from "../index";
 import { getSession } from "../utils/sessions";
@@ -68,22 +69,41 @@ postsRouter.post("/posts/create", async (req: Request, res: Response) => {
       return res.status(403).json({ error: session });
     }
 
-    const blob = bucket.file((req.files!.image as UploadedFile).name);
+    if (!req.files) {
+      return res.status(403).json({ error: "No file uploaded" });
+    }
+
+    const blob = bucket.file((req.files.image as UploadedFile).name);
     const blobStream = blob.createWriteStream({ resumable: false, gzip: true });
 
-    blobStream.end((req.files!.image as UploadedFile).data);
+    blobStream.on("error", (err) => {
+      return res.status(400).json({ error: err.message });
+    });
 
-    const result = await Post.create({
-      imageName: (req.files!.image as UploadedFile).name,
-      keyboard: {
-        name: req.body.keyboardName,
-        switches: req.body.keyboardSwitches,
-        keycaps: req.body.keyboardKeycaps,
-      },
-      creatorId: session?.user.id,
-    }).save();
+    blobStream.on("finish", async () => {
+      const publicUrl = `https://storage.googleapis.com/${bucket.name}/${blob.name}`;
+      const result = await Post.create({
+        imageName: (req.files!.image as UploadedFile).name,
+        keyboard: {
+          name: req.body.keyboardName,
+          switches: req.body.keyboardSwitches,
+          keycaps: req.body.keyboardKeycaps,
+        },
+        creatorId: session?.user.id,
+      }).save();
 
-    return res.status(200).json({ result });
+      return res.status(200).json({ result, publicUrl });
+    });
+
+    blobStream.end(
+      await sharp((req.files!.image as UploadedFile).data)
+        .jpeg({ mozjpeg: true })
+        .png({ quality: 80 })
+        .heif({ quality: 80 })
+        .resize({ width: 750, height: 500 })
+        .toBuffer()
+    );
+    return;
   } catch (err) {
     return res.status(400).json({ error: err.detail });
   }
