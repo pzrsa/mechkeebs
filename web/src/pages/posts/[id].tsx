@@ -55,7 +55,6 @@ const Post: React.FC<PostProps> = ({}) => {
         <BlurImage
           baseUrl={`https://storage.googleapis.com/${GCLOUD_BUCKET_NAME}`}
           imageName={post.result.imageName}
-          priority={true}
           rounded={true}
         />
       </AspectRatio>
