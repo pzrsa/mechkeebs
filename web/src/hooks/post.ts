@@ -46,12 +46,11 @@ export const usePaginatedPosts = () => {
 export const usePost = () => {
   const postId = getPostFromUrlId();
 
-  const { data, error, mutate } = useSWR<Post>(`${postId}`, fetchPost);
+  const { data, error } = useSWR<Post>(`${postId}`, fetchPost);
 
   return {
     post: data,
     isLoading: !error && !data,
     isError: error,
-    mutate,
   };
 };
