@@ -1,4 +1,5 @@
 import { ChakraProvider } from "@chakra-ui/react";
+import "@fontsource/inter";
 import { AppProps } from "next/app";
 import { useRouter } from "next/router";
 import NProgress from "nprogress";
