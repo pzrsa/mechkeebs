@@ -51,10 +51,12 @@ const Post: React.FC<PostProps> = ({}) => {
 
   return (
     <Wrapper>
-      <AspectRatio rounded={"md"} boxShadow={boxShadow} ratio={16 / 9}>
+      <AspectRatio boxShadow={boxShadow} ratio={16 / 9}>
         <BlurImage
           baseUrl={`https://storage.googleapis.com/${GCLOUD_BUCKET_NAME}`}
           imageName={post.result.imageName}
+          priority={true}
+          rounded={true}
         />
       </AspectRatio>
 
