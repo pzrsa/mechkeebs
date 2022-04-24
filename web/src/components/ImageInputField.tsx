@@ -6,6 +6,7 @@ import {
 } from "@chakra-ui/react";
 import { useField } from "formik";
 import { InputHTMLAttributes } from "react";
+import ImageInputThumbnail from "./ImageInputThumbnail";
 
 type ImageInputFieldProps = InputHTMLAttributes<HTMLInputElement> & {
   label: string;
@@ -38,6 +39,7 @@ const ImageInputField: React.FC<ImageInputFieldProps> = ({
           {meta.error}
         </FormErrorMessage>
       ) : null}
+      <ImageInputThumbnail image={field.value} />
     </FormControl>
   );
 };
