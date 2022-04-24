@@ -22,6 +22,13 @@ const shadows = {
   },
 };
 
-const theme = extendTheme({ config, styles, shadows });
+const fonts = {
+  body: `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+  Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif`,
+  heading: `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+  Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif`,
+};
+
+const theme = extendTheme({ config, styles, shadows, fonts });
 
 export default theme;
