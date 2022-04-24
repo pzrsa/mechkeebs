@@ -135,18 +135,34 @@ postsRouter.put("/posts/update", async (req: Request, res: Response) => {
 });
 
 postsRouter.delete("/posts/delete", async (req: Request, res: Response) => {
-  const session = await getSession(req);
+  const bucket = storage.bucket(GCLOUD_BUCKET_NAME);
 
-  if (typeof session === "string") {
-    return res.status(403).json({ error: session });
+  try {
+    const session = await getSession(req);
+
+    if (typeof session === "string") {
+      return res.status(403).json({ error: session });
+    }
+
+    const postToDelete = await Post.findOne({
+      where: {
+        id: req.body.postId,
+        creatorId: session?.user.id,
+      },
+    });
+
+    if (!postToDelete) {
+      return res.status(400).json({ error: "No post to delete" });
+    }
+
+    await bucket.file(postToDelete.imageName).delete();
+
+    await Post.delete(postToDelete.id);
+
+    return res.status(200).json(true);
+  } catch (err) {
+    return res.status(400).json(false);
   }
-
-  await Post.delete({
-    id: req.body.postId,
-    creatorId: session?.user.id,
-  });
-
-  return res.status(200).json(true);
 });
 
 export default postsRouter;
