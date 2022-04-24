@@ -21,6 +21,7 @@ import Error from "next/error";
 import NextImage from "next/image";
 import { useRouter } from "next/router";
 import Wrapper from "../../components/Wrapper";
+import { GCLOUD_BUCKET_NAME } from "../../data/constants";
 import { usePaginatedPosts, usePost } from "../../hooks/post";
 import { useUser } from "../../hooks/user";
 import { deletePost } from "../../lib/mutations";
@@ -53,7 +54,7 @@ const Post: React.FC<PostProps> = ({}) => {
         ratio={16 / 9}
       >
         <NextImage
-          src={`https://storage.googleapis.com/mechkeebs/${post.result.imageName}`}
+          src={`https://storage.googleapis.com/${GCLOUD_BUCKET_NAME}/${post.result.imageName}`}
           layout="fill"
           objectFit="cover"
         />
