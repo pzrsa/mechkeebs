@@ -45,6 +45,26 @@ export interface Post {
   };
 }
 
+export interface SinglePost {
+  id: number;
+  imageName: string;
+  createdAt: number;
+  keyboard: {
+    id: number;
+    name: string;
+    keycaps: string;
+    switches: string;
+    createdAt: number;
+    updatedAt: number | null;
+  };
+  creator: {
+    id: number;
+    username: string;
+    createdAt: number;
+    updatedAt: number | null;
+  };
+}
+
 export interface PostFormValues {
   image: File;
   keyboard: {
