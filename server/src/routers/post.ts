@@ -3,6 +3,7 @@ import router, { Request, Response, Router } from "express";
 import { UploadedFile } from "express-fileupload";
 import path from "path";
 import sharp from "sharp";
+import { GCLOUD_BUCKET_NAME } from "../constants";
 import { Post } from "../entity/Post";
 import { dataSource } from "../index";
 import { getSession } from "../utils/sessions";
@@ -60,7 +61,7 @@ postsRouter.get("/posts/:id?", async (req: Request, res: Response) => {
 });
 
 postsRouter.post("/posts/create", async (req: Request, res: Response) => {
-  const bucket = storage.bucket("mechkeebs");
+  const bucket = storage.bucket(GCLOUD_BUCKET_NAME);
 
   try {
     const session = await getSession(req);
@@ -81,7 +82,7 @@ postsRouter.post("/posts/create", async (req: Request, res: Response) => {
     });
 
     blobStream.on("finish", async () => {
-      const publicUrl = `https://storage.googleapis.com/${bucket.name}/${blob.name}`;
+      const publicUrl = `https://storage.googleapis.com/${GCLOUD_BUCKET_NAME}/${blob.name}`;
       const result = await Post.create({
         imageName: (req.files!.image as UploadedFile).name,
         keyboard: {
