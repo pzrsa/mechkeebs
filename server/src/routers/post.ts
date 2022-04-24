@@ -4,6 +4,7 @@ import { UploadedFile } from "express-fileupload";
 import path from "path";
 import sharp from "sharp";
 import { GCLOUD_BUCKET_NAME } from "../constants";
+import { Keyboard } from "../entity/Keyboard";
 import { Post } from "../entity/Post";
 import { dataSource } from "../index";
 import { getSession } from "../utils/sessions";
@@ -158,6 +159,7 @@ postsRouter.delete("/posts/delete", async (req: Request, res: Response) => {
     await bucket.file(postToDelete.imageName).delete();
 
     await Post.delete(postToDelete.id);
+    await Keyboard.delete(postToDelete.keyboardId);
 
     return res.status(200).json(true);
   } catch (err) {
