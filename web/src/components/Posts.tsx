@@ -13,6 +13,7 @@ import {
 import NextImage from "next/image";
 import NextLink from "next/link";
 import React from "react";
+import { GCLOUD_BUCKET_NAME } from "../data/constants";
 import { usePaginatedPosts } from "../hooks/post";
 
 interface PostsProps {}
@@ -55,7 +56,7 @@ const Posts: React.FC<PostsProps> = ({}) => {
             >
               <AspectRatio ratio={16 / 9}>
                 <NextImage
-                  src={`https://storage.googleapis.com/mechkeebs/${post.imageName}`}
+                  src={`https://storage.googleapis.com/${GCLOUD_BUCKET_NAME}/${post.imageName}`}
                   layout="fill"
                   objectFit="cover"
                 />
