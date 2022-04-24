@@ -3,10 +3,19 @@ import { Flex } from "@chakra-ui/layout";
 import {
   AspectRatio,
   Box,
+  Button,
+  ButtonGroup,
   Center,
   Heading,
   IconButton,
+  Popover,
+  PopoverArrow,
+  PopoverContent,
+  PopoverFooter,
+  PopoverHeader,
+  PopoverTrigger,
   Spinner,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import Error from "next/error";
 import NextImage from "next/image";
@@ -62,17 +71,48 @@ const Post: React.FC<PostProps> = ({}) => {
         </Box>
         {post.result.creator.id === user?.user.id ? (
           <Flex>
-            <IconButton
-              ml={"auto"}
-              aria-label={"Delete Post"}
-              icon={<DeleteIcon />}
-              colorScheme="red"
-              onClick={async () => {
-                await deletePost(post.result.id);
-                await router.push("/");
-                mutate();
-              }}
-            />
+            <Popover closeOnBlur={true}>
+              {({ onClose }) => (
+                <>
+                  <PopoverTrigger>
+                    <IconButton
+                      ml={"auto"}
+                      aria-label={"Delete Post"}
+                      icon={<DeleteIcon />}
+                      colorScheme="red"
+                    />
+                  </PopoverTrigger>
+                  <PopoverContent
+                    color={useColorModeValue("#111", "#fff")}
+                    bg={useColorModeValue("#fff", "#111")}
+                  >
+                    <PopoverHeader pt={4} fontWeight="bold" border="0">
+                      Sure you want to delete your post?
+                    </PopoverHeader>
+                    <PopoverArrow />
+                    <PopoverFooter
+                      display={"flex"}
+                      justifyContent={"end"}
+                      alignContent={"end"}
+                    >
+                      <ButtonGroup size="sm">
+                        <Button onClick={onClose}>No</Button>
+                        <Button
+                          colorScheme="red"
+                          onClick={async () => {
+                            await deletePost(post.result.id);
+                            await router.push("/");
+                            mutate();
+                          }}
+                        >
+                          Yes
+                        </Button>
+                      </ButtonGroup>
+                    </PopoverFooter>
+                  </PopoverContent>
+                </>
+              )}
+            </Popover>
           </Flex>
         ) : null}
       </Box>
