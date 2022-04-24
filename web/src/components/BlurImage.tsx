@@ -13,6 +13,7 @@ const BlurImage: React.FC<BlurImageProps> = ({ baseUrl, imageName }) => {
   return (
     <Box
       filter={"auto"}
+      rounded={"md"}
       transitionDuration={"750ms"}
       blur={isLoading ? "xl" : "none"}
       scale={isLoading ? "110" : "100"}
