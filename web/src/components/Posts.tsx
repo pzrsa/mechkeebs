@@ -35,7 +35,7 @@ const Posts: React.FC<PostsProps> = ({}) => {
     <>
       <SimpleGrid minChildWidth={"350px"} spacing={3}>
         {posts!.map((posts) =>
-          posts.result.map((post) => <PostCard post={post} />)
+          posts.result.map((post) => <PostCard key={post.id} post={post} />)
         )}
       </SimpleGrid>
       <Center>
