@@ -9,6 +9,7 @@ import {
   LinkOverlay,
   SimpleGrid,
   Spinner,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import NextImage from "next/image";
 import NextLink from "next/link";
@@ -51,7 +52,7 @@ const Posts: React.FC<PostsProps> = ({}) => {
             <LinkBox
               overflow={"hidden"}
               rounded={"md"}
-              shadow={"md"}
+              boxShadow={useColorModeValue("lg", "white.lg")}
               key={post.id}
             >
               <AspectRatio ratio={16 / 9}>

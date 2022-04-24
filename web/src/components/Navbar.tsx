@@ -1,5 +1,5 @@
 import { Box, Flex, Heading, Link } from "@chakra-ui/layout";
-import { Spacer } from "@chakra-ui/react";
+import { Spacer, useColorModeValue } from "@chakra-ui/react";
 import { Spinner } from "@chakra-ui/spinner";
 import NextLink from "next/link";
 import React from "react";
@@ -46,7 +46,12 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
   }
 
   return (
-    <Flex zIndex={1} boxShadow="sm" top={0} p={3}>
+    <Flex
+      zIndex={1}
+      boxShadow={useColorModeValue("sm", "white.sm")}
+      top={0}
+      p={3}
+    >
       <Flex flex={1} m="auto" align="center" maxW={"1200px"}>
         <NextLink href="/">
           <Link>

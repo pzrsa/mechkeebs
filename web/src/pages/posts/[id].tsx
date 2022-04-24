@@ -49,7 +49,7 @@ const Post: React.FC<PostProps> = ({}) => {
       <AspectRatio
         overflow={"hidden"}
         rounded={"md"}
-        shadow={"md"}
+        boxShadow={useColorModeValue("lg", "white.lg")}
         ratio={16 / 9}
       >
         <NextImage
