@@ -7,6 +7,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
+import { GCLOUD_BUCKET_NAME } from "../data/constants";
 import { SinglePost } from "../types/Post";
 import BlurImage from "./BlurImage";
 
@@ -25,7 +26,10 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
       _hover={{ transform: "scale(1.01) translateY(-4px)" }}
     >
       <AspectRatio ratio={16 / 9}>
-        <BlurImage imageName={post.imageName} />
+        <BlurImage
+          baseUrl={`https://storage.googleapis.com/${GCLOUD_BUCKET_NAME}`}
+          imageName={post.imageName}
+        />
       </AspectRatio>
 
       <Box p={5}>

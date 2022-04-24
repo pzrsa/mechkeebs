@@ -21,6 +21,7 @@ import Error from "next/error";
 import { useRouter } from "next/router";
 import BlurImage from "../../components/BlurImage";
 import Wrapper from "../../components/Wrapper";
+import { GCLOUD_BUCKET_NAME } from "../../data/constants";
 import { usePaginatedPosts, usePost } from "../../hooks/post";
 import { useUser } from "../../hooks/user";
 import { deletePost } from "../../lib/mutations";
@@ -52,7 +53,10 @@ const Post: React.FC<PostProps> = ({}) => {
         boxShadow={useColorModeValue("lg", "white.lg")}
         ratio={16 / 9}
       >
-        <BlurImage imageName={post.result.imageName} />
+        <BlurImage
+          baseUrl={`https://storage.googleapis.com/${GCLOUD_BUCKET_NAME}`}
+          imageName={post.result.imageName}
+        />
       </AspectRatio>
 
       <Box p={5}>

@@ -1,13 +1,13 @@
 import { Box } from "@chakra-ui/react";
 import Image from "next/image";
 import { useState } from "react";
-import { GCLOUD_BUCKET_NAME } from "../data/constants";
 
 interface BlurImageProps {
   imageName: string;
+  baseUrl?: string;
 }
 
-const BlurImage: React.FC<BlurImageProps> = ({ imageName }) => {
+const BlurImage: React.FC<BlurImageProps> = ({ baseUrl, imageName }) => {
   const [isLoading, setLoading] = useState(true);
 
   return (
@@ -18,7 +18,7 @@ const BlurImage: React.FC<BlurImageProps> = ({ imageName }) => {
       scale={isLoading ? "110" : "100"}
     >
       <Image
-        src={`https://storage.googleapis.com/${GCLOUD_BUCKET_NAME}/${imageName}`}
+        src={baseUrl ? `${baseUrl}/${imageName}` : imageName}
         layout="fill"
         objectFit="cover"
         onLoadingComplete={() => setLoading(false)}
