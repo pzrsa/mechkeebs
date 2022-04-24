@@ -35,6 +35,10 @@ const Post: React.FC<PostProps> = ({}) => {
   const { user } = useUser();
   const { mutate } = usePaginatedPosts();
 
+  const boxShadow = useColorModeValue("lg", "white.lg");
+  const color = useColorModeValue("#111", "#fff");
+  const bg = useColorModeValue("#fff", "#111");
+
   if (isLoading) {
     return (
       <Center>
@@ -47,26 +51,21 @@ const Post: React.FC<PostProps> = ({}) => {
 
   return (
     <Wrapper>
-      <AspectRatio
-        overflow={"hidden"}
-        rounded={"md"}
-        boxShadow={useColorModeValue("lg", "white.lg")}
-        ratio={16 / 9}
-      >
+      <AspectRatio rounded={"md"} boxShadow={boxShadow} ratio={16 / 9}>
         <BlurImage
           baseUrl={`https://storage.googleapis.com/${GCLOUD_BUCKET_NAME}`}
           imageName={post.result.imageName}
         />
       </AspectRatio>
 
-      <Box p={5}>
-        <Heading fontSize={"xl"} fontWeight="black">
+      <Box py={4}>
+        <Heading fontSize={"2xl"} fontWeight="black">
           {post.result.keyboard.name}
         </Heading>
-        <Box fontSize={"lg"} fontWeight="semibold">
+        <Box fontSize={"xl"} fontWeight="semibold">
           {post.result.keyboard.keycaps} · {post.result.keyboard.switches}
         </Box>
-        <Box fontSize={"md"} fontWeight="medium">
+        <Box fontSize={"lg"} fontWeight="medium">
           by {post.result.creator.username}
         </Box>
         {post.result.creator.id === user?.user.id ? (
@@ -82,11 +81,8 @@ const Post: React.FC<PostProps> = ({}) => {
                       colorScheme="red"
                     />
                   </PopoverTrigger>
-                  <PopoverContent
-                    color={useColorModeValue("#111", "#fff")}
-                    bg={useColorModeValue("#fff", "#111")}
-                  >
-                    <PopoverHeader pt={4} fontWeight="bold" border="0">
+                  <PopoverContent color={color} bg={bg}>
+                    <PopoverHeader pt={4} fontWeight="bold">
                       Sure you want to delete your post?
                     </PopoverHeader>
                     <PopoverArrow />
