@@ -10,9 +10,7 @@ interface BlurImageProps {
 
 const Image = chakra(NextImage, {
   shouldForwardProp: (prop) =>
-    ["src", "layout", "objectFit", "onLoadingComplete", "priority"].includes(
-      prop
-    ),
+    ["src", "layout", "objectFit", "onLoadingComplete"].includes(prop),
 });
 
 const BlurImage: React.FC<BlurImageProps> = ({
@@ -28,9 +26,8 @@ const BlurImage: React.FC<BlurImageProps> = ({
       layout="fill"
       objectFit="cover"
       onLoadingComplete={() => setLoading(false)}
-      priority={true}
       filter={"auto"}
-      transitionDuration={"750ms"}
+      transitionDuration={"700ms"}
       blur={isLoading ? "xl" : "none"}
       scale={isLoading ? "110" : "100"}
       rounded={rounded ? "md" : "none"}
