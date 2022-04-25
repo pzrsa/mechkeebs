@@ -5,6 +5,7 @@ import {
   FormErrorMessage,
   FormLabel,
   Text,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { useField } from "formik";
 import { InputHTMLAttributes, useCallback } from "react";
@@ -18,6 +19,7 @@ type ImageInputFieldProps = InputHTMLAttributes<HTMLInputElement> & {
 
 const ImageInputField: React.FC<ImageInputFieldProps> = ({
   label,
+  size,
   ...props
 }) => {
   const [field, meta, helpers] = useField(props);
@@ -29,13 +31,12 @@ const ImageInputField: React.FC<ImageInputFieldProps> = ({
     helpers.setValue(acceptedFiles.at(0));
   }, []);
 
-  const { getRootProps, getInputProps, isDragActive, isDragAccept } =
-    useDropzone({
-      onDrop,
-      maxFiles: 1,
-      multiple: false,
-      accept: ["image/jpeg", "image/png"],
-    });
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    maxFiles: 1,
+    multiple: false,
+    accept: ["image/jpeg", "image/png"],
+  });
 
   const dropText = isDragActive
     ? "Drop your image here..."
@@ -44,7 +45,26 @@ const ImageInputField: React.FC<ImageInputFieldProps> = ({
   return (
     <FormControl mb={5} isInvalid={!!(meta.touched && meta.error)}>
       <FormLabel htmlFor={field.name}>{label}</FormLabel>
-      <Center p={10} cursor="pointer" {...getRootProps()}>
+      <Center
+        border={"1px solid"}
+        _hover={{
+          borderColor: useColorModeValue("gray.300", "whiteAlpha.400"),
+          bg: useColorModeValue("gray.200", "whiteAlpha.300"),
+        }}
+        borderRadius={"md"}
+        borderColor={"inherit"}
+        fontSize={"md"}
+        p={10}
+        appearance={"none"}
+        transitionProperty={"common"}
+        transitionDuration={"normal"}
+        {...getRootProps()}
+        _focus={{
+          zIndex: 1,
+          borderColor: useColorModeValue("blue.500", "blue.300"),
+          boxShadow: `0 0 0 1px ${useColorModeValue("blue.500", "blue.300")}`,
+        }}
+      >
         <input
           id={field.name}
           {...field}
