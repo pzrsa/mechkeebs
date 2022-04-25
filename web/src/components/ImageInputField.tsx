@@ -42,17 +42,23 @@ const ImageInputField: React.FC<ImageInputFieldProps> = ({
     ? "Drop your image here..."
     : "Drag 'n' drop the image of your keeb here, or click to select the image";
 
+  const borderColor = useColorModeValue(
+    isDragActive ? "gray.300" : "inherit",
+    isDragActive ? "whiteAlpha.400" : "inherit"
+  );
+
   return (
     <FormControl mb={5} isInvalid={!!(meta.touched && meta.error)}>
       <FormLabel htmlFor={field.name}>{label}</FormLabel>
       <Center
+        mb={3}
         border={"1px solid"}
         _hover={{
           borderColor: useColorModeValue("gray.300", "whiteAlpha.400"),
           bg: useColorModeValue("gray.200", "whiteAlpha.300"),
         }}
         borderRadius={"md"}
-        borderColor={"inherit"}
+        borderColor={borderColor}
         fontSize={"md"}
         p={10}
         appearance={"none"}

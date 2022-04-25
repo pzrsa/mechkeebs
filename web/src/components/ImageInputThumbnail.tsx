@@ -1,5 +1,4 @@
-import { AspectRatio } from "@chakra-ui/react";
-import BlurImage from "./BlurImage";
+import { AspectRatio, Image } from "@chakra-ui/react";
 
 interface ImageInputThumbnailProps {
   image: File;
@@ -12,7 +11,7 @@ const ImageInputThumbnail: React.FC<ImageInputThumbnailProps> = ({ image }) => {
 
   return (
     <AspectRatio overflow={"hidden"} rounded={"md"} ratio={16 / 9}>
-      <BlurImage imageName={URL.createObjectURL(image)} />
+      <Image src={URL.createObjectURL(image)} />
     </AspectRatio>
   );
 };
