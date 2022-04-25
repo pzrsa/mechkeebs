@@ -46,13 +46,8 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
   }
 
   return (
-    <Flex
-      zIndex={1}
-      boxShadow={useColorModeValue("sm", "white.sm")}
-      top={0}
-      p={3}
-    >
-      <Flex flex={1} m="auto" align="center" maxW={"1200px"}>
+    <Flex boxShadow={useColorModeValue("sm", "white.sm")} p={3}>
+      <Flex flex={1} m="auto" align="center" maxW={"85rem"}>
         <NextLink href="/">
           <Link>
             <Heading size={"lg"} fontWeight={"black"}>
