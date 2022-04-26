@@ -46,6 +46,7 @@ const ImageInputField: React.FC<ImageInputFieldProps> = ({
     isDragActive ? "gray.300" : "inherit",
     isDragActive ? "whiteAlpha.400" : "inherit"
   );
+  const errorBorderColour = useColorModeValue("red.500", "red.300");
 
   return (
     <FormControl mb={5} isInvalid={!!(meta.touched && meta.error)}>
@@ -58,7 +59,9 @@ const ImageInputField: React.FC<ImageInputFieldProps> = ({
           bg: useColorModeValue("gray.200", "whiteAlpha.300"),
         }}
         borderRadius={"md"}
-        borderColor={borderColor}
+        borderColor={
+          !!(meta.touched && meta.error) ? errorBorderColour : borderColor
+        }
         fontSize={"md"}
         p={10}
         appearance={"none"}
