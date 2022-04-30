@@ -1,3 +1,4 @@
+import { baseUrl } from "../constants";
 import { PostFormValues } from "../types/Post";
 import { LoginFormValues, RegisterFormValues } from "../types/User";
 import createPostFormData from "../utils/createPostFormData";
@@ -29,7 +30,7 @@ export const loginUser = async (loginInfo: LoginFormValues) => {
 };
 
 export const logoutUser = async () => {
-  const response = await fetch("http://localhost:4000/api/users/logout", {
+  const response = await fetch(`${baseUrl}/users/logout`, {
     method: "DELETE",
     credentials: "include",
   });
@@ -38,7 +39,7 @@ export const logoutUser = async () => {
 };
 
 export const createPost = async (postFormValues: PostFormValues) => {
-  const response = await fetch("http://localhost:4000/api/posts/create", {
+  const response = await fetch(`${baseUrl}/posts/create`, {
     method: "POST",
     credentials: "include",
     body: createPostFormData(postFormValues),
@@ -52,7 +53,7 @@ export const createPost = async (postFormValues: PostFormValues) => {
 };
 
 export const deletePost = async (postId: number) => {
-  const response = await fetch("http://localhost:4000/api/posts/delete", {
+  const response = await fetch(`${baseUrl}/posts/delete`, {
     method: "DELETE",
     credentials: "include",
     headers: {
