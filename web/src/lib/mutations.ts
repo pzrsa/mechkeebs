@@ -4,7 +4,7 @@ import { LoginFormValues, RegisterFormValues } from "../types/User";
 import createPostFormData from "../utils/createPostFormData";
 
 export const registerUser = async (registerInfo: RegisterFormValues) => {
-  const response = await fetch("http://localhost:4000/api/users/register", {
+  const response = await fetch(`${baseUrl}/users/register`, {
     method: "POST",
     credentials: "include",
     headers: {
@@ -17,7 +17,7 @@ export const registerUser = async (registerInfo: RegisterFormValues) => {
 };
 
 export const loginUser = async (loginInfo: LoginFormValues) => {
-  const response = await fetch("http://localhost:4000/api/users/login", {
+  const response = await fetch(`${baseUrl}/users/login`, {
     method: "POST",
     credentials: "include",
     headers: {
