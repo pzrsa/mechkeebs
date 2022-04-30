@@ -1,5 +1,11 @@
+import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { Box, Flex, Heading, Link } from "@chakra-ui/layout";
-import { Spacer, useColorModeValue } from "@chakra-ui/react";
+import {
+  IconButton,
+  Spacer,
+  useColorMode,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import { Spinner } from "@chakra-ui/spinner";
 import NextLink from "next/link";
 import React from "react";
@@ -10,6 +16,8 @@ interface NavbarProps {}
 
 const Navbar: React.FC<NavbarProps> = ({}) => {
   const { user, isLoading, loggedOut, mutate } = useUser();
+  const { colorMode, toggleColorMode } = useColorMode();
+  const SwitchIcon = useColorModeValue(MoonIcon, SunIcon);
 
   let body;
   if (isLoading) {
@@ -56,7 +64,15 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
           </Link>
         </NextLink>
         <Spacer />
-        <Box>{body}</Box>
+        <Box>
+          {body}
+          <IconButton
+            ml={"2"}
+            aria-label={`Toggle ${colorMode} mode`}
+            icon={<SwitchIcon />}
+            onClick={toggleColorMode}
+          />
+        </Box>
       </Flex>
     </Flex>
   );
