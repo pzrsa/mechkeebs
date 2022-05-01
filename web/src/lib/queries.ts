@@ -1,7 +1,7 @@
-import { baseUrl } from "../constants";
+import { API_BASE_URL } from "../constants";
 
 export const fetchAllPosts = async () => {
-  const response = await fetch(`${baseUrl}/posts`, {
+  const response = await fetch(`${API_BASE_URL}/posts`, {
     method: "GET",
   });
 
@@ -13,7 +13,7 @@ export const fetchAllPosts = async () => {
 };
 
 export const fetchPaginatedPosts = async (query: string) => {
-  const response = await fetch(`${baseUrl}/posts?${query}`, {
+  const response = await fetch(`${API_BASE_URL}/posts?${query}`, {
     method: "GET",
   });
 
@@ -25,7 +25,7 @@ export const fetchPaginatedPosts = async (query: string) => {
 };
 
 export const fetchPost = async (postId: string) => {
-  const response = await fetch(`${baseUrl}/posts/${postId}`, {
+  const response = await fetch(`${API_BASE_URL}/posts/${postId}`, {
     method: "GET",
   });
 
@@ -36,7 +36,7 @@ export const fetchPost = async (postId: string) => {
   return response.json();
 };
 export const fetchCurrentUser = async () => {
-  const response = await fetch(`${baseUrl}/users/me`, {
+  const response = await fetch(`${API_BASE_URL}/users/me`, {
     method: "GET",
     credentials: "include",
   });
