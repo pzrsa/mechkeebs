@@ -1,6 +1,7 @@
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
-import { Box, Flex, Heading, Link } from "@chakra-ui/layout";
+import { Box, Flex, Link } from "@chakra-ui/layout";
 import {
+  Button,
   IconButton,
   Spacer,
   useColorMode,
@@ -26,7 +27,7 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
     body = (
       <>
         <NextLink href="/posts/create">
-          <Link>Create Post</Link>
+          <Button>Create Post</Button>
         </NextLink>
         <Link mx={2}>{user.user.username}</Link>
         <Link
@@ -57,11 +58,9 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
     <Flex boxShadow={useColorModeValue("sm", "white.sm")} p={3}>
       <Flex flex={1} m="auto" align="center" maxW={"85rem"}>
         <NextLink href="/">
-          <Link>
-            <Heading size={"lg"} fontWeight={"black"}>
-              MechKeebs
-            </Heading>
-          </Link>
+          <Button fontSize={"xl"} variant={"ghost"}>
+            MechKeebs
+          </Button>
         </NextLink>
         <Spacer />
         <Box>
@@ -69,6 +68,7 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
           <IconButton
             ml={"2"}
             aria-label={`Toggle ${colorMode} mode`}
+            variant={"ghost"}
             icon={<SwitchIcon />}
             onClick={toggleColorMode}
           />
