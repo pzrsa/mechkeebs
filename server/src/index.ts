@@ -40,8 +40,8 @@ const main = async () => {
   app.use("/api", usersRouter, postsRouter);
   app.set("json spaces", 2);
 
-  app.listen(4000, () => {
-    console.log("server up on http://localhost:4000");
+  app.listen(process.env.PORT, () => {
+    console.log(`server up on http://localhost:${process.env.PORT}`);
   });
 };
 
