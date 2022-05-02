@@ -23,8 +23,8 @@ const Login: React.FC<LoginProps> = ({}) => {
 
   return (
     <Wrapper>
-      <Box width="500px" mx="auto">
-        <Heading my={5}>Login</Heading>
+      <Box>
+        <Heading mb={3}>Login</Heading>
         <Formik
           initialValues={initialValues}
           validationSchema={Yup.object({

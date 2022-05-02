@@ -81,7 +81,7 @@ const ImageInputField: React.FC<ImageInputFieldProps> = ({
           {...getInputProps()}
           value={undefined}
         />
-        <Text>{dropText}</Text>
+        <Text textAlign={"center"}>{dropText}</Text>
       </Center>
       {meta.touched && meta.error ? (
         <FormErrorMessage>

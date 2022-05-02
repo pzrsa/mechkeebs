@@ -28,8 +28,8 @@ const Create: React.FC<CreateProps> = ({}) => {
 
   return (
     <Wrapper>
-      <Box width="750px" mx="auto">
-        <Heading my={5}>Create Post</Heading>
+      <Box>
+        <Heading mb={3}>Create Post</Heading>
         <Formik
           initialValues={initialValues}
           validationSchema={Yup.object().shape({

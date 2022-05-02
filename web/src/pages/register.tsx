@@ -24,8 +24,8 @@ const Register: React.FC<RegisterProps> = ({}) => {
 
   return (
     <Wrapper>
-      <Box width="500px" mx="auto">
-        <Heading my={5}>Register</Heading>
+      <Box>
+        <Heading mb={3}>Register</Heading>
         <Formik
           initialValues={initialValues}
           validationSchema={Yup.object({
