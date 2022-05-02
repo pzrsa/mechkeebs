@@ -23,7 +23,7 @@ const Login: React.FC<LoginProps> = ({}) => {
 
   return (
     <Wrapper>
-      <Box>
+      <Box mx="auto" width={{ base: "inherit", md: "650px" }}>
         <Heading mb={3}>Login</Heading>
         <Formik
           initialValues={initialValues}

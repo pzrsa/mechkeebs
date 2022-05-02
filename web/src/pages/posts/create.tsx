@@ -28,7 +28,7 @@ const Create: React.FC<CreateProps> = ({}) => {
 
   return (
     <Wrapper>
-      <Box>
+      <Box mx="auto" width={{ base: "inherit", md: "650px" }}>
         <Heading mb={3}>Create Post</Heading>
         <Formik
           initialValues={initialValues}

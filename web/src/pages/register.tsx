@@ -24,7 +24,7 @@ const Register: React.FC<RegisterProps> = ({}) => {
 
   return (
     <Wrapper>
-      <Box>
+      <Box mx="auto" width={{ base: "inherit", md: "650px" }}>
         <Heading mb={3}>Register</Heading>
         <Formik
           initialValues={initialValues}
