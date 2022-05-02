@@ -1,8 +1,12 @@
-import { MoonIcon, SunIcon } from "@chakra-ui/icons";
+import { HamburgerIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { Box, Flex, Link } from "@chakra-ui/layout";
 import {
   Button,
   IconButton,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
   Spacer,
   useColorMode,
   useColorModeValue,
@@ -19,10 +23,14 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
   const { user, isLoading, loggedOut, mutate } = useUser();
   const { colorMode, toggleColorMode } = useColorMode();
   const SwitchIcon = useColorModeValue(MoonIcon, SunIcon);
+  const color = useColorModeValue("#111", "#fff");
+  const bg = useColorModeValue("#fff", "#111");
 
   let body;
+  let mobileBody;
   if (isLoading) {
     body = <Spinner />;
+    mobileBody = <Spinner />;
   } else if (user?.user) {
     body = (
       <>
@@ -40,16 +48,46 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
         </Link>
       </>
     );
+    mobileBody = (
+      <>
+        <MenuItem>
+          <NextLink href="/posts/create">Create Post</NextLink>
+        </MenuItem>
+        <MenuItem>
+          <Link>{user.user.username}</Link>
+        </MenuItem>
+        <MenuItem>
+          <Link
+            onClick={async () => {
+              await logoutUser();
+              mutate(undefined);
+            }}
+          >
+            Log Out
+          </Link>
+        </MenuItem>
+      </>
+    );
   }
   if (loggedOut) {
     body = (
       <>
         <NextLink href="/register">
-          <Link mr={2}>Register</Link>
+          <Button mr={2}>Register</Button>
         </NextLink>
         <NextLink href="/login">
-          <Link>Login</Link>
+          <Button>Login</Button>
         </NextLink>
+      </>
+    );
+    mobileBody = (
+      <>
+        <MenuItem>
+          <NextLink href="/register">Register</NextLink>
+        </MenuItem>
+        <MenuItem>
+          <NextLink href="/login">Login</NextLink>
+        </MenuItem>
       </>
     );
   }
@@ -63,7 +101,7 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
           </Button>
         </NextLink>
         <Spacer />
-        <Box>
+        <Box display={{ base: "none", md: "inherit" }}>
           {body}
           <IconButton
             ml={"2"}
@@ -73,6 +111,26 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
             onClick={toggleColorMode}
           />
         </Box>
+        <Menu>
+          <MenuButton
+            as={IconButton}
+            aria-label={"Mobile navigation"}
+            display={{ base: "inherit", md: "none" }}
+            icon={<HamburgerIcon />}
+            variant={"outline"}
+            fontSize={"xl"}
+          />
+          <MenuList color={color} bg={bg}>
+            {mobileBody}
+            <MenuItem
+              textTransform={"capitalize"}
+              icon={<SwitchIcon />}
+              onClick={toggleColorMode}
+            >
+              {`Toggle ${colorMode} Mode`}
+            </MenuItem>
+          </MenuList>
+        </Menu>
       </Flex>
     </Flex>
   );
