@@ -1,4 +1,4 @@
-import { HamburgerIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
+import { CloseIcon, HamburgerIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { Box, Flex, Link } from "@chakra-ui/layout";
 import {
   Button,
@@ -27,7 +27,8 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
   const bg = useColorModeValue("#fff", "#111");
 
   let body;
-  let mobileBody;
+  let mobileBody: any;
+
   if (isLoading) {
     body = <Spinner />;
     mobileBody = <Spinner />;
@@ -112,24 +113,28 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
           />
         </Box>
         <Menu>
-          <MenuButton
-            as={IconButton}
-            aria-label={"Mobile navigation"}
-            display={{ base: "inherit", md: "none" }}
-            icon={<HamburgerIcon />}
-            variant={"outline"}
-            fontSize={"xl"}
-          />
-          <MenuList color={color} bg={bg}>
-            {mobileBody}
-            <MenuItem
-              textTransform={"capitalize"}
-              icon={<SwitchIcon />}
-              onClick={toggleColorMode}
-            >
-              {`Toggle ${colorMode} Mode`}
-            </MenuItem>
-          </MenuList>
+          {({ isOpen }) => (
+            <>
+              <MenuButton
+                as={IconButton}
+                aria-label={"Mobile navigation"}
+                display={{ base: "inherit", md: "none" }}
+                icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
+                variant={"outline"}
+                fontSize={"xl"}
+              />
+              <MenuList color={color} bg={bg}>
+                {mobileBody}
+                <MenuItem
+                  textTransform={"capitalize"}
+                  icon={<SwitchIcon />}
+                  onClick={toggleColorMode}
+                >
+                  {`Toggle ${colorMode} Mode`}
+                </MenuItem>
+              </MenuList>
+            </>
+          )}
         </Menu>
       </Flex>
     </Flex>
