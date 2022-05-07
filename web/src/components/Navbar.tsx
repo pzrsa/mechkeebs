@@ -95,7 +95,14 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
   }
 
   return (
-    <Flex boxShadow={useColorModeValue("sm", "white.sm")} p={3}>
+    <Flex
+      position={"sticky"}
+      top={0}
+      bg={useColorModeValue("#fff", "#111")}
+      zIndex={1}
+      boxShadow={useColorModeValue("sm", "white.sm")}
+      p={3}
+    >
       <Flex
         flex={1}
         m="auto"
