@@ -7,6 +7,7 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
+  Portal,
   Spacer,
   useColorMode,
   useColorModeValue,
@@ -95,7 +96,12 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
 
   return (
     <Flex boxShadow={useColorModeValue("sm", "white.sm")} p={3}>
-      <Flex flex={1} m="auto" align="center" maxW={"85rem"}>
+      <Flex
+        flex={1}
+        m="auto"
+        align="center"
+        maxW={{ base: "none", md: "60rem", lg: "80rem" }}
+      >
         <NextLink href="/">
           <Button fontSize={"xl"} variant={"ghost"}>
             MechKeebs
@@ -123,16 +129,18 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
                 variant={"outline"}
                 fontSize={"xl"}
               />
-              <MenuList color={color} bg={bg}>
-                {mobileBody}
-                <MenuItem
-                  textTransform={"capitalize"}
-                  icon={<SwitchIcon />}
-                  onClick={toggleColorMode}
-                >
-                  {`Toggle ${colorMode} Mode`}
-                </MenuItem>
-              </MenuList>
+              <Portal>
+                <MenuList color={color} bg={bg}>
+                  {mobileBody}
+                  <MenuItem
+                    textTransform={"capitalize"}
+                    icon={<SwitchIcon />}
+                    onClick={toggleColorMode}
+                  >
+                    {`Toggle ${colorMode} Mode`}
+                  </MenuItem>
+                </MenuList>
+              </Portal>
             </>
           )}
         </Menu>
