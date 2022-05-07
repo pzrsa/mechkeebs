@@ -112,7 +112,7 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
             onClick={toggleColorMode}
           />
         </Box>
-        <Menu>
+        <Menu autoSelect={false}>
           {({ isOpen }) => (
             <>
               <MenuButton
