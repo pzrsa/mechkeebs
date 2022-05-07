@@ -102,7 +102,7 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
           </Button>
         </NextLink>
         <Spacer />
-        <Box display={{ base: "none", md: "inherit" }}>
+        <Box alignItems={"center"} display={{ base: "none", md: "inherit" }}>
           {body}
           <IconButton
             ml={"2"}

@@ -6,11 +6,11 @@ import {
   FormLabel,
   Image,
   Text,
-  useColorModeValue
+  useColorModeValue,
 } from "@chakra-ui/react";
-import {useField} from "formik";
-import {InputHTMLAttributes, useCallback} from "react";
-import {useDropzone} from "react-dropzone";
+import { useField } from "formik";
+import { InputHTMLAttributes, useCallback } from "react";
+import { useDropzone } from "react-dropzone";
 
 type ImageInputFieldProps = InputHTMLAttributes<HTMLInputElement> & {
   label: string;
