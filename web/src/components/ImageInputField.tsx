@@ -1,16 +1,16 @@
 import {
-  Center,
+  AspectRatio,
   FormControl,
   FormErrorIcon,
   FormErrorMessage,
   FormLabel,
+  Image,
   Text,
-  useColorModeValue,
+  useColorModeValue
 } from "@chakra-ui/react";
-import { useField } from "formik";
-import { InputHTMLAttributes, useCallback } from "react";
-import { useDropzone } from "react-dropzone";
-import ImageInputThumbnail from "./ImageInputThumbnail";
+import {useField} from "formik";
+import {InputHTMLAttributes, useCallback} from "react";
+import {useDropzone} from "react-dropzone";
 
 type ImageInputFieldProps = InputHTMLAttributes<HTMLInputElement> & {
   label: string;
@@ -51,45 +51,51 @@ const ImageInputField: React.FC<ImageInputFieldProps> = ({
   return (
     <FormControl mb={5} isInvalid={!!(meta.touched && meta.error)}>
       <FormLabel htmlFor={field.name}>{label}</FormLabel>
-      <Center
+      <AspectRatio
+        overflow={"hidden"}
+        rounded={"md"}
+        ratio={16 / 9}
         mb={3}
-        border={"1px solid"}
+        border={field.value ? "none" : "1px solid"}
         _hover={{
-          borderColor: useColorModeValue("gray.300", "whiteAlpha.400"),
+          borderColor: !!(meta.touched && meta.error)
+            ? errorBorderColour
+            : useColorModeValue("gray.300", "whiteAlpha.400"),
           bg: useColorModeValue("gray.200", "whiteAlpha.300"),
         }}
         borderRadius={"md"}
         borderColor={
           !!(meta.touched && meta.error) ? errorBorderColour : borderColor
         }
-        fontSize={"md"}
         p={10}
         appearance={"none"}
         transitionProperty={"common"}
         transitionDuration={"normal"}
         {...getRootProps()}
-        _focus={{
-          zIndex: 1,
-          borderColor: useColorModeValue("blue.500", "blue.300"),
-          boxShadow: `0 0 0 1px ${useColorModeValue("blue.500", "blue.300")}`,
-        }}
       >
-        <input
-          id={field.name}
-          {...field}
-          {...props}
-          {...getInputProps()}
-          value={undefined}
-        />
-        <Text textAlign={"center"}>{dropText}</Text>
-      </Center>
+        <>
+          <input
+            id={field.name}
+            {...field}
+            {...props}
+            {...getInputProps()}
+            value={undefined}
+          />
+          {field.value ? (
+            <Image src={URL.createObjectURL(field.value)} />
+          ) : (
+            <Text p={10} textAlign={"center"}>
+              {dropText}
+            </Text>
+          )}
+        </>
+      </AspectRatio>
       {meta.touched && meta.error ? (
         <FormErrorMessage>
           <FormErrorIcon />
           {meta.error}
         </FormErrorMessage>
       ) : null}
-      <ImageInputThumbnail image={field.value} />
     </FormControl>
   );
 };
