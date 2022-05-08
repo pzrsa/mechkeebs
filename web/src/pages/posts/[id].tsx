@@ -58,15 +58,14 @@ const Post: React.FC<PostProps> = ({}) => {
           rounded={true}
         />
       </AspectRatio>
-
       <Box py={4}>
-        <Heading fontSize={"2xl"} fontWeight="black">
+        <Heading fontSize={{ base: "lg", md: "2xl" }} fontWeight="black">
           {post.result.keyboard.name}
         </Heading>
-        <Box fontSize={"xl"} fontWeight="semibold">
+        <Box fontSize={{ base: "md", md: "xl" }} fontWeight="semibold">
           {post.result.keyboard.keycaps} · {post.result.keyboard.switches}
         </Box>
-        <Box fontSize={"lg"} fontWeight="medium">
+        <Box fontSize={{ base: "sm", md: "lg" }} fontWeight="medium">
           by {post.result.creator.username}
         </Box>
         {post.result.creator.id === user?.user.id ? (
@@ -82,7 +81,11 @@ const Post: React.FC<PostProps> = ({}) => {
                       colorScheme="red"
                     />
                   </PopoverTrigger>
-                  <PopoverContent color={color} bg={bg}>
+                  <PopoverContent
+                    maxW={{ base: "16rem", md: "none" }}
+                    color={color}
+                    bg={bg}
+                  >
                     <PopoverHeader pt={4} fontWeight="bold">
                       Sure you want to delete your post?
                     </PopoverHeader>
