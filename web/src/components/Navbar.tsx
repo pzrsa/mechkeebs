@@ -33,7 +33,30 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
   if (isLoading) {
     body = <Spinner />;
     mobileBody = <Spinner />;
-  } else if (user?.user) {
+  } else if (loggedOut) {
+    body = (
+      <>
+        <NextLink href="/register">
+          <Button mr={2}>Register</Button>
+        </NextLink>
+        <NextLink href="/login">
+          <Button>Login</Button>
+        </NextLink>
+      </>
+    );
+    mobileBody = (
+      <>
+        <MenuItem>
+          <NextLink href="/register">Register</NextLink>
+        </MenuItem>
+        <MenuItem>
+          <NextLink href="/login">Login</NextLink>
+        </MenuItem>
+      </>
+    );
+  }
+
+  if (user?.user) {
     body = (
       <>
         <NextLink href="/posts/create">
@@ -67,28 +90,6 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
           >
             Log Out
           </Link>
-        </MenuItem>
-      </>
-    );
-  }
-  if (loggedOut) {
-    body = (
-      <>
-        <NextLink href="/register">
-          <Button mr={2}>Register</Button>
-        </NextLink>
-        <NextLink href="/login">
-          <Button>Login</Button>
-        </NextLink>
-      </>
-    );
-    mobileBody = (
-      <>
-        <MenuItem>
-          <NextLink href="/register">Register</NextLink>
-        </MenuItem>
-        <MenuItem>
-          <NextLink href="/login">Login</NextLink>
         </MenuItem>
       </>
     );
