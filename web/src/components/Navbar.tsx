@@ -46,12 +46,12 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
     );
     mobileBody = (
       <>
-        <MenuItem>
-          <NextLink href="/register">Register</NextLink>
-        </MenuItem>
-        <MenuItem>
-          <NextLink href="/login">Login</NextLink>
-        </MenuItem>
+        <NextLink href="/register">
+          <MenuItem>Register</MenuItem>
+        </NextLink>
+        <NextLink href="/login">
+          <MenuItem>Login</MenuItem>
+        </NextLink>
       </>
     );
   }
@@ -75,21 +75,17 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
     );
     mobileBody = (
       <>
-        <MenuItem>
-          <NextLink href="/posts/create">Create Post</NextLink>
-        </MenuItem>
-        <MenuItem>
-          <Link>{user.user.username}</Link>
-        </MenuItem>
-        <MenuItem>
-          <Link
-            onClick={async () => {
-              await logoutUser();
-              mutate(undefined);
-            }}
-          >
-            Log Out
-          </Link>
+        <NextLink href="/posts/create">
+          <MenuItem>Create Post </MenuItem>
+        </NextLink>
+        <MenuItem>{user.user.username}</MenuItem>
+        <MenuItem
+          onClick={async () => {
+            await logoutUser();
+            mutate(undefined);
+          }}
+        >
+          Log Out
         </MenuItem>
       </>
     );
@@ -97,6 +93,7 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
 
   return (
     <Flex
+      as={"nav"}
       position={"sticky"}
       top={0}
       bg={useColorModeValue("#fff", "#111")}
