@@ -1,4 +1,4 @@
-import { Flex, Button, Box, Link, Center, IconButton } from "@chakra-ui/react";
+import { Button, Flex, IconButton, Link } from "@chakra-ui/react";
 import { SiGithub } from "react-icons/si";
 
 interface FooterProps {}
@@ -7,7 +7,7 @@ const Footer: React.FC<FooterProps> = ({}) => {
   return (
     <Flex
       as="footer"
-      mt="auto"
+      mt={10}
       align={{ base: "center", sm: "inherit" }}
       justify={{ sm: "space-between" }}
       maxW={{ base: "none", md: "60rem", lg: "80rem" }}
