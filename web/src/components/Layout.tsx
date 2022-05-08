@@ -1,3 +1,4 @@
+import Footer from "./Footer";
 import Navbar from "./Navbar";
 import Wrapper from "./Wrapper";
 
@@ -7,7 +8,10 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <>
       <Navbar />
-      <Wrapper>{children}</Wrapper>
+      <Wrapper>
+        {children}
+        <Footer />
+      </Wrapper>
     </>
   );
 };
