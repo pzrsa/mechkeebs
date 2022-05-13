@@ -1,29 +1,60 @@
-import { Button, Flex, IconButton, Link } from "@chakra-ui/react";
+import { MoonIcon, SunIcon } from "@chakra-ui/icons";
+import {
+  Button,
+  Flex,
+  IconButton,
+  Link,
+  useColorMode,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import { SiGithub } from "react-icons/si";
 
 interface FooterProps {}
 
 const Footer: React.FC<FooterProps> = ({}) => {
+  const { colorMode, toggleColorMode } = useColorMode();
+  const SwitchIcon = useColorModeValue(MoonIcon, SunIcon);
+
   return (
     <Flex
       as="footer"
       mt={10}
-      align={{ base: "center", sm: "inherit" }}
+      alignItems={"center"}
       justify={{ sm: "space-between" }}
       maxW={{ base: "none", md: "60rem", lg: "80rem" }}
       direction={{ base: "column", sm: "row" }}
     >
-      <Link href="https://parsam.io/" isExternal>
-        <Button variant="ghost" size="sm">
-          Created by Parsa.
-        </Button>
-      </Link>
-      <Link href="https://github.com/pzrsa/mechkeebs" isExternal>
+      <Flex align={"center"} direction={{ base: "column", sm: "row" }} gap={2}>
         <IconButton
-          aria-label="MechKeebs GitHub"
+          size={"sm"}
+          aria-label={`Toggle ${colorMode} mode`}
           variant={"ghost"}
-          icon={<SiGithub />}
+          icon={<SwitchIcon />}
+          onClick={toggleColorMode}
         />
+        <Link
+          _hover={{ textDecoration: "none" }}
+          href="https://github.com/pzrsa/mechkeebs"
+          isExternal
+        >
+          <Button
+            aria-label="MechKeebs GitHub"
+            variant={"ghost"}
+            leftIcon={<SiGithub />}
+            size="sm"
+          >
+            GitHub
+          </Button>
+        </Link>
+      </Flex>
+      <Link
+        href="https://parsam.io/"
+        _hover={{ textDecoration: "none" }}
+        isExternal
+      >
+        <Button variant="ghost" size="sm">
+          Made by Parsa
+        </Button>
       </Link>
     </Flex>
   );

@@ -1,4 +1,4 @@
-import { CloseIcon, HamburgerIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
+import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
 import { Box, Flex, Link } from "@chakra-ui/layout";
 import {
   Button,
@@ -9,7 +9,6 @@ import {
   MenuList,
   Portal,
   Spacer,
-  useColorMode,
   useColorModeValue,
 } from "@chakra-ui/react";
 import { Spinner } from "@chakra-ui/spinner";
@@ -22,8 +21,6 @@ interface NavbarProps {}
 
 const Navbar: React.FC<NavbarProps> = ({}) => {
   const { user, isLoading, loggedOut, mutate } = useUser();
-  const { colorMode, toggleColorMode } = useColorMode();
-  const SwitchIcon = useColorModeValue(MoonIcon, SunIcon);
   const color = useColorModeValue("#111", "#fff");
   const bg = useColorModeValue("#fff", "#111");
 
@@ -115,13 +112,6 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
         <Spacer />
         <Box alignItems={"center"} display={{ base: "none", md: "inherit" }}>
           {body}
-          <IconButton
-            ml={"2"}
-            aria-label={`Toggle ${colorMode} mode`}
-            variant={"ghost"}
-            icon={<SwitchIcon />}
-            onClick={toggleColorMode}
-          />
         </Box>
         <Menu autoSelect={false}>
           {({ isOpen }) => (
@@ -137,13 +127,6 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
               <Portal>
                 <MenuList color={color} bg={bg}>
                   {mobileBody}
-                  <MenuItem
-                    textTransform={"capitalize"}
-                    icon={<SwitchIcon />}
-                    onClick={toggleColorMode}
-                  >
-                    {`Toggle ${colorMode} Mode`}
-                  </MenuItem>
                 </MenuList>
               </Portal>
             </>
