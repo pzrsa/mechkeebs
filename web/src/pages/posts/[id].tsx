@@ -18,6 +18,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import Error from "next/error";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import BlurImage from "../../components/BlurImage";
 import Wrapper from "../../components/Wrapper";
@@ -50,73 +51,78 @@ const Post: React.FC<PostProps> = ({}) => {
   }
 
   return (
-    <Wrapper>
-      <AspectRatio boxShadow={boxShadow} ratio={16 / 9}>
-        <BlurImage
-          baseUrl={`https://storage.googleapis.com/${GCLOUD_BUCKET_NAME}`}
-          imageName={post.result.imageName}
-          rounded={true}
-        />
-      </AspectRatio>
-      <Box py={4}>
-        <Heading fontSize={{ base: "lg", md: "2xl" }} fontWeight="black">
-          {post.result.keyboard.name}
-        </Heading>
-        <Box fontSize={{ base: "md", md: "xl" }} fontWeight="semibold">
-          {post.result.keyboard.keycaps} · {post.result.keyboard.switches}
-        </Box>
-        <Box fontSize={{ base: "sm", md: "lg" }} fontWeight="medium">
-          by {post.result.creator.username}
-        </Box>
-        {post.result.creator.id === user?.user.id ? (
-          <Flex>
-            <Popover closeOnBlur={true}>
-              {({ onClose }) => (
-                <>
-                  <PopoverTrigger>
-                    <IconButton
-                      ml={"auto"}
-                      aria-label={"Delete Post"}
-                      icon={<DeleteIcon />}
-                      colorScheme="red"
-                    />
-                  </PopoverTrigger>
-                  <PopoverContent
-                    maxW={{ base: "16rem", md: "none" }}
-                    color={color}
-                    bg={bg}
-                  >
-                    <PopoverHeader pt={4} fontWeight="bold">
-                      Sure you want to delete your post?
-                    </PopoverHeader>
-                    <PopoverArrow />
-                    <PopoverFooter
-                      display={"flex"}
-                      justifyContent={"end"}
-                      alignContent={"end"}
+    <>
+      <Head>
+        <title>MechKeebs - {post.result.keyboard.name}</title>
+      </Head>
+      <Wrapper>
+        <AspectRatio boxShadow={boxShadow} ratio={16 / 9}>
+          <BlurImage
+            baseUrl={`https://storage.googleapis.com/${GCLOUD_BUCKET_NAME}`}
+            imageName={post.result.imageName}
+            rounded={true}
+          />
+        </AspectRatio>
+        <Box py={4}>
+          <Heading fontSize={{ base: "lg", md: "2xl" }} fontWeight="black">
+            {post.result.keyboard.name}
+          </Heading>
+          <Box fontSize={{ base: "md", md: "xl" }} fontWeight="semibold">
+            {post.result.keyboard.keycaps} · {post.result.keyboard.switches}
+          </Box>
+          <Box fontSize={{ base: "sm", md: "lg" }} fontWeight="medium">
+            by {post.result.creator.username}
+          </Box>
+          {post.result.creator.id === user?.user.id ? (
+            <Flex>
+              <Popover closeOnBlur={true}>
+                {({ onClose }) => (
+                  <>
+                    <PopoverTrigger>
+                      <IconButton
+                        ml={"auto"}
+                        aria-label={"Delete Post"}
+                        icon={<DeleteIcon />}
+                        colorScheme="red"
+                      />
+                    </PopoverTrigger>
+                    <PopoverContent
+                      maxW={{ base: "16rem", md: "none" }}
+                      color={color}
+                      bg={bg}
                     >
-                      <ButtonGroup size="sm">
-                        <Button onClick={onClose}>No</Button>
-                        <Button
-                          colorScheme="red"
-                          onClick={async () => {
-                            await deletePost(post.result.id);
-                            await router.push("/");
-                            mutate();
-                          }}
-                        >
-                          Yes
-                        </Button>
-                      </ButtonGroup>
-                    </PopoverFooter>
-                  </PopoverContent>
-                </>
-              )}
-            </Popover>
-          </Flex>
-        ) : null}
-      </Box>
-    </Wrapper>
+                      <PopoverHeader pt={4} fontWeight="bold">
+                        Sure you want to delete your post?
+                      </PopoverHeader>
+                      <PopoverArrow />
+                      <PopoverFooter
+                        display={"flex"}
+                        justifyContent={"end"}
+                        alignContent={"end"}
+                      >
+                        <ButtonGroup size="sm">
+                          <Button onClick={onClose}>No</Button>
+                          <Button
+                            colorScheme="red"
+                            onClick={async () => {
+                              await deletePost(post.result.id);
+                              await router.push("/");
+                              mutate();
+                            }}
+                          >
+                            Yes
+                          </Button>
+                        </ButtonGroup>
+                      </PopoverFooter>
+                    </PopoverContent>
+                  </>
+                )}
+              </Popover>
+            </Flex>
+          ) : null}
+        </Box>
+      </Wrapper>
+    </>
   );
 };
 

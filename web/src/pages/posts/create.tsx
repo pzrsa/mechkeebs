@@ -1,6 +1,7 @@
 import { Button } from "@chakra-ui/button";
 import { Box, Heading } from "@chakra-ui/layout";
 import { Form, Formik } from "formik";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import React from "react";
 import * as Yup from "yup";
@@ -27,50 +28,55 @@ const Create: React.FC<CreateProps> = ({}) => {
   };
 
   return (
-    <Wrapper>
-      <Box mx="auto" width={{ base: "inherit", md: "650px" }}>
-        <Heading mb={3}>Create Post</Heading>
-        <Formik
-          initialValues={initialValues}
-          validationSchema={Yup.object().shape({
-            image: Yup.mixed().required("Image required"),
+    <>
+      <Head>
+        <title>MechKeebs - Create Post</title>
+      </Head>
+      <Wrapper>
+        <Box mx="auto" width={{ base: "inherit", md: "650px" }}>
+          <Heading mb={3}>Create Post</Heading>
+          <Formik
+            initialValues={initialValues}
+            validationSchema={Yup.object().shape({
+              image: Yup.mixed().required("Image required"),
 
-            keyboard: Yup.object().shape({
-              name: Yup.string().required("Keyboard name required"),
-              switches: Yup.string().required("Keyboard switches required"),
-              keycaps: Yup.string().required("Keyboard keycaps required"),
-            }),
-          })}
-          onSubmit={async (values) => {
-            const response = await createPost(values);
+              keyboard: Yup.object().shape({
+                name: Yup.string().required("Keyboard name required"),
+                switches: Yup.string().required("Keyboard switches required"),
+                keycaps: Yup.string().required("Keyboard keycaps required"),
+              }),
+            })}
+            onSubmit={async (values) => {
+              const response = await createPost(values);
 
-            if (response.error) {
-              console.error(response.error);
-            }
-            if (response.result) {
-              await router.push("/");
-              mutate(undefined);
-            }
-          }}
-        >
-          {({ isSubmitting }) => (
-            <Form>
-              <InputField name="keyboard.name" label="Name" />
-              <SelectField
-                name="keyboard.switches"
-                label="Switches"
-                options={switchOptions}
-              />
-              <InputField name="keyboard.keycaps" label="Keycaps" />
-              <ImageInputField label="Image" name="image" />
-              <Button isLoading={isSubmitting} type="submit">
-                Post
-              </Button>
-            </Form>
-          )}
-        </Formik>
-      </Box>
-    </Wrapper>
+              if (response.error) {
+                console.error(response.error);
+              }
+              if (response.result) {
+                await router.push("/");
+                mutate(undefined);
+              }
+            }}
+          >
+            {({ isSubmitting }) => (
+              <Form>
+                <InputField name="keyboard.name" label="Name" />
+                <SelectField
+                  name="keyboard.switches"
+                  label="Switches"
+                  options={switchOptions}
+                />
+                <InputField name="keyboard.keycaps" label="Keycaps" />
+                <ImageInputField label="Image" name="image" />
+                <Button isLoading={isSubmitting} type="submit">
+                  Post
+                </Button>
+              </Form>
+            )}
+          </Formik>
+        </Box>
+      </Wrapper>
+    </>
   );
 };
 
