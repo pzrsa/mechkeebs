@@ -37,12 +37,7 @@ const Footer: React.FC<FooterProps> = ({}) => {
           href="https://github.com/pzrsa/mechkeebs"
           isExternal
         >
-          <Button
-            aria-label="MechKeebs GitHub"
-            variant={"ghost"}
-            leftIcon={<SiGithub />}
-            size="sm"
-          >
+          <Button variant={"ghost"} leftIcon={<SiGithub />} size="sm">
             GitHub
           </Button>
         </Link>
