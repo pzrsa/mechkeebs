@@ -24,12 +24,15 @@ const ImageInputField: React.FC<ImageInputFieldProps> = ({
 }) => {
   const [field, meta, helpers] = useField(props);
 
-  const onDrop = useCallback((acceptedFiles: File[]) => {
-    if (!acceptedFiles.length) {
-      return;
-    }
-    helpers.setValue(acceptedFiles.at(0));
-  }, []);
+  const onDrop = useCallback(
+    (acceptedFiles: File[]) => {
+      if (!acceptedFiles.length) {
+        return;
+      }
+      helpers.setValue(acceptedFiles.at(0));
+    },
+    [helpers]
+  );
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
@@ -42,6 +45,8 @@ const ImageInputField: React.FC<ImageInputFieldProps> = ({
     ? "Drop your image here..."
     : "Drag 'n' drop the image of your keeb here, or click to select the image";
 
+  const hover = useColorModeValue("gray.300", "whiteAlpha.400");
+  const bg = useColorModeValue("gray.200", "whiteAlpha.300");
   const borderColor = useColorModeValue(
     isDragActive ? "gray.300" : "inherit",
     isDragActive ? "whiteAlpha.400" : "inherit"
@@ -60,8 +65,8 @@ const ImageInputField: React.FC<ImageInputFieldProps> = ({
         _hover={{
           borderColor: !!(meta.touched && meta.error)
             ? errorBorderColour
-            : useColorModeValue("gray.300", "whiteAlpha.400"),
-          bg: useColorModeValue("gray.200", "whiteAlpha.300"),
+            : hover,
+          bg: bg,
         }}
         borderRadius={"md"}
         borderColor={
@@ -82,7 +87,10 @@ const ImageInputField: React.FC<ImageInputFieldProps> = ({
             value={undefined}
           />
           {field.value ? (
-            <Image src={URL.createObjectURL(field.value)} />
+            <Image
+              src={URL.createObjectURL(field.value)}
+              alt="Uploaded Keyboard"
+            />
           ) : (
             <Text p={10} textAlign={"center"}>
               {dropText}

@@ -30,6 +30,7 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
         <BlurImage
           baseUrl={`https://storage.googleapis.com/${GCLOUD_BUCKET_NAME}`}
           imageName={post.imageName}
+          alt={post.keyboard.name}
         />
       </AspectRatio>
 

@@ -98,6 +98,7 @@ const Post: React.FC<PostProps> = ({ data: post }) => {
             baseUrl={`https://storage.googleapis.com/${GCLOUD_BUCKET_NAME}`}
             imageName={post.result.imageName}
             rounded={true}
+            alt={post.result.keyboard.name}
           />
         </AspectRatio>
         <Box py={4}>

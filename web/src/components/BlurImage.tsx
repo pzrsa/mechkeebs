@@ -6,6 +6,7 @@ interface BlurImageProps {
   imageName: string;
   baseUrl?: string;
   rounded?: boolean;
+  alt?: string;
 }
 
 const Image = chakra(NextImage, {
@@ -17,6 +18,7 @@ const BlurImage: React.FC<BlurImageProps> = ({
   baseUrl,
   imageName,
   rounded,
+  alt,
 }) => {
   const [isLoading, setLoading] = useState(true);
 
@@ -31,6 +33,7 @@ const BlurImage: React.FC<BlurImageProps> = ({
       blur={isLoading ? "xl" : "none"}
       scale={isLoading ? "110" : "100"}
       rounded={rounded ? "md" : "none"}
+      alt={alt}
     />
   );
 };

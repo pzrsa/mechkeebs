@@ -15,14 +15,6 @@ type SelectFieldProps = InputHTMLAttributes<HTMLInputElement> & {
   label: string;
 };
 
-const chakraStyles: ChakraStylesConfig = {
-  menuList: (provided) => ({
-    ...provided,
-    color: useColorModeValue("#111", "#fff"),
-    bg: useColorModeValue("#fff", "#111"),
-  }),
-};
-
 const SelectField: React.FC<SelectFieldProps> = ({
   options,
   label,
@@ -30,6 +22,17 @@ const SelectField: React.FC<SelectFieldProps> = ({
   ...props
 }) => {
   const [field, meta, helpers] = useField(props);
+
+  const color = useColorModeValue("#111", "#fff");
+  const bg = useColorModeValue("#fff", "#111");
+
+  const chakraStyles: ChakraStylesConfig = {
+    menuList: (provided) => ({
+      ...provided,
+      color: color,
+      bg: bg,
+    }),
+  };
 
   return (
     <FormControl mb={5} isInvalid={!!(meta.touched && meta.error)}>
