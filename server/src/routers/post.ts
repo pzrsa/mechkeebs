@@ -111,30 +111,6 @@ postsRouter.post("/posts/create", async (req: Request, res: Response) => {
   }
 });
 
-postsRouter.put("/posts/update", async (req: Request, res: Response) => {
-  try {
-    const session = await getSession(req);
-
-    if (typeof session === "string") {
-      return res.status(401).json({ error: session });
-    }
-
-    const result = await Post.update(
-      { id: req.body.setupId, creatorId: session?.user.id },
-      {
-        keyboard: {
-          name: req.body.keyboard.name,
-          switches: req.body.keyboard.switches,
-          keycaps: req.body.keyboard.keycaps,
-        },
-      }
-    );
-    return res.status(200).json({ result });
-  } catch (err) {
-    return res.status(400).json({ error: err.detail });
-  }
-});
-
 postsRouter.delete("/posts/delete", async (req: Request, res: Response) => {
   const bucket = storage.bucket(GCLOUD_BUCKET_NAME);
 
