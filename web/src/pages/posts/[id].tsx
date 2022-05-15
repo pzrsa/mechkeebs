@@ -109,8 +109,8 @@ const Post: React.FC<PostProps> = ({ data: post }) => {
             {post.result.keyboard.keycaps} · {post.result.keyboard.switches}
           </Box>
           <Box fontSize={{ base: "sm", md: "lg" }} fontWeight="semibold">
-            <FormattedDate date={post.result.createdAt} /> ·{" "}
-            {post.result.creator.username}
+            by {post.result.creator.username} ·{" "}
+            <FormattedDate date={post.result.createdAt} />
           </Box>
           {post.result.creator.id === user?.user?.id ? (
             <Flex>

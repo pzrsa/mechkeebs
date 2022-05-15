@@ -44,7 +44,7 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
           {post.keyboard.keycaps} · {post.keyboard.switches}
         </Box>
         <Box fontSize={"sm"} fontWeight="semibold">
-          <FormattedDate date={post.createdAt} /> · {post.creator.username}
+          by {post.creator.username} · <FormattedDate date={post.createdAt} />
         </Box>
       </Box>
     </LinkBox>
