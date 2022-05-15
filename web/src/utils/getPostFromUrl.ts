@@ -1,9 +1,7 @@
-import { useRouter } from "next/router";
+import { GetServerSidePropsContext } from "next";
 
-const getPostFromUrlId = () => {
-  const router = useRouter();
-
-  return typeof router.query.id === "string" ? parseInt(router.query.id) : -1;
+const getPostFromUrlId = (context: GetServerSidePropsContext) => {
+  return typeof context.query.id === "string" ? parseInt(context.query.id) : -1;
 };
 
 export default getPostFromUrlId;

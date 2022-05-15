@@ -5,7 +5,6 @@ import {
   Box,
   Button,
   ButtonGroup,
-  Center,
   Heading,
   IconButton,
   Popover,
@@ -15,41 +14,56 @@ import {
   PopoverHeader,
   PopoverTrigger,
   Portal,
-  Spinner,
   useColorModeValue,
 } from "@chakra-ui/react";
-import Error from "next/error";
+import {
+  GetServerSideProps,
+  GetServerSidePropsContext,
+  InferGetServerSidePropsType,
+} from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import BlurImage from "../../components/BlurImage";
 import Wrapper from "../../components/Wrapper";
 import { GCLOUD_BUCKET_NAME } from "../../data/constants";
-import { usePaginatedPosts, usePost } from "../../hooks/post";
+import { usePaginatedPosts } from "../../hooks/post";
 import { useUser } from "../../hooks/user";
 import { deletePost } from "../../lib/mutations";
+import { fetchPost } from "../../lib/queries";
+import { Post } from "../../types/Post";
+import getPostFromUrlId from "../../utils/getPostFromUrl";
+
+export const getServerSideProps: GetServerSideProps = async (
+  context: GetServerSidePropsContext
+) => {
+  const postId = getPostFromUrlId(context);
+
+  const data: Post = await fetchPost(`${postId}`);
+
+  if (!data?.result) {
+    return {
+      notFound: true,
+    };
+  }
+
+  return {
+    props: { data },
+  };
+};
 
 interface PostProps {}
 
-const Post: React.FC<PostProps> = ({}) => {
+const Post: React.FC<PostProps> = ({
+  data: post,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const router = useRouter();
 
-  const { post, isLoading } = usePost();
   const { user } = useUser();
   const { mutate } = usePaginatedPosts();
 
   const boxShadow = useColorModeValue("lg", "white.lg");
   const color = useColorModeValue("#111", "#fff");
   const bg = useColorModeValue("#fff", "#111");
-
-  if (isLoading) {
-    return (
-      <Center>
-        <Spinner size={"xl"} />
-      </Center>
-    );
-  } else if (!post?.result) {
-    return <Error statusCode={404} />;
-  }
 
   return (
     <>
