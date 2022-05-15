@@ -10,6 +10,7 @@ import NextLink from "next/link";
 import { GCLOUD_BUCKET_NAME } from "../data/constants";
 import { SinglePost } from "../types/Post";
 import BlurImage from "./BlurImage";
+import FormattedDate from "./FormattedDate";
 
 interface PostCardProps {
   post: SinglePost;
@@ -38,11 +39,11 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
             <LinkOverlay>{post.keyboard.name}</LinkOverlay>
           </NextLink>
         </Heading>
-        <Box fontSize={"md"} fontWeight="semibold">
+        <Box fontSize={"md"} fontWeight="bold">
           {post.keyboard.keycaps} · {post.keyboard.switches}
         </Box>
-        <Box fontSize={"sm"} fontWeight="medium">
-          by {post.creator.username}
+        <Box fontSize={"sm"} fontWeight="semibold">
+          <FormattedDate date={post.createdAt} /> · {post.creator.username}
         </Box>
       </Box>
     </LinkBox>

@@ -16,14 +16,11 @@ import {
   Portal,
   useColorModeValue,
 } from "@chakra-ui/react";
-import {
-  GetServerSideProps,
-  GetServerSidePropsContext,
-  InferGetServerSidePropsType,
-} from "next";
+import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import BlurImage from "../../components/BlurImage";
+import FormattedDate from "../../components/FormattedDate";
 import Wrapper from "../../components/Wrapper";
 import { GCLOUD_BUCKET_NAME } from "../../data/constants";
 import { usePaginatedPosts } from "../../hooks/post";
@@ -51,11 +48,11 @@ export const getServerSideProps: GetServerSideProps = async (
   };
 };
 
-interface PostProps {}
+interface PostProps {
+  data: Post;
+}
 
-const Post: React.FC<PostProps> = ({
-  data: post,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+const Post: React.FC<PostProps> = ({ data: post }) => {
   const router = useRouter();
 
   const { user } = useUser();
@@ -69,6 +66,31 @@ const Post: React.FC<PostProps> = ({
     <>
       <Head>
         <title>MechKeebs - {post.result.keyboard.name}</title>
+        <meta
+          property="og:site_name"
+          content={post.result.keyboard.name}
+          key="og:site_name"
+        />
+        <meta
+          property="og:title"
+          content={post.result.keyboard.name}
+          key="og:title"
+        />
+        <meta
+          property="og:image"
+          content={`https://storage.googleapis.com/${GCLOUD_BUCKET_NAME}/${post.result.imageName}`}
+          key="og:image"
+        />
+        <meta
+          name="twitter:title"
+          content={post.result.keyboard.name}
+          key="twitter:title"
+        />
+        <meta
+          name="twitter:image"
+          content={`https://storage.googleapis.com/${GCLOUD_BUCKET_NAME}/${post.result.imageName}`}
+          key="twitter:image"
+        />
       </Head>
       <Wrapper>
         <AspectRatio boxShadow={boxShadow} ratio={16 / 9}>
@@ -82,11 +104,12 @@ const Post: React.FC<PostProps> = ({
           <Heading fontSize={{ base: "lg", md: "2xl" }} fontWeight="black">
             {post.result.keyboard.name}
           </Heading>
-          <Box fontSize={{ base: "md", md: "xl" }} fontWeight="semibold">
+          <Box fontSize={{ base: "md", md: "xl" }} fontWeight="bold">
             {post.result.keyboard.keycaps} · {post.result.keyboard.switches}
           </Box>
-          <Box fontSize={{ base: "sm", md: "lg" }} fontWeight="medium">
-            by {post.result.creator.username}
+          <Box fontSize={{ base: "sm", md: "lg" }} fontWeight="semibold">
+            <FormattedDate date={post.result.createdAt} /> ·{" "}
+            {post.result.creator.username}
           </Box>
           {post.result.creator.id === user?.user?.id ? (
             <Flex>
