@@ -14,6 +14,7 @@ import {
   PopoverFooter,
   PopoverHeader,
   PopoverTrigger,
+  Portal,
   Spinner,
   useColorModeValue,
 } from "@chakra-ui/react";
@@ -73,9 +74,9 @@ const Post: React.FC<PostProps> = ({}) => {
           <Box fontSize={{ base: "sm", md: "lg" }} fontWeight="medium">
             by {post.result.creator.username}
           </Box>
-          {post.result.creator.id === user?.user.id ? (
+          {post.result.creator.id === user?.user?.id ? (
             <Flex>
-              <Popover closeOnBlur={true}>
+              <Popover closeOnBlur={true} placement={"left-end"}>
                 {({ onClose }) => (
                   <>
                     <PopoverTrigger>
@@ -86,35 +87,37 @@ const Post: React.FC<PostProps> = ({}) => {
                         colorScheme="red"
                       />
                     </PopoverTrigger>
-                    <PopoverContent
-                      maxW={{ base: "16rem", md: "none" }}
-                      color={color}
-                      bg={bg}
-                    >
-                      <PopoverHeader pt={4} fontWeight="bold">
-                        Sure you want to delete your post?
-                      </PopoverHeader>
-                      <PopoverArrow />
-                      <PopoverFooter
-                        display={"flex"}
-                        justifyContent={"end"}
-                        alignContent={"end"}
+                    <Portal>
+                      <PopoverContent
+                        maxW={{ base: "16rem", md: "none" }}
+                        color={color}
+                        bg={bg}
                       >
-                        <ButtonGroup size="sm">
-                          <Button onClick={onClose}>No</Button>
-                          <Button
-                            colorScheme="red"
-                            onClick={async () => {
-                              await deletePost(post.result.id);
-                              await router.push("/");
-                              mutate();
-                            }}
-                          >
-                            Yes
-                          </Button>
-                        </ButtonGroup>
-                      </PopoverFooter>
-                    </PopoverContent>
+                        <PopoverHeader pt={4} fontWeight="bold">
+                          Sure you want to delete your post?
+                        </PopoverHeader>
+                        <PopoverArrow />
+                        <PopoverFooter
+                          display={"flex"}
+                          justifyContent={"end"}
+                          alignContent={"end"}
+                        >
+                          <ButtonGroup size="sm">
+                            <Button onClick={onClose}>No</Button>
+                            <Button
+                              colorScheme="red"
+                              onClick={async () => {
+                                await deletePost(post.result.id);
+                                await router.push("/");
+                                mutate();
+                              }}
+                            >
+                              Yes
+                            </Button>
+                          </ButtonGroup>
+                        </PopoverFooter>
+                      </PopoverContent>
+                    </Portal>
                   </>
                 )}
               </Popover>
