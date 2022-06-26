@@ -1,6 +1,8 @@
 import { Container } from "@chakra-ui/layout";
 
-interface WrapperProps {}
+interface WrapperProps {
+  children: React.ReactNode;
+}
 
 const Wrapper: React.FC<WrapperProps> = ({ children }) => {
   return (

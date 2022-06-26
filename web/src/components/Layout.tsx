@@ -4,7 +4,9 @@ import Footer from "./Footer";
 import Navbar from "./Navbar";
 import Wrapper from "./Wrapper";
 
-interface LayoutProps {}
+interface LayoutProps {
+  children: React.ReactNode;
+}
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const router = useRouter();
