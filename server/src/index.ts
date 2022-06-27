@@ -5,7 +5,7 @@ import express, { Application } from "express";
 import fileUpload from "express-fileupload";
 import "reflect-metadata";
 import { DataSource } from "typeorm";
-import { __prod__ } from "./constants";
+import { CORS_ORIGIN, __prod__ } from "./constants";
 import postsRouter from "./routers/post";
 import usersRouter from "./routers/user";
 
@@ -33,7 +33,7 @@ const main = async () => {
   app.use(
     express.json(),
     fileUpload(),
-    cors({ origin: process.env.CORS_ORIGIN, credentials: true }),
+    cors({ origin: CORS_ORIGIN, credentials: true }),
     cookieParser(process.env.COOKIE_SECRET)
   );
 
