@@ -1,33 +1,6 @@
 import { API_BASE_URL } from "../constants";
 import { PostFormValues } from "../types/Post";
-import { LoginFormValues, RegisterFormValues } from "../types/User";
 import createPostFormData from "../utils/createPostFormData";
-
-export const registerUser = async (registerInfo: RegisterFormValues) => {
-  const response = await fetch(`${API_BASE_URL}/users/register`, {
-    method: "POST",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ ...registerInfo }),
-  });
-
-  return response.json();
-};
-
-export const loginUser = async (loginInfo: LoginFormValues) => {
-  const response = await fetch(`${API_BASE_URL}/users/login`, {
-    method: "POST",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ ...loginInfo }),
-  });
-
-  return response.json();
-};
 
 export const logoutUser = async () => {
   const response = await fetch(`${API_BASE_URL}/users/logout`, {

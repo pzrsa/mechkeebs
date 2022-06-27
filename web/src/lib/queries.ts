@@ -1,5 +1,11 @@
 import { API_BASE_URL } from "../constants";
 
+export const loginUser = async () => {
+  const response = await fetch(`${API_BASE_URL}/twitter/login`);
+
+  return response.json();
+};
+
 export const fetchAllPosts = async () => {
   const response = await fetch(`${API_BASE_URL}/posts`, {
     method: "GET",
