@@ -1,59 +1,41 @@
-import * as argon2 from "argon2";
+import dotenv from "dotenv";
 import router, { Request, Response, Router } from "express";
-import { COOKIE_NAME } from "../constants";
+import { auth } from "twitter-api-sdk";
+import { COOKIE_NAME, CORS_ORIGIN, STATE } from "../constants";
 import { Session } from "../entity/Session";
-import { User } from "../entity/User";
-import { createSession, getSession } from "../utils/sessions";
+import { getSession } from "../utils/sessions";
+
+dotenv.config();
+
+const authClient = new auth.OAuth2User({
+  client_id: process.env.TWITTER_CLIENT_ID as string,
+  client_secret: process.env.TWITTER_CLIENT_SECRET as string,
+  callback: process.env.CALLBACK_URL as string,
+  scopes: ["users.read"],
+});
 
 const usersRouter: Router = router();
 
-usersRouter.post("/users/register", async (req: Request, res: Response) => {
-  const existingUsername = await User.findOne({
-    where: { username: req.body.username },
+usersRouter.get("/twitter/login", async (_: Request, res: Response) => {
+  const authUrl = authClient.generateAuthURL({
+    state: STATE as string,
+    code_challenge_method: "s256",
   });
-  if (existingUsername) {
-    return res.status(400).json({ error: "Username already taken" });
-  }
 
-  const existingEmail = await User.findOne({
-    where: { email: req.body.email },
-  });
-  if (existingEmail) {
-    return res.status(400).json({ error: "Email already taken" });
-  }
-
-  const { password, ...result } = await User.create({
-    username: req.body.username,
-    email: req.body.email,
-    password: await argon2.hash(req.body.password),
-  }).save();
-
-  await createSession(res, result.id);
-
-  return res.status(200).json({ result });
+  return res.status(200).json({ result: authUrl });
 });
 
-usersRouter.post("/users/login", async (req: Request, res: Response) => {
-  const user = await User.findOne({
-    where: { email: req.body.email },
-    select: ["id", "email", "password"],
-  });
+usersRouter.get("/twitter/callback", async (req: Request, res: Response) => {
+  try {
+    const { code, state } = req.query;
+    if (state !== STATE)
+      return res.status(500).json({ error: "State isn't matching" });
+    await authClient.requestAccessToken(code as string);
 
-  if (!user) {
-    return res
-      .status(400)
-      .json({ error: "Account with that email doesn't exist" });
+    return res.status(200).redirect(CORS_ORIGIN as string);
+  } catch (error) {
+    return res.status(400).json({ error: error.error });
   }
-
-  const valid = await argon2.verify(user.password, req.body.password);
-
-  if (!valid) {
-    return res.status(400).json({ error: "Incorrect password" });
-  }
-
-  await createSession(res, user.id);
-
-  return res.status(200).json({ result: "User logged in" });
 });
 
 usersRouter.delete("/users/logout", async (req: Request, res: Response) => {

@@ -13,13 +13,17 @@ import {
 } from "@chakra-ui/react";
 import { Spinner } from "@chakra-ui/spinner";
 import NextLink from "next/link";
+import { useRouter } from "next/router";
 import React from "react";
+import { SiTwitter } from "react-icons/si";
 import { useUser } from "../hooks/user";
 import { logoutUser } from "../lib/mutations";
+import { loginUser } from "../lib/queries";
 
 interface NavbarProps {}
 
 const Navbar: React.FC<NavbarProps> = ({}) => {
+  const router = useRouter();
   const { user, isLoading, loggedOut, mutate } = useUser();
   const color = useColorModeValue("#111", "#fff");
   const bg = useColorModeValue("#fff", "#111");
@@ -33,12 +37,18 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
   } else if (loggedOut) {
     body = (
       <>
-        <NextLink href="/register">
-          <Button mr={2}>Register</Button>
-        </NextLink>
-        <NextLink href="/login">
-          <Button>Login</Button>
-        </NextLink>
+        <Button
+          leftIcon={<SiTwitter />}
+          onClick={async () => {
+            const response = await loginUser();
+
+            if (response?.result) {
+              await router.push(response.result);
+            }
+          }}
+        >
+          Login
+        </Button>
       </>
     );
     mobileBody = (
