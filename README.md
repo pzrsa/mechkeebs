@@ -4,7 +4,7 @@ A online community of people sharing their mechanical keyboards.
 
 Realised I was making a r/mk clone, so I kinda got bored of it now.
 
-I might still work on it occasionally, could revive it to be something more valuable and community driven.
+I might still work on it occasionally, could revive it to be something more valuable but still community driven.
 
 My main goal of this project was to learn how to build a web app with technologies I found interesting.
 
