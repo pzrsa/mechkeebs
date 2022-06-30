@@ -6,7 +6,7 @@ Realised I was making a r/mk clone, so I kinda got bored of it now.
 
 I might still work on it occasionally, could revive it to be something more valuable but still community driven.
 
-My main goal of this project was to learn how to build a web app with technologies I found interesting.
+My main goal of this project was to learn how to build a web app with technologies I found interesting. I just wanted to get something deployed out into the world, so I think I'll complete that goal without worrying too much about its details.
 
 ## Technologies
 ### Web/Frontend
