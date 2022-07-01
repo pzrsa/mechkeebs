@@ -38,7 +38,7 @@ const ImageInputField: React.FC<ImageInputFieldProps> = ({
     onDrop,
     maxFiles: 1,
     multiple: false,
-    accept: { "image/jpeg": [".jpeg, .jpg"], "image/png": [".png"] },
+    accept: ["image/jpeg", "image/png"],
   });
 
   const dropText = isDragActive
