@@ -1,6 +1,6 @@
 # MechKeebs
 
-A online community of people sharing their mechanical keyboards.
+An online community of people sharing their mechanical keyboards.
 
 Realised I was making a r/mk clone, so I kinda got bored of it now.
 
