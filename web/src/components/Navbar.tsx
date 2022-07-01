@@ -1,7 +1,7 @@
-import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
-import { Box, Flex, Link } from "@chakra-ui/layout";
+import { MoonIcon, SunIcon } from "@chakra-ui/icons";
+import { Box, Flex, Heading, Link } from "@chakra-ui/layout";
 import {
-  Button,
+  Avatar,
   IconButton,
   Menu,
   MenuButton,
@@ -9,9 +9,10 @@ import {
   MenuList,
   Portal,
   Spacer,
+  Spinner,
+  useColorMode,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { Spinner } from "@chakra-ui/spinner";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
@@ -28,17 +29,17 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
   const color = useColorModeValue("#111", "#fff");
   const bg = useColorModeValue("#fff", "#111");
 
+  const { colorMode, toggleColorMode } = useColorMode();
+  const SwitchIcon = useColorModeValue(MoonIcon, SunIcon);
+
   let body;
-  let mobileBody: any;
 
   if (isLoading) {
     body = <Spinner />;
-    mobileBody = <Spinner />;
   } else if (loggedOut) {
     body = (
       <>
-        <Button
-          leftIcon={<SiTwitter />}
+        <Link
           onClick={async () => {
             const response = await loginUser();
 
@@ -47,18 +48,11 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
             }
           }}
         >
-          Login
-        </Button>
-      </>
-    );
-    mobileBody = (
-      <>
-        <NextLink href="/register">
-          <MenuItem>Register</MenuItem>
-        </NextLink>
-        <NextLink href="/login">
-          <MenuItem>Login</MenuItem>
-        </NextLink>
+          <Flex align={"center"} gap={1}>
+            <SiTwitter />
+            Login
+          </Flex>
+        </Link>
       </>
     );
   }
@@ -66,34 +60,26 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
   if (user?.user) {
     body = (
       <>
-        <NextLink href="/posts/create">
-          <Button>Create Post</Button>
-        </NextLink>
-        <Link mx={2}>{user.user.username}</Link>
-        <Link
-          onClick={async () => {
-            await logoutUser();
-            mutate(undefined);
-          }}
-        >
-          Log Out
-        </Link>
-      </>
-    );
-    mobileBody = (
-      <>
-        <NextLink href="/posts/create">
-          <MenuItem>Create Post </MenuItem>
-        </NextLink>
-        <MenuItem>{user.user.username}</MenuItem>
-        <MenuItem
-          onClick={async () => {
-            await logoutUser();
-            mutate(undefined);
-          }}
-        >
-          Log Out
-        </MenuItem>
+        <Menu autoSelect={false}>
+          <MenuButton>
+            <Avatar size={"sm"} src={user.user.twitterImageUrl} />
+          </MenuButton>
+          <Portal>
+            <MenuList color={color} bg={bg}>
+              <NextLink href="/posts/create">
+                <MenuItem>Create Post </MenuItem>
+              </NextLink>
+              <MenuItem
+                onClick={async () => {
+                  await logoutUser();
+                  mutate(undefined);
+                }}
+              >
+                Log Out
+              </MenuItem>
+            </MenuList>
+          </Portal>
+        </Menu>
       </>
     );
   }
@@ -108,40 +94,21 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
       boxShadow={useColorModeValue("sm", "white.sm")}
       p={3}
     >
-      <Flex
-        flex={1}
-        m="auto"
-        align="center"
-        maxW={{ base: "none", md: "60rem", lg: "80rem" }}
-      >
+      <Flex flex={1} m="auto" align="center">
         <NextLink href="/">
-          <Button fontSize={"xl"} variant={"ghost"}>
-            MechKeebs
-          </Button>
+          <Heading size={"md"}>
+            <Link>MechKeebs</Link>
+          </Heading>
         </NextLink>
         <Spacer />
-        <Box alignItems={"center"} display={{ base: "none", md: "inherit" }}>
-          {body}
-        </Box>
-        <Menu autoSelect={false}>
-          {({ isOpen }) => (
-            <>
-              <MenuButton
-                as={IconButton}
-                aria-label={"Mobile navigation"}
-                display={{ base: "inherit", md: "none" }}
-                icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
-                variant={"outline"}
-                fontSize={"xl"}
-              />
-              <Portal>
-                <MenuList color={color} bg={bg}>
-                  {mobileBody}
-                </MenuList>
-              </Portal>
-            </>
-          )}
-        </Menu>
+        <Box alignItems={"center"}>{body}</Box>
+        <IconButton
+          ml={3}
+          aria-label={`Toggle ${colorMode} mode`}
+          variant={"ghost"}
+          icon={<SwitchIcon />}
+          onClick={toggleColorMode}
+        />
       </Flex>
     </Flex>
   );
