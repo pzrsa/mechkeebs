@@ -1,5 +1,5 @@
 import {
-  AspectRatio,
+  Box,
   FormControl,
   FormErrorIcon,
   FormErrorMessage,
@@ -56,11 +56,11 @@ const ImageInputField: React.FC<ImageInputFieldProps> = ({
   return (
     <FormControl mb={5} isInvalid={!!(meta.touched && meta.error)}>
       <FormLabel htmlFor={field.name}>{label}</FormLabel>
-      <AspectRatio
+      <Box
         overflow={"hidden"}
         rounded={"md"}
-        ratio={16 / 9}
         mb={3}
+        p={1}
         border={field.value ? "none" : "1px solid"}
         _hover={{
           borderColor: !!(meta.touched && meta.error)
@@ -72,7 +72,6 @@ const ImageInputField: React.FC<ImageInputFieldProps> = ({
         borderColor={
           !!(meta.touched && meta.error) ? errorBorderColour : borderColor
         }
-        p={10}
         appearance={"none"}
         transitionProperty={"common"}
         transitionDuration={"normal"}
@@ -88,6 +87,7 @@ const ImageInputField: React.FC<ImageInputFieldProps> = ({
           />
           {field.value ? (
             <Image
+              rounded={"md"}
               src={URL.createObjectURL(field.value)}
               alt="Uploaded Keyboard"
             />
@@ -97,7 +97,7 @@ const ImageInputField: React.FC<ImageInputFieldProps> = ({
             </Text>
           )}
         </>
-      </AspectRatio>
+      </Box>
       {meta.touched && meta.error ? (
         <FormErrorMessage>
           <FormErrorIcon />
