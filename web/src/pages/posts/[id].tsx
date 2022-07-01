@@ -7,6 +7,7 @@ import {
   ButtonGroup,
   Heading,
   IconButton,
+  Link,
   Popover,
   PopoverArrow,
   PopoverContent,
@@ -110,8 +111,14 @@ const Post: React.FC<PostProps> = ({ data: post }) => {
               {post.result.keyboard.keycaps} · {post.result.keyboard.switches}
             </Box>
             <Box fontSize={{ base: "sm", md: "lg" }} fontWeight="semibold">
-              by {post.result.creator.username} ·{" "}
-              <FormattedDate date={post.result.createdAt} />
+              by{" "}
+              <Link
+                href={`https://twitter.com/${post.result.creator.twitterUsername}`}
+                isExternal
+              >
+                @{post.result.creator.twitterUsername}
+              </Link>{" "}
+              · <FormattedDate date={post.result.createdAt} />
             </Box>
             {post.result.creator.id === user?.user?.id ? (
               <Flex>

@@ -2,6 +2,7 @@ import {
   AspectRatio,
   Box,
   Heading,
+  Link,
   LinkBox,
   LinkOverlay,
   useColorModeValue,
@@ -44,7 +45,14 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
           {post.keyboard.keycaps} · {post.keyboard.switches}
         </Box>
         <Box fontSize={"sm"} fontWeight="semibold">
-          by {post.creator.username} · <FormattedDate date={post.createdAt} />
+          by{" "}
+          <Link
+            href={`https://twitter.com/${post.creator.twitterUsername}`}
+            isExternal
+          >
+            @{post.creator.twitterUsername}
+          </Link>{" "}
+          · <FormattedDate date={post.createdAt} />
         </Box>
       </Box>
     </LinkBox>
