@@ -14,14 +14,14 @@ export class User extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ unique: true })
-  username: string;
+  @Column({ name: "twitter_id", select: false })
+  twitterId: string;
 
-  @Column({ unique: true, select: false })
-  email: string;
+  @Column({ name: "twitter_username" })
+  twitterUsername: string;
 
-  @Column({ select: false })
-  password: string;
+  @Column({ name: "twitter_image_url" })
+  twitterImageUrl: string;
 
   @OneToMany(() => Post, (post) => post.creator)
   posts: Post[];
