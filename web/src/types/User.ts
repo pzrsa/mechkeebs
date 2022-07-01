@@ -2,7 +2,8 @@ export interface User {
   id: number;
   user: {
     id: number;
-    username: string;
+    twitterUsername: string;
+    twitterImageUrl: string;
     createdAt: string;
     updatedAt: string;
   };

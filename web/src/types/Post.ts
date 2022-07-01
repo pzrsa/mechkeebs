@@ -14,7 +14,8 @@ export interface Posts {
       };
       creator: {
         id: number;
-        username: string;
+        twitterUsername: string;
+        twitterImageUrl: string;
         createdAt: number;
         updatedAt: null | number;
       };
@@ -38,7 +39,8 @@ export interface Post {
     };
     creator: {
       id: number;
-      username: string;
+      twitterUsername: string;
+      twitterImageUrl: string;
       createdAt: number;
       updatedAt: null | number;
     };
@@ -59,7 +61,8 @@ export interface SinglePost {
   };
   creator: {
     id: number;
-    username: string;
+    twitterUsername: string;
+    twitterImageUrl: string;
     createdAt: number;
     updatedAt: number | null;
   };
