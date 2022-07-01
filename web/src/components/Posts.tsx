@@ -33,10 +33,7 @@ const Posts: React.FC<PostsProps> = ({}) => {
 
   return (
     <>
-      <SimpleGrid
-        minChildWidth={{ base: "15rem", sm: "20rem", md: "20rem" }}
-        spacing={3}
-      >
+      <SimpleGrid minChildWidth={{ base: "15rem", sm: "20rem" }} spacing={3}>
         {posts!.map((posts) =>
           posts.result.map((post) => <PostCard key={post.id} post={post} />)
         )}
