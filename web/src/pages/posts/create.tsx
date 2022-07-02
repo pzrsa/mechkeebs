@@ -1,5 +1,6 @@
 import { Button } from "@chakra-ui/button";
 import { Box, Heading } from "@chakra-ui/layout";
+import { useToast } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -21,6 +22,8 @@ const Create: React.FC<CreateProps> = ({}) => {
   withAuth();
   const router = useRouter();
   const { mutate } = usePaginatedPosts();
+
+  const toast = useToast();
 
   const initialValues: PostFormValues = {
     image: "" as any,
@@ -50,9 +53,21 @@ const Create: React.FC<CreateProps> = ({}) => {
               const response = await createPost(values);
 
               if (response.error) {
-                console.error(response.error);
+                toast({
+                  title: "Something went wrong, try again later",
+                  status: "error",
+                  duration: 3000,
+                  position: "bottom-right",
+                });
+                await router.push("/");
               }
               if (response.result) {
+                toast({
+                  title: `${response.result.keyboard.name} created`,
+                  status: "success",
+                  duration: 3000,
+                  position: "bottom-right",
+                });
                 await router.push("/");
                 mutate(undefined);
               }
