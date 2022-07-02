@@ -95,7 +95,7 @@ const Post: React.FC<PostProps> = ({ data: post }) => {
       </Head>
       <Wrapper>
         <Box mx="auto" maxW={[null, "7xl"]}>
-          <AspectRatio ratio={16 / 9}>
+          <AspectRatio ratio={16 / 9} boxShadow={boxShadow}>
             <BlurImage
               src={`https://storage.googleapis.com/${GCLOUD_BUCKET_NAME}/${post.result.imageName}`}
               alt={post.result.keyboard.name}
