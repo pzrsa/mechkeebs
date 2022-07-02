@@ -94,12 +94,10 @@ const Post: React.FC<PostProps> = ({ data: post }) => {
         />
       </Head>
       <Wrapper>
-        <Box mx="auto" width={{ base: "inherit", md: "4xl" }}>
-          <AspectRatio boxShadow={boxShadow} ratio={16 / 9}>
+        <Box mx="auto" maxW={[null, "7xl"]}>
+          <AspectRatio ratio={16 / 9}>
             <BlurImage
-              baseUrl={`https://storage.googleapis.com/${GCLOUD_BUCKET_NAME}`}
-              imageName={post.result.imageName}
-              rounded={true}
+              src={`https://storage.googleapis.com/${GCLOUD_BUCKET_NAME}/${post.result.imageName}`}
               alt={post.result.keyboard.name}
             />
           </AspectRatio>
@@ -113,6 +111,7 @@ const Post: React.FC<PostProps> = ({ data: post }) => {
             <Box fontSize={{ base: "sm", md: "lg" }} fontWeight="semibold">
               by{" "}
               <Link
+                fontWeight={"black"}
                 href={`https://twitter.com/${post.result.creator.twitterUsername}`}
                 isExternal
               >
@@ -122,7 +121,7 @@ const Post: React.FC<PostProps> = ({ data: post }) => {
             </Box>
             {post.result.creator.id === user?.user?.id ? (
               <Flex>
-                <Popover closeOnBlur={true} placement={"left-end"}>
+                <Popover closeOnBlur={true} placement={"left-start"}>
                   {({ onClose }) => (
                     <>
                       <PopoverTrigger>
@@ -143,13 +142,8 @@ const Post: React.FC<PostProps> = ({ data: post }) => {
                             Sure you want to delete your post?
                           </PopoverHeader>
                           <PopoverArrow />
-                          <PopoverFooter
-                            display={"flex"}
-                            justifyContent={"end"}
-                            alignContent={"end"}
-                          >
+                          <PopoverFooter display={"flex"}>
                             <ButtonGroup size="sm">
-                              <Button onClick={onClose}>No</Button>
                               <Button
                                 colorScheme="red"
                                 onClick={async () => {
@@ -160,6 +154,7 @@ const Post: React.FC<PostProps> = ({ data: post }) => {
                               >
                                 Yes
                               </Button>
+                              <Button onClick={onClose}>No</Button>
                             </ButtonGroup>
                           </PopoverFooter>
                         </PopoverContent>
