@@ -38,7 +38,7 @@ const Create: React.FC<CreateProps> = ({}) => {
           <Formik
             initialValues={initialValues}
             validationSchema={Yup.object().shape({
-              image: Yup.mixed().required("Image required"),
+              image: Yup.mixed().required("Photo required"),
 
               keyboard: Yup.object().shape({
                 name: Yup.string().required("Keyboard name required"),
@@ -67,7 +67,7 @@ const Create: React.FC<CreateProps> = ({}) => {
                   options={switchOptions}
                 />
                 <InputField name="keyboard.keycaps" label="Keycaps" />
-                <ImageInputField label="Image" name="image" />
+                <ImageInputField label="Photo" name="image" />
                 <Button isLoading={isSubmitting} type="submit">
                   Post
                 </Button>

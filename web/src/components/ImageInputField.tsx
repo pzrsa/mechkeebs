@@ -1,8 +1,10 @@
 import {
+  AspectRatio,
   Box,
   FormControl,
   FormErrorIcon,
   FormErrorMessage,
+  FormHelperText,
   FormLabel,
   Image,
   Text,
@@ -43,7 +45,7 @@ const ImageInputField: React.FC<ImageInputFieldProps> = ({
 
   const dropText = isDragActive
     ? "Drop your image here..."
-    : "Drag 'n' drop the image of your keeb here, or click to select the image";
+    : "Drag 'n' drop the photo of your keeb here, or click to select the photo";
 
   const hover = useColorModeValue("gray.300", "whiteAlpha.400");
   const bg = useColorModeValue("gray.200", "whiteAlpha.300");
@@ -86,11 +88,13 @@ const ImageInputField: React.FC<ImageInputFieldProps> = ({
             value={undefined}
           />
           {field.value ? (
-            <Image
-              rounded={"md"}
-              src={URL.createObjectURL(field.value)}
-              alt="Uploaded Keyboard"
-            />
+            <AspectRatio ratio={16 / 9}>
+              <Image
+                rounded={"md"}
+                src={URL.createObjectURL(field.value)}
+                alt="Uploaded Keyboard"
+              />
+            </AspectRatio>
           ) : (
             <Text p={10} textAlign={"center"}>
               {dropText}
@@ -98,6 +102,7 @@ const ImageInputField: React.FC<ImageInputFieldProps> = ({
           )}
         </>
       </Box>
+      <FormHelperText>Landscape photo preferred.</FormHelperText>
       {meta.touched && meta.error ? (
         <FormErrorMessage>
           <FormErrorIcon />
