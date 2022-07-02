@@ -1,5 +1,6 @@
 import useSWR from "swr";
 import useSWRInfinite from "swr/infinite";
+import { FETCH_LIMIT } from "../constants";
 import { fetchAllPosts, fetchPaginatedPosts } from "../lib/queries";
 import { Posts } from "../types/Post";
 import getQuery from "../utils/getQuery";
@@ -27,7 +28,7 @@ export const usePaginatedPosts = () => {
     (size > 0 && data && typeof data[size - 1] === "undefined");
   const isEmpty = !data?.at(0)?.result.length;
   const isReachingEnd =
-    isEmpty || (data && data[data.length - 1]?.result.length < 6);
+    isEmpty || (data && data[data.length - 1]?.result.length < FETCH_LIMIT);
 
   return {
     posts: data,
