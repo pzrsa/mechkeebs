@@ -8,7 +8,7 @@ const withAuth = () => {
 
   useEffect(() => {
     if (!user && !isLoading) {
-      router.replace("/login");
+      router.replace("/");
     }
   }, [isLoading, user, router]);
 };
