@@ -3,9 +3,7 @@ import NextImage from "next/image";
 import { useState } from "react";
 
 interface BlurImageProps {
-  imageName: string;
-  baseUrl?: string;
-  rounded?: boolean;
+  src: string;
   alt?: string;
 }
 
@@ -14,17 +12,13 @@ const Image = chakra(NextImage, {
     ["src", "layout", "objectFit", "onLoadingComplete"].includes(prop),
 });
 
-const BlurImage: React.FC<BlurImageProps> = ({
-  baseUrl,
-  imageName,
-  rounded,
-  alt,
-}) => {
+const BlurImage: React.FC<BlurImageProps> = ({ src, alt }) => {
   const [isLoading, setLoading] = useState(true);
 
   return (
     <Image
-      src={baseUrl ? `${baseUrl}/${imageName}` : imageName}
+      src={src}
+      alt={alt}
       layout="fill"
       objectFit="cover"
       onLoadingComplete={() => setLoading(false)}
@@ -32,8 +26,7 @@ const BlurImage: React.FC<BlurImageProps> = ({
       transitionDuration={"700ms"}
       blur={isLoading ? "xl" : "none"}
       scale={isLoading ? "110" : "100"}
-      rounded={rounded ? "md" : "none"}
-      alt={alt}
+      rounded={"md"}
     />
   );
 };
