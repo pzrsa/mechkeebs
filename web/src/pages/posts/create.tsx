@@ -62,12 +62,6 @@ const Create: React.FC<CreateProps> = ({}) => {
                 await router.push("/");
               }
               if (response.result) {
-                toast({
-                  title: `${response.result.keyboard.name} created`,
-                  status: "success",
-                  duration: 3000,
-                  position: "bottom-right",
-                });
                 await router.push("/");
                 mutate(undefined);
               }
