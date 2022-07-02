@@ -1,6 +1,5 @@
 import {
   AspectRatio,
-  Box,
   FormControl,
   FormErrorIcon,
   FormErrorMessage,
@@ -58,11 +57,11 @@ const ImageInputField: React.FC<ImageInputFieldProps> = ({
   return (
     <FormControl mb={5} isInvalid={!!(meta.touched && meta.error)}>
       <FormLabel htmlFor={field.name}>{label}</FormLabel>
-      <Box
+      <AspectRatio
+        ratio={16 / 9}
         overflow={"hidden"}
         rounded={"md"}
         mb={3}
-        p={1}
         border={field.value ? "none" : "1px solid"}
         _hover={{
           borderColor: !!(meta.touched && meta.error)
@@ -88,21 +87,20 @@ const ImageInputField: React.FC<ImageInputFieldProps> = ({
             value={undefined}
           />
           {field.value ? (
-            <AspectRatio ratio={16 / 9}>
-              <Image
-                rounded={"md"}
-                src={URL.createObjectURL(field.value)}
-                alt="Uploaded Keyboard"
-              />
-            </AspectRatio>
+            <Image
+              padding={1}
+              rounded={"md"}
+              src={URL.createObjectURL(field.value)}
+              alt="Uploaded Keyboard"
+            />
           ) : (
             <Text p={10} textAlign={"center"}>
               {dropText}
             </Text>
           )}
         </>
-      </Box>
-      <FormHelperText>Landscape photo preferred.</FormHelperText>
+      </AspectRatio>
+      <FormHelperText>Make sure your keeb aligns properly.</FormHelperText>
       {meta.touched && meta.error ? (
         <FormErrorMessage>
           <FormErrorIcon />
