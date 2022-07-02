@@ -60,7 +60,7 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
   if (user?.user) {
     body = (
       <>
-        <Menu autoSelect={false}>
+        <Menu autoSelect={false} placement="bottom-end">
           <MenuButton>
             <Avatar size={"sm"} src={user.user.twitterImageUrl} />
           </MenuButton>
@@ -90,11 +90,11 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
       position={"sticky"}
       top={0}
       bg={useColorModeValue("#fff", "#111")}
-      zIndex={1}
       boxShadow={useColorModeValue("sm", "white.sm")}
+      zIndex={1}
       p={3}
     >
-      <Flex flex={1} m="auto" align="center">
+      <Flex maxW={[null, "8xl"]} flex={1} m="auto" align="center">
         <NextLink href="/">
           <Heading size={"md"}>
             <Link>MechKeebs</Link>

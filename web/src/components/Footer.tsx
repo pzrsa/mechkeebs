@@ -19,7 +19,7 @@ const Footer: React.FC<FooterProps> = ({}) => {
           isExternal
         >
           <Button variant={"ghost"} leftIcon={<SiGithub />} size="sm">
-            GitHub
+            Source
           </Button>
         </Link>
       </Flex>

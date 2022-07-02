@@ -6,7 +6,7 @@ interface WrapperProps {
 
 const Wrapper: React.FC<WrapperProps> = ({ children }) => {
   return (
-    <Container maxW={"100%"} px={1} my={3}>
+    <Container maxW={[null, "8xl"]} px={1} my={3}>
       {children}
     </Container>
   );
