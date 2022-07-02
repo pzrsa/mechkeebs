@@ -7,7 +7,7 @@ interface FormattedDateProps {
 
 const FormattedDate: React.FC<FormattedDateProps> = ({ date }) => {
   dayjs.extend(customParseFormat);
-  const postDate = dayjs.unix(date).format("DD MMM, YYYY");
+  const postDate = dayjs.unix(date).format("DD MMMM, YYYY");
 
   return <time dateTime={`${date}`}>{postDate}</time>;
 };
