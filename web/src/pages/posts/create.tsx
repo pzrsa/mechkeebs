@@ -33,7 +33,7 @@ const Create: React.FC<CreateProps> = ({}) => {
         <title>MechKeebs - Create Post</title>
       </Head>
       <Wrapper>
-        <Box mx="auto" width={{ base: "inherit", md: "650px" }}>
+        <Box mx="auto" width={[null, "2xl"]}>
           <Heading mb={3}>Create Post</Heading>
           <Formik
             initialValues={initialValues}
@@ -60,13 +60,21 @@ const Create: React.FC<CreateProps> = ({}) => {
           >
             {({ isSubmitting }) => (
               <Form>
-                <InputField name="keyboard.name" label="Name" />
+                <InputField
+                  name="keyboard.name"
+                  label="Name"
+                  placeholder="KBD67 Lite R3"
+                />
                 <SelectField
                   name="keyboard.switches"
                   label="Switches"
                   options={switchOptions}
                 />
-                <InputField name="keyboard.keycaps" label="Keycaps" />
+                <InputField
+                  name="keyboard.keycaps"
+                  label="Keycaps"
+                  placeholder="GMK White-on-Black"
+                />
                 <ImageInputField label="Photo" name="image" />
                 <Button isLoading={isSubmitting} type="submit">
                   Post

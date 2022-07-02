@@ -49,6 +49,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
             : null
         }
         onBlur={() => helpers.setTouched(true)}
+        placeholder="Gateron Ink Black"
       />
       {meta.touched && meta.error ? (
         <FormErrorMessage>
