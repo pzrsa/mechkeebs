@@ -50,7 +50,7 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
         >
           <Flex align={"center"} gap={1}>
             <SiTwitter />
-            Login
+            Sign In
           </Flex>
         </Link>
       </>
@@ -75,7 +75,7 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
                   mutate(undefined);
                 }}
               >
-                Log Out
+                Sign Out
               </MenuItem>
             </MenuList>
           </Portal>
@@ -94,7 +94,12 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
       zIndex={1}
       p={3}
     >
-      <Flex maxW={[null, "8xl"]} flex={1} m="auto" align="center">
+      <Flex
+        maxW={[null, "4xl", "5xl", "6xl", "7xl", "8xl"]}
+        flex={1}
+        m="auto"
+        align="center"
+      >
         <NextLink href="/">
           <Heading size={"md"}>
             <Link>MechKeebs</Link>
