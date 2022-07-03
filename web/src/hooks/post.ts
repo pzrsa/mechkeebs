@@ -3,7 +3,7 @@ import useSWRInfinite from "swr/infinite";
 import { FETCH_LIMIT } from "../constants";
 import { fetchAllPosts, fetchPaginatedPosts } from "../lib/queries";
 import { Posts } from "../types/Post";
-import getQuery from "../utils/getQuery";
+import getKey from "../utils/getKey";
 
 export const usePosts = () => {
   const { data, error, mutate } = useSWR<Posts>("posts", fetchAllPosts);
@@ -18,7 +18,7 @@ export const usePosts = () => {
 
 export const usePaginatedPosts = () => {
   const { data, error, mutate, size, setSize } = useSWRInfinite<Posts>(
-    getQuery,
+    getKey,
     fetchPaginatedPosts
   );
 

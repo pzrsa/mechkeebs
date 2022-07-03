@@ -18,8 +18,8 @@ export const fetchAllPosts = async () => {
   return response.json();
 };
 
-export const fetchPaginatedPosts = async (query: string) => {
-  const response = await fetch(`${API_BASE_URL}/posts?${query}`, {
+export const fetchPaginatedPosts = async (key: string) => {
+  const response = await fetch(`${API_BASE_URL}${key}`, {
     method: "GET",
   });
 

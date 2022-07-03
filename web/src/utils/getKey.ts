@@ -2,7 +2,7 @@ import { SWRInfiniteKeyLoader } from "swr/infinite/dist/infinite";
 import { FETCH_LIMIT } from "../constants";
 import { Posts } from "../types/Post";
 
-const getQuery: SWRInfiniteKeyLoader = (
+const getKey: SWRInfiniteKeyLoader = (
   pageIndex: number,
   previousPageData: Posts
 ) => {
@@ -10,10 +10,10 @@ const getQuery: SWRInfiniteKeyLoader = (
   if (previousPageData && !previousPageData.result) return null;
 
   // first page, we don't have `previousPageData`
-  if (pageIndex === 0) return `limit=${FETCH_LIMIT}`;
+  if (pageIndex === 0) return `/posts?limit=${FETCH_LIMIT}`;
 
   // add the cursor to the API endpoint
-  return `limit=${FETCH_LIMIT}&cursor=${previousPageData.nextCursor}`;
+  return `/posts?limit=${FETCH_LIMIT}&cursor=${previousPageData.nextCursor}`;
 };
 
-export default getQuery;
+export default getKey;
