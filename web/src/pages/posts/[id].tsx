@@ -17,7 +17,11 @@ import {
   Portal,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { GetServerSideProps, GetServerSidePropsContext } from "next";
+import {
+  GetServerSideProps,
+  GetServerSidePropsContext,
+  InferGetServerSidePropsType,
+} from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import BlurImage from "../../components/BlurImage";
@@ -53,7 +57,9 @@ interface PostProps {
   data: Post;
 }
 
-const Post: React.FC<PostProps> = ({ data: post }) => {
+const Post: React.FC<PostProps> = ({
+  data: post,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const router = useRouter();
 
   const { user } = useUser();
