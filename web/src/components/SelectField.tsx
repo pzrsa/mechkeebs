@@ -13,11 +13,13 @@ type SelectFieldProps = InputHTMLAttributes<HTMLInputElement> & {
   name: string;
   options: { label: string; value: string }[];
   label: string;
+  placeholder: string;
 };
 
 const SelectField: React.FC<SelectFieldProps> = ({
   options,
   label,
+  placeholder,
   size,
   ...props
 }) => {
@@ -49,7 +51,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
             : null
         }
         onBlur={() => helpers.setTouched(true)}
-        placeholder="Gateron Ink Black"
+        placeholder={placeholder}
       />
       {meta.touched && meta.error ? (
         <FormErrorMessage>

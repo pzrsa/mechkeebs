@@ -41,13 +41,13 @@ const Create: React.FC<CreateProps> = ({}) => {
           <Formik
             initialValues={initialValues}
             validationSchema={Yup.object().shape({
-              image: Yup.mixed().required("Photo required"),
-
               keyboard: Yup.object().shape({
-                name: Yup.string().required("Keyboard name required"),
-                switches: Yup.string().required("Keyboard switches required"),
-                keycaps: Yup.string().required("Keyboard keycaps required"),
+                name: Yup.string().required("Name required"),
+                switches: Yup.string().required("Switches required"),
+                keycaps: Yup.string().required("Keycaps required"),
               }),
+
+              image: Yup.mixed().required("Photo required"),
             })}
             onSubmit={async (values) => {
               const response = await createPost(values);
@@ -78,6 +78,7 @@ const Create: React.FC<CreateProps> = ({}) => {
                   name="keyboard.switches"
                   label="Switches"
                   options={switchOptions}
+                  placeholder="Gateron Ink Black"
                 />
                 <InputField
                   name="keyboard.keycaps"
