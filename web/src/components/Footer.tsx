@@ -7,12 +7,12 @@ const Footer: React.FC<FooterProps> = ({}) => {
   return (
     <Flex
       as="footer"
-      mt={20}
+      mt={18}
       alignItems={"center"}
-      justify={{ sm: "space-between" }}
-      direction={{ base: "column", sm: "row" }}
+      justify={[null, "space-between"]}
+      direction={["column", "row"]}
     >
-      <Flex align={"center"} direction={{ base: "column", sm: "row" }}>
+      <Flex align={"center"} direction={["column", "row"]}>
         <Link
           _hover={{ textDecoration: "none" }}
           href="https://github.com/pzrsa/mechkeebs"

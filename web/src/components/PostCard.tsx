@@ -34,7 +34,7 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
       </AspectRatio>
       <Box p={4}>
         <Heading fontSize={"lg"} fontWeight="black">
-          <NextLink href={`posts/${post.id}`} passHref>
+          <NextLink href={`/posts/${post.id}`} passHref>
             <LinkOverlay>{post.keyboard.name}</LinkOverlay>
           </NextLink>
         </Heading>
