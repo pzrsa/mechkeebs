@@ -14,7 +14,7 @@ export class Session extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ select: false })
   token: string;
 
   @Column({ name: "user_id" })
