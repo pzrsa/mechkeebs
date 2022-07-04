@@ -10,15 +10,15 @@ const generateToken = async () => {
 };
 
 export const createSession = async (res: Response, userId: number) => {
-  const existing = await Session.findOne({ where: { userId } });
+  const existing = await Session.findOne({ where: { user: { id: userId } } });
 
   if (existing) {
-    await Session.delete({ userId });
+    await Session.delete(userId);
   }
 
   const { token } = await Session.create({
     token: await generateToken(),
-    userId: userId,
+    user: { id: userId },
   }).save();
 
   return res.cookie(COOKIE_NAME, token, {

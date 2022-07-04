@@ -1,10 +1,11 @@
 import {
   BaseEntity,
   BeforeInsert,
+  BeforeUpdate,
   Column,
   Entity,
   JoinColumn,
-  OneToOne,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { User } from "./User";
@@ -17,18 +18,23 @@ export class Session extends BaseEntity {
   @Column({ select: false })
   token: string;
 
-  @Column({ name: "user_id" })
-  userId: number;
-
-  @OneToOne(() => User)
+  @ManyToOne(() => User, (user) => user.posts, { onDelete: "CASCADE" })
   @JoinColumn({ name: "user_id" })
   user: User;
 
   @Column({ name: "created_at" })
   createdAt: number;
 
+  @Column({ name: "updated_at", nullable: true })
+  updatedAt: number;
+
   @BeforeInsert()
   public setCreatedAt() {
     this.createdAt = Math.floor(Date.now() / 1000);
+  }
+
+  @BeforeUpdate()
+  public setUpdatedAt() {
+    this.updatedAt = Math.floor(Date.now() / 1000);
   }
 }

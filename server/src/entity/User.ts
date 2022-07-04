@@ -8,6 +8,7 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { Post } from "./Post";
+import { Session } from "./Session";
 
 @Entity({ name: "users" })
 export class User extends BaseEntity {
@@ -25,6 +26,9 @@ export class User extends BaseEntity {
 
   @OneToMany(() => Post, (post) => post.creator)
   posts: Post[];
+
+  @OneToMany(() => Session, (session) => session.user)
+  sessions: Session[];
 
   @Column({ name: "created_at" })
   createdAt: number;
