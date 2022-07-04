@@ -33,7 +33,7 @@ const main = async () => {
     cookieParser(process.env.COOKIE_SECRET)
   );
 
-  app.use("/api", usersRouter, postsRouter);
+  app.use(usersRouter, postsRouter);
   app.set("json spaces", 2);
 
   app.listen(process.env.PORT, () => {
