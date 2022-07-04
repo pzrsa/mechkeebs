@@ -13,13 +13,13 @@ import Wrapper from "../../components/Wrapper";
 import { switchOptions } from "../../data/data";
 import { usePaginatedPosts } from "../../hooks/post";
 import { createPost } from "../../lib/mutations";
-import { PostFormValues } from "../../types/Post";
-import withAuth from "../../utils/withAuth";
+import { Post, PostFormValues } from "../../types/Post";
+import useAuth from "../../utils/useAuth";
 
 interface CreateProps {}
 
 const Create: React.FC<CreateProps> = ({}) => {
-  withAuth();
+  useAuth();
   const router = useRouter();
   const { mutate } = usePaginatedPosts();
 
@@ -50,18 +50,17 @@ const Create: React.FC<CreateProps> = ({}) => {
               image: Yup.mixed().required("Photo required"),
             })}
             onSubmit={async (values) => {
-              const response = await createPost(values);
+              const response: Post = await createPost(values);
 
-              if (response.error) {
+              if (!response.result) {
                 toast({
                   title: "Something went wrong, try again later",
                   status: "error",
                   duration: 3000,
                   position: "bottom-right",
+                  variant: "subtle",
                 });
-                await router.push("/");
-              }
-              if (response.result) {
+              } else if (response.result) {
                 await router.push("/");
                 mutate(undefined);
               }

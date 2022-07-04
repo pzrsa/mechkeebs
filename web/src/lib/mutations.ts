@@ -18,10 +18,6 @@ export const createPost = async (postFormValues: PostFormValues) => {
     body: createPostFormData(postFormValues),
   });
 
-  if (!response.ok) {
-    throw new Error("Network response was not ok");
-  }
-
   return response.json();
 };
 
