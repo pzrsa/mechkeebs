@@ -71,6 +71,10 @@ postsRouter.post("/posts/create", async (req: Request, res: Response) => {
       return res.status(403).json({ error: session });
     }
 
+    if (!session?.user) {
+      return res.status(403).json({ error: session });
+    }
+
     if (!req.files) {
       return res.status(403).json({ error: "No file uploaded" });
     }

@@ -57,7 +57,7 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
     );
   }
 
-  if (user?.user) {
+  if (user?.id && !loggedOut) {
     body = (
       <>
         <Menu autoSelect={false} placement="bottom-end">
