@@ -42,8 +42,8 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
           {post.keyboard.keycaps} · {post.keyboard.switches}
         </Box>
         <Box fontSize={"sm"} fontWeight="semibold">
-          by @{post.creator.twitterUsername}
-          · <FormattedDate date={post.createdAt} />
+          by @{post.creator.twitterUsername} ·{" "}
+          <FormattedDate date={post.createdAt} />
         </Box>
       </Box>
     </LinkBox>
