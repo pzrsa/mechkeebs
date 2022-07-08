@@ -4,25 +4,15 @@ import dotenv from "dotenv";
 import express, { Application } from "express";
 import fileUpload from "express-fileupload";
 import "reflect-metadata";
-import { DataSource } from "typeorm";
-import { CORS_ORIGIN, __prod__ } from "./constants";
+import { CORS_ORIGIN } from "./constants";
+import { AppDataSource } from "./data-source";
 import postsRouter from "./routers/post";
 import usersRouter from "./routers/user";
 
 dotenv.config();
 
-export const dataSource = new DataSource({
-  type: "postgres",
-  url: process.env.DATABASE_URL,
-  synchronize: !__prod__,
-  logging: true,
-  entities: ["dist/entity/*.js"],
-  migrations: ["dist/migrations/*.js"],
-});
-
 const main = async () => {
-  // @ts-ignore
-  const conn = await dataSource.initialize();
+  await AppDataSource.initialize();
 
   const app: Application = express();
 

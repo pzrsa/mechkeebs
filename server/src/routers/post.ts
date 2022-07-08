@@ -4,9 +4,9 @@ import { UploadedFile } from "express-fileupload";
 import path from "path";
 import sharp from "sharp";
 import { GCLOUD_BUCKET_NAME } from "../constants";
+import { AppDataSource } from "../data-source";
 import { Keyboard } from "../entity/Keyboard";
 import { Post } from "../entity/Post";
-import { dataSource } from "../index";
 import { getSession } from "../utils/sessions";
 
 const postsRouter: Router = router();
@@ -17,8 +17,7 @@ const storage = new Storage({
 });
 
 postsRouter.get("/posts/:id?", async (req: Request, res: Response) => {
-  const qb = dataSource
-    .createQueryBuilder(Post, "p")
+  const qb = AppDataSource.createQueryBuilder(Post, "p")
     .leftJoinAndSelect("p.keyboard", "keyboard")
     .leftJoinAndSelect("p.creator", "creator")
     .orderBy("p.createdAt", "DESC");
