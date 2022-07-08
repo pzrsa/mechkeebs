@@ -17,13 +17,10 @@ import {
   Portal,
   useColorModeValue,
 } from "@chakra-ui/react";
-import {
-  GetServerSideProps,
-  GetServerSidePropsContext,
-  InferGetServerSidePropsType,
-} from "next";
+import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { AiFillSound } from "react-icons/ai";
 import BlurImage from "../../components/BlurImage";
 import FormattedDate from "../../components/FormattedDate";
 import Wrapper from "../../components/Wrapper";
@@ -57,9 +54,7 @@ interface PostProps {
   data: Post;
 }
 
-const Post: React.FC<PostProps> = ({
-  data: post,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+const Post: React.FC<PostProps> = ({ data: post }) => {
   const router = useRouter();
 
   const { user } = useUser();
@@ -125,6 +120,18 @@ const Post: React.FC<PostProps> = ({
               </Link>{" "}
               · <FormattedDate date={post.result.createdAt} />
             </Box>
+            {post.result.keyboard.soundTestUrl ? (
+              <Box maxW={"fit-content"} mt={2}>
+                <Link
+                  fontWeight={"bold"}
+                  href={post.result.keyboard.soundTestUrl}
+                  isExternal
+                  fontSize={"2xl"}
+                >
+                  <AiFillSound />
+                </Link>
+              </Box>
+            ) : null}
             {post.result.creator.id === user?.user?.id ? (
               <Flex>
                 <Popover closeOnBlur={true} placement={"left-start"}>

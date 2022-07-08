@@ -94,6 +94,7 @@ postsRouter.post("/posts/create", async (req: Request, res: Response) => {
           name: req.body.keyboardName,
           switches: req.body.keyboardSwitches,
           keycaps: req.body.keyboardKeycaps,
+          soundTestUrl: req.body.keyboardSoundTestUrl,
         },
         creatorId: session?.user.id,
       }).save();

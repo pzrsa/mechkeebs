@@ -27,7 +27,7 @@ const Create: React.FC<CreateProps> = ({}) => {
 
   const initialValues: PostFormValues = {
     image: "" as any,
-    keyboard: { name: "", switches: "", keycaps: "" },
+    keyboard: { name: "", switches: "", keycaps: "", soundTestUrl: "" },
   };
 
   return (
@@ -45,6 +45,10 @@ const Create: React.FC<CreateProps> = ({}) => {
                 name: Yup.string().required("Name required"),
                 switches: Yup.string().required("Switches required"),
                 keycaps: Yup.string().required("Keycaps required"),
+                soundTestUrl: Yup.string().matches(
+                  /(^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube(-nocookie)?\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$)/,
+                  "Only a youtube.com or youtu.be link"
+                ),
               }),
 
               image: Yup.mixed().required("Photo required"),
@@ -83,6 +87,12 @@ const Create: React.FC<CreateProps> = ({}) => {
                   name="keyboard.keycaps"
                   label="Keycaps"
                   placeholder="GMK White-on-Black"
+                />
+                <InputField
+                  name="keyboard.soundTestUrl"
+                  label="Sound Test"
+                  placeholder="https://youtu.be/RqktmDE-TGA"
+                  optional
                 />
                 <ImageInputField label="Photo" name="image" />
                 <Button isLoading={isSubmitting} type="submit">

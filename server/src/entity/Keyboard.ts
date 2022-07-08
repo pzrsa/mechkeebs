@@ -21,6 +21,9 @@ export class Keyboard extends BaseEntity {
   @Column()
   keycaps: string;
 
+  @Column({ name: "sound_test_url", nullable: true })
+  soundTestUrl: string;
+
   @Column({ name: "created_at" })
   createdAt: number;
 

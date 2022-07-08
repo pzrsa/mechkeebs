@@ -9,6 +9,7 @@ export interface Posts {
         name: string;
         keycaps: string;
         switches: string;
+        soundTestUrl?: string;
         createdAt: number;
         updatedAt: null | number;
       };
@@ -34,6 +35,7 @@ export interface Post {
       name: string;
       keycaps: string;
       switches: string;
+      soundTestUrl?: string;
       createdAt: number;
       updatedAt: null | number;
     };
@@ -56,6 +58,7 @@ export interface SinglePost {
     name: string;
     keycaps: string;
     switches: string;
+    soundTestUrl?: string;
     createdAt: number;
     updatedAt: number | null;
   };
@@ -74,5 +77,6 @@ export interface PostFormValues {
     name: string;
     keycaps: string;
     switches: string;
+    soundTestUrl?: string;
   };
 }
