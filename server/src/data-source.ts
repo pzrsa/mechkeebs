@@ -7,4 +7,6 @@ export const AppDataSource = new DataSource({
   synchronize: !__prod__,
   logging: !__prod__,
   entities: ["dist/entity/*.js"],
+  migrations: ["dist/migrations/*.js"],
+  ssl: __prod__ ? { rejectUnauthorized: false } : undefined,
 });
