@@ -1,7 +1,6 @@
 import { Storage } from "@google-cloud/storage";
 import router, { Request, Response, Router } from "express";
 import { UploadedFile } from "express-fileupload";
-import path from "path";
 import sharp from "sharp";
 import { GCLOUD_BUCKET_NAME } from "../constants";
 import { AppDataSource } from "../data-source";
@@ -12,7 +11,7 @@ import { getSession } from "../utils/sessions";
 const postsRouter: Router = router();
 
 const storage = new Storage({
-  keyFilename: path.join(__dirname, "../../gcp-key.json"),
+  keyFilename: process.env.GOOGLE_APPLICATION_CREDENTIALS,
   projectId: "mechkeebs",
 });
 
