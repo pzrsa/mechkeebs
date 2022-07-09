@@ -47,6 +47,7 @@ postsRouter.get("/posts/:id?", async (req: Request, res: Response) => {
 
       return res.status(200).json({ result });
     } catch (err) {
+      console.error(err);
       return res.status(400).json({ error: err });
     }
   }
@@ -110,6 +111,7 @@ postsRouter.post("/posts/create", async (req: Request, res: Response) => {
     );
     return;
   } catch (err) {
+    console.error(err);
     return res.status(400).json({ error: err.detail });
   }
 });
@@ -142,6 +144,7 @@ postsRouter.delete("/posts/delete", async (req: Request, res: Response) => {
 
     return res.status(200).json(true);
   } catch (err) {
+    console.error(err);
     return res.status(400).json(false);
   }
 });

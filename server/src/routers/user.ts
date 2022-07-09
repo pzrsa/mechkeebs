@@ -56,7 +56,8 @@ usersRouter.get("/twitter/callback", async (req: Request, res: Response) => {
     await createSession(res, user.id);
 
     return res.status(200).redirect(CORS_ORIGIN as string);
-  } catch (error) {
+  } catch (err) {
+    console.error(err);
     return res.status(500).redirect(CORS_ORIGIN as string);
   }
 });
