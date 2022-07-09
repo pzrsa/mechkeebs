@@ -24,7 +24,7 @@ const main = async () => {
     cookieParser(process.env.COOKIE_SECRET)
   );
 
-  __prod__ ? app.use(enforce.HTTPS()) : null;
+  __prod__ ? app.use(enforce.HTTPS({ trustProtoHeader: true })) : null;
 
   app.use(usersRouter, postsRouter);
   app.set("json spaces", 2);
