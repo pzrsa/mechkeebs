@@ -1,7 +1,6 @@
 import { Storage } from "@google-cloud/storage";
 import router, { Request, Response, Router } from "express";
 import { UploadedFile } from "express-fileupload";
-import sharp from "sharp";
 import { GCLOUD_BUCKET_NAME } from "../constants";
 import { AppDataSource } from "../data-source";
 import { Keyboard } from "../entity/Keyboard";
@@ -82,6 +81,7 @@ postsRouter.post("/posts/create", async (req: Request, res: Response) => {
     const blobStream = blob.createWriteStream({ resumable: false, gzip: true });
 
     blobStream.on("error", (err) => {
+      console.error(err);
       return res.status(400).json({ error: err.message });
     });
 
@@ -101,14 +101,8 @@ postsRouter.post("/posts/create", async (req: Request, res: Response) => {
       return res.status(200).json({ result, publicUrl });
     });
 
-    blobStream.end(
-      await sharp((req.files!.image as UploadedFile).data)
-        .jpeg({ quality: 75 })
-        .png({ quality: 75 })
-        .heif({ quality: 75 })
-        .resize({ width: 1920, height: 1080, withoutEnlargement: true })
-        .toBuffer()
-    );
+    blobStream.end((req.files!.image as UploadedFile).data);
+
     return;
   } catch (err) {
     console.error(err);
