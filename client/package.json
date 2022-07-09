@@ -11,6 +11,7 @@
     "@chakra-ui/react": "^2.2.1",
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
+    "browser-image-compression": "^2.0.0",
     "chakra-react-select": "^4.0.3",
     "dayjs": "^1.11.3",
     "formik": "^2.2.9",

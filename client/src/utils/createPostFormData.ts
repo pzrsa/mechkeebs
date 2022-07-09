@@ -1,8 +1,9 @@
+import imageCompression from "browser-image-compression";
 import { PostFormValues } from "../types/Post";
 import cleanFilename from "./cleanFilename";
 import renameFile from "./renameFile";
 
-const createPostFormData = (values: PostFormValues) => {
+const createPostFormData = async (values: PostFormValues) => {
   const formData = new FormData();
 
   if (values.keyboard.soundTestUrl) {
@@ -21,9 +22,14 @@ const createPostFormData = (values: PostFormValues) => {
   formData.append("keyboardName", values.keyboard.name);
   formData.append("keyboardSwitches", values.keyboard.switches);
   formData.append("keyboardKeycaps", values.keyboard.keycaps);
+
+  const compressedImage = await imageCompression(values.image, {
+    maxSizeMB: 1,
+  });
+
   formData.append(
     "image",
-    renameFile(values.image, cleanFilename(values.image.name))
+    renameFile(compressedImage, cleanFilename(values.image.name))
   );
 
   return formData;

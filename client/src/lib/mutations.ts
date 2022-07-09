@@ -15,7 +15,7 @@ export const createPost = async (postFormValues: PostFormValues) => {
   const response = await fetch(`${API_BASE_URL}/posts/create`, {
     method: "POST",
     credentials: "include",
-    body: createPostFormData(postFormValues),
+    body: await createPostFormData(postFormValues),
   });
 
   return response.json();
