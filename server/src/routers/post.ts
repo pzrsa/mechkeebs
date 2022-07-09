@@ -11,7 +11,7 @@ import { getSession } from "../utils/sessions";
 const postsRouter: Router = router();
 
 const storage = new Storage({
-  keyFilename: JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS as string),
+  credentials: JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS as string),
   projectId: "mechkeebs",
 });
 
