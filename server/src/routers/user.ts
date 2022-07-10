@@ -43,14 +43,18 @@ usersRouter.get("/twitter/callback", async (req: Request, res: Response) => {
       where: { twitterId: twitterData.data!.id },
     });
     if (existing) {
+      await User.update(existing.id, {
+        twitterUsername: twitterData.data?.username,
+        twitterImageUrl: twitterData.data?.profile_image_url,
+      });
       await createSession(res, existing.id);
       return res.status(200).redirect(CORS_ORIGIN as string);
     }
 
     const user = await User.create({
-      twitterId: twitterData.data!.id,
-      twitterUsername: twitterData.data!.username,
-      twitterImageUrl: twitterData.data!.profile_image_url,
+      twitterId: twitterData.data?.id,
+      twitterUsername: twitterData.data?.username,
+      twitterImageUrl: twitterData.data?.profile_image_url,
     }).save();
 
     await createSession(res, user.id);
