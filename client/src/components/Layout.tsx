@@ -13,8 +13,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   const title = "MechKeebs";
   const description =
-    "MechKeebs - Home for enthuasists to share their custom keyboards";
-  const image = "/assets/images/favicons/android-chrome-512x512.png";
+    "MechKeebs - An online community for sharing and discovering your next mechanical keyboard.";
+  const image = "/assets/images/favicons/favicon.png";
 
   return (
     <>

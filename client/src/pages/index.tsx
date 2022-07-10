@@ -32,7 +32,10 @@ const Index: React.FC<IndexProps> = ({
   return (
     <>
       <Head>
-        <title>MechKeebs</title>
+        <title>
+          MechKeebs - An online community for sharing and discovering your next
+          mechanical keyboard.
+        </title>
       </Head>
       <Wrapper>
         <SWRConfig value={{ fallback }}>
