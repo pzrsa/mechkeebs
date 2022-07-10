@@ -1,7 +1,8 @@
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
-import { Box, Flex, Heading, Link } from "@chakra-ui/layout";
+import { Box, Flex, Heading } from "@chakra-ui/layout";
 import {
   Avatar,
+  Button,
   IconButton,
   Menu,
   MenuButton,
@@ -39,7 +40,8 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
   } else if (loggedOut) {
     body = (
       <>
-        <Link
+        <Button
+          variant={"ghost"}
           onClick={async () => {
             const response = await loginUser();
 
@@ -48,11 +50,11 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
             }
           }}
         >
-          <Flex align={"center"} gap={1}>
+          <Flex align={"center"} gap={2}>
             <SiTwitter />
             Sign In
           </Flex>
-        </Link>
+        </Button>
       </>
     );
   }
@@ -101,14 +103,14 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
         align="center"
       >
         <NextLink href="/">
-          <Heading size={"md"}>
-            <Link>MechKeebs</Link>
-          </Heading>
+          <Button variant={"ghost"}>
+            <Heading size={"md"}>MechKeebs</Heading>
+          </Button>
         </NextLink>
         <Spacer />
         <Box alignItems={"center"}>{body}</Box>
         <IconButton
-          ml={3}
+          ml={2}
           aria-label={`Toggle ${colorMode} mode`}
           variant={"ghost"}
           icon={<SwitchIcon />}
