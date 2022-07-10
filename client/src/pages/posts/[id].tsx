@@ -121,7 +121,7 @@ const Post: React.FC<PostProps> = ({ data: post }) => {
               · <FormattedDate date={post.result.createdAt} />
             </Box>
             {post.result.keyboard.soundTestUrl ? (
-              <Box maxW={"fit-content"} my={4}>
+              <Box maxW={"fit-content"} mt={2}>
                 <Link
                   href={post.result.keyboard.soundTestUrl}
                   isExternal
