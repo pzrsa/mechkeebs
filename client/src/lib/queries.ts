@@ -11,10 +11,6 @@ export const fetchAllPosts = async () => {
     method: "GET",
   });
 
-  if (!response.ok) {
-    throw new Error("Network response was not ok");
-  }
-
   return response.json();
 };
 
@@ -22,10 +18,6 @@ export const fetchPaginatedPosts = async (key: string) => {
   const response = await fetch(`${API_BASE_URL}${key}`, {
     method: "GET",
   });
-
-  if (!response.ok) {
-    throw new Error("Network response was not ok");
-  }
 
   return response.json();
 };
@@ -35,10 +27,6 @@ export const fetchPost = async (postId: string) => {
     method: "GET",
   });
 
-  if (!response.ok) {
-    throw new Error("Network response was not ok");
-  }
-
   return response.json();
 };
 export const fetchCurrentUser = async () => {
@@ -46,13 +34,6 @@ export const fetchCurrentUser = async () => {
     method: "GET",
     credentials: "include",
   });
-
-  if (!response.ok) {
-    const error: any = new Error("An error occurred while fetching the data.");
-    error.info = await response.json();
-    error.status = response.status;
-    throw error;
-  }
 
   return response.json();
 };
