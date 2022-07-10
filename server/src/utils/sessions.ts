@@ -26,6 +26,7 @@ export const createSession = async (res: Response, userId: number) => {
     signed: true,
     httpOnly: true,
     sameSite: "lax",
+    domain: __prod__ ? process.env.COOKIE_DOMAIN : undefined,
     maxAge: 1000 * 60 * 60 * 24 * 365 * 10, // 10 years
   });
 };
