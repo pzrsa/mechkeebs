@@ -3,9 +3,8 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express, { Application } from "express";
 import fileUpload from "express-fileupload";
-import enforce from "express-sslify";
 import "reflect-metadata";
-import { CORS_ORIGIN, __prod__ } from "./constants";
+import { CORS_ORIGIN } from "./constants";
 import { AppDataSource } from "./data-source";
 import postsRouter from "./routers/post";
 import usersRouter from "./routers/user";
@@ -23,8 +22,6 @@ const main = async () => {
     cors({ origin: CORS_ORIGIN, credentials: true }),
     cookieParser(process.env.COOKIE_SECRET)
   );
-
-  __prod__ ? app.use(enforce.HTTPS({ trustProtoHeader: true })) : null;
 
   app.use(usersRouter, postsRouter);
   app.set("json spaces", 2);
