@@ -27,7 +27,7 @@ const main = async () => {
   app.set("json spaces", 2);
 
   app.listen(process.env.PORT, () => {
-    console.log(`server up on http://localhost:${process.env.PORT}`);
+    console.log(`server up on port ${process.env.PORT}`);
   });
 };
 
