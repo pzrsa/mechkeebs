@@ -121,14 +121,13 @@ const Post: React.FC<PostProps> = ({ data: post }) => {
               · <FormattedDate date={post.result.createdAt} />
             </Box>
             {post.result.keyboard.soundTestUrl ? (
-              <Box maxW={"fit-content"} mt={2}>
+              <Box maxW={"fit-content"} my={4}>
                 <Link
-                  fontWeight={"bold"}
                   href={post.result.keyboard.soundTestUrl}
                   isExternal
-                  fontSize={"2xl"}
+                  _hover={{ textDecoration: "none" }}
                 >
-                  <AiFillSound />
+                  <Button leftIcon={<AiFillSound />}>Sound Test</Button>
                 </Link>
               </Box>
             ) : null}
