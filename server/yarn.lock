@@ -139,13 +139,6 @@
     "@types/qs" "*"
     "@types/range-parser" "*"
 
-"@types/express-sslify@^1.2.2":
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/@types/express-sslify/-/express-sslify-1.2.2.tgz#99edbb635a4c13f6d17da59aff8a286792641f14"
-  integrity sha512-vXHxf4CWvwhzjj05dpSaD20EH7pt+snU7en6I6cuQHNbulm7FD60EML6TLxYZb+Oe85AJN2BD1XVX/nHqVFMaQ==
-  dependencies:
-    "@types/express" "*"
-
 "@types/express@*", "@types/express@^4.17.13":
   version "4.17.13"
   resolved "https://registry.yarnpkg.com/@types/express/-/express-4.17.13.tgz#a76e2995728999bab51a33fabce1d705a3709034"
@@ -754,6 +747,11 @@ express-fileupload@^1.4.0:
   integrity sha512-RjzLCHxkv3umDeZKeFeMg8w7qe0V09w3B7oGZprr/oO2H/ISCgNzuqzn7gV3HRWb37GjRk429CCpSLS2KNTqMQ==
   dependencies:
     busboy "^1.6.0"
+
+express-rate-limit@^6.4.0:
+  version "6.4.0"
+  resolved "https://registry.yarnpkg.com/express-rate-limit/-/express-rate-limit-6.4.0.tgz#b7066afe21157a012ed2b7c9adde386e712485cd"
+  integrity sha512-lxQRZI4gi3qAWTf0/Uqsyugsz57h8bd7QyllXBgJvd6DJKokzW7C5DTaNvwzvAQzwHGFaItybfYGhC8gpu0V2A==
 
 express@^4.18.1:
   version "4.18.1"
