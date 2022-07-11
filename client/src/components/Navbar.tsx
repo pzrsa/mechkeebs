@@ -1,5 +1,5 @@
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
-import { Box, Flex, Heading } from "@chakra-ui/layout";
+import { Flex, Heading } from "@chakra-ui/layout";
 import {
   Avatar,
   Button,
@@ -62,6 +62,11 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
   if (user?.id && !loggedOut) {
     body = (
       <>
+        <NextLink href="/posts/create">
+          <Button display={["none", "inherit"]} mr={3}>
+            Create Post
+          </Button>
+        </NextLink>
         <Menu autoSelect={false} placement="bottom-end">
           <MenuButton>
             <Avatar size={"sm"} src={user.user.twitterImageUrl} />
@@ -69,7 +74,7 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
           <Portal>
             <MenuList color={color} bg={bg}>
               <NextLink href="/posts/create">
-                <MenuItem>Create Post </MenuItem>
+                <MenuItem display={["inherit", "none"]}>Create Post </MenuItem>
               </NextLink>
               <MenuItem
                 onClick={async () => {
@@ -97,10 +102,10 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
       p={3}
     >
       <Flex
+        align={"center"}
         maxW={[null, "4xl", "5xl", "6xl", "7xl", "8xl"]}
         flex={1}
         m="auto"
-        align="center"
       >
         <NextLink href="/">
           <Button variant={"ghost"}>
@@ -108,7 +113,7 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
           </Button>
         </NextLink>
         <Spacer />
-        <Box alignItems={"center"}>{body}</Box>
+        <Flex alignItems={"center"}>{body}</Flex>
         <IconButton
           ml={2}
           aria-label={`Toggle ${colorMode} mode`}
