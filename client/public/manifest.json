@@ -1,0 +1,40 @@
+{
+  "short_name": "MechKeebs",
+  "name": "MechKeebs - Community to discover your next mechanical keyboard",
+  "background_color": "#111111",
+  "display": "fullscreen",
+  "orientation": "portrait",
+  "start_url": "/",
+  "scope": "/",
+  "theme_color": "#111111",
+  "description": "Community to discover your next mechanical keyboard",
+  "icons": [
+    {
+      "src": "/assets/images/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/assets/images/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/assets/images/screenshots/home.png",
+      "type": "image/png",
+      "sizes": "2560x1440"
+    },
+    {
+      "src": "/assets/images/screenshots/post.png",
+      "type": "image/png",
+      "sizes": "2560x1440"
+    },
+    {
+      "src": "/assets/images/screenshots/create.png",
+      "type": "image/png",
+      "sizes": "2560x1440"
+    }
+  ]
+}
