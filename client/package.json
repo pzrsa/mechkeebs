@@ -11,6 +11,7 @@
     "@chakra-ui/react": "^2.2.1",
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
+    "@vercel/analytics": "^0.1.6",
     "browser-image-compression": "^2.0.0",
     "chakra-react-select": "^4.0.3",
     "dayjs": "^1.11.3",

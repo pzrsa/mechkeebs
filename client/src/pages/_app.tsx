@@ -6,6 +6,7 @@ import React, { useEffect } from "react";
 import Layout from "../components/Layout";
 import "../styles/nprogress.css";
 import theme from "../theme";
+import { Analytics } from '@vercel/analytics/react';
 
 const App = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
@@ -30,11 +31,14 @@ const App = ({ Component, pageProps }: AppProps) => {
   }, [router]);
 
   return (
-    <ChakraProvider theme={theme}>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    </ChakraProvider>
+    <>
+      <ChakraProvider theme={theme}>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </ChakraProvider>
+      <Analytics/>
+    </>
   );
 };
 
