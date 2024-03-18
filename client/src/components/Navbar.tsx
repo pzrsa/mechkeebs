@@ -26,7 +26,6 @@ interface NavbarProps {}
 
 const Navbar: React.FC<NavbarProps> = ({}) => {
   const router = useRouter();
-  const { user, isLoading, loggedOut, mutate } = useUser();
   const color = useColorModeValue("#111", "#fff");
   const bg = useColorModeValue("#fff", "#111");
 
@@ -35,62 +34,26 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
 
   let body;
 
-  if (isLoading) {
-    body = <Spinner />;
-  } else if (loggedOut) {
-    body = (
-      <>
-        <Button
-          disabled
-          variant={"ghost"}
-          onClick={async () => {
-            const response = await loginUser();
+  body = (
+    <>
+      <Button
+        disabled
+        variant={"ghost"}
+        onClick={async () => {
+          const response = await loginUser();
 
-            if (response?.result) {
-              await router.push(response.result);
-            }
-          }}
-        >
-          <Flex align={"center"} gap={2}>
-            <SiTwitter />
-            Sign In
-          </Flex>
-        </Button>
-      </>
-    );
-  }
-
-  if (user?.id && !loggedOut) {
-    body = (
-      <>
-        <NextLink href="/posts/create">
-          <Button display={["none", "inherit"]} mr={3}>
-            Create Post
-          </Button>
-        </NextLink>
-        <Menu autoSelect={false} placement="bottom-end">
-          <MenuButton>
-            <Avatar size={"sm"} src={user.user.twitterImageUrl} />
-          </MenuButton>
-          <Portal>
-            <MenuList color={color} bg={bg}>
-              <NextLink href="/posts/create">
-                <MenuItem display={["inherit", "none"]}>Create Post </MenuItem>
-              </NextLink>
-              <MenuItem
-                onClick={async () => {
-                  await logoutUser();
-                  mutate(undefined);
-                }}
-              >
-                Sign Out
-              </MenuItem>
-            </MenuList>
-          </Portal>
-        </Menu>
-      </>
-    );
-  }
+          if (response?.result) {
+            await router.push(response.result);
+          }
+        }}
+      >
+        <Flex align={"center"} gap={2}>
+          <SiTwitter />
+          Sign In
+        </Flex>
+      </Button>
+    </>
+  );
 
   return (
     <Flex

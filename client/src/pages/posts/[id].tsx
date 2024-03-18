@@ -50,7 +50,6 @@ interface PostProps {
 const Post: React.FC<PostProps> = ({ post }) => {
   const router = useRouter();
 
-  const { user } = useUser();
   const { mutate } = usePaginatedPosts();
 
   const boxShadow = useColorModeValue("lg", "white.lg");

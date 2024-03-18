@@ -14,12 +14,10 @@ import { switchOptions } from "../../data/data";
 import { usePaginatedPosts } from "../../hooks/post";
 import { createPost } from "../../lib/mutations";
 import { Post, PostFormValues } from "../../types/Post";
-import useAuth from "../../utils/useAuth";
 
 interface CreateProps {}
 
 const Create: React.FC<CreateProps> = ({}) => {
-  useAuth();
   const router = useRouter();
   const { mutate } = usePaginatedPosts();
 
@@ -47,7 +45,7 @@ const Create: React.FC<CreateProps> = ({}) => {
                 keycaps: Yup.string().required("Keycaps required"),
                 soundTestUrl: Yup.string().matches(
                   /(^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube(-nocookie)?\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$)/,
-                  "Only a youtube.com or youtu.be link"
+                  "Only a youtube.com or youtu.be link",
                 ),
               }),
 
