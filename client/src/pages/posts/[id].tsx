@@ -119,51 +119,6 @@ const Post: React.FC<PostProps> = ({ post }) => {
                 </Link>
               </Box>
             ) : null}
-            {post.creator.id === user?.user?.id ? (
-              <Flex>
-                <Popover closeOnBlur={true} placement={"left-start"}>
-                  {({ onClose }) => (
-                    <>
-                      <PopoverTrigger>
-                        <IconButton
-                          ml={"auto"}
-                          aria-label={"Delete Post"}
-                          icon={<DeleteIcon />}
-                          colorScheme="red"
-                        />
-                      </PopoverTrigger>
-                      <Portal>
-                        <PopoverContent
-                          maxW={{ base: "16rem", md: "none" }}
-                          color={color}
-                          bg={bg}
-                        >
-                          <PopoverHeader pt={4} fontWeight="bold">
-                            Sure you want to delete your post?
-                          </PopoverHeader>
-                          <PopoverArrow />
-                          <PopoverFooter display={"flex"}>
-                            <ButtonGroup size="sm">
-                              <Button
-                                colorScheme="red"
-                                onClick={async () => {
-                                  await deletePost(post.id);
-                                  await router.push("/");
-                                  mutate();
-                                }}
-                              >
-                                Yes
-                              </Button>
-                              <Button onClick={onClose}>No</Button>
-                            </ButtonGroup>
-                          </PopoverFooter>
-                        </PopoverContent>
-                      </Portal>
-                    </>
-                  )}
-                </Popover>
-              </Flex>
-            ) : null}
           </Box>
         </Box>
       </Wrapper>
