@@ -41,6 +41,7 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
     body = (
       <>
         <Button
+          disabled
           variant={"ghost"}
           onClick={async () => {
             const response = await loginUser();

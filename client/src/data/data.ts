@@ -1,3 +1,134 @@
+import { SinglePost } from "../types/Post";
+
+export const archivedPosts: SinglePost[] = [
+  {
+    id: 6,
+    imageName: "20230201-oqekr-screenshot-2023-02-01-at-20-13.png",
+    createdAt: 1675282429,
+    keyboard: {
+      id: 6,
+      name: "Microsoft Wired Natural Ergonomic Keyboard 4000",
+      switches: "Cherry MX Red",
+      keycaps: "Stock",
+      createdAt: 1675282429,
+      updatedAt: null,
+    },
+    creator: {
+      id: 5,
+      twitterUsername: "_cameronbrown",
+      twitterImageUrl:
+        "https://pbs.twimg.com/profile_images/1608981966396837889/Ulir_OvI_normal.jpg",
+      createdAt: 1675282338,
+      updatedAt: null,
+    },
+  },
+  {
+    id: 5,
+    imageName: "20220711-zaqqy-pxl-20220704-111828443.jpg",
+    createdAt: 1657543257,
+    keyboard: {
+      id: 5,
+      name: "varmilo VA87M",
+      switches: "Cherry MX Brown",
+      keycaps: "MT3 Lord of the Rings Elvish",
+      createdAt: 1657543257,
+      updatedAt: null,
+    },
+    creator: {
+      id: 4,
+      twitterUsername: "runtime",
+      twitterImageUrl:
+        "https://pbs.twimg.com/profile_images/1279794443705626626/MmqhqAeZ_normal.jpg",
+      createdAt: 1657543166,
+      updatedAt: null,
+    },
+  },
+  {
+    id: 4,
+    imageName: "20220711-cocj7-img-1994.jpeg",
+    createdAt: 1657540519,
+    keyboard: {
+      id: 4,
+      name: "Weixin Super Scholar Z-88",
+      switches: "Cherry MX Brown",
+      keycaps: "Weixin generic",
+      createdAt: 1657540519,
+      updatedAt: null,
+    },
+    creator: {
+      id: 3,
+      twitterUsername: "neapel",
+      twitterImageUrl:
+        "https://pbs.twimg.com/profile_images/1371565257903181826/KJaC9HuG_normal.jpg",
+      createdAt: 1657540072,
+      updatedAt: null,
+    },
+  },
+  {
+    id: 3,
+    imageName: "20220711-yalez-small--6-of-7-.jpg",
+    createdAt: 1657537206,
+    keyboard: {
+      id: 3,
+      name: "Logitech G710+",
+      switches: "Cherry MX Brown",
+      keycaps: "Black",
+      createdAt: 1657537206,
+      updatedAt: null,
+    },
+    creator: {
+      id: 2,
+      twitterUsername: "duncanmeltdown",
+      twitterImageUrl:
+        "https://pbs.twimg.com/profile_images/914927718126452736/S1ubFv0O_normal.jpg",
+      createdAt: 1657536638,
+      updatedAt: null,
+    },
+  },
+  {
+    id: 2,
+    imageName: "20220710-4hoan-cfe0e328-c7d6-4267-89c4-1c37bb.jpeg",
+    createdAt: 1657480389,
+    keyboard: {
+      id: 2,
+      name: "Cantor",
+      switches: "Kailh Choc Red Pro",
+      keycaps: "Blank MBK Choc Low Profile Keycaps",
+      createdAt: 1657480389,
+      updatedAt: null,
+    },
+    creator: {
+      id: 1,
+      twitterUsername: "pzrsaa",
+      twitterImageUrl:
+        "https://pbs.twimg.com/profile_images/1586442927131267075/OQoqS_nI_normal.jpg",
+      createdAt: 1657480340,
+      updatedAt: null,
+    },
+  },
+  {
+    id: 1,
+    imageName: "20220710-dpevr-img-2761.JPG",
+    createdAt: 1657480356,
+    keyboard: {
+      id: 1,
+      name: "KBD67 Lite R3",
+      switches: "Gateron Ink Black",
+      keycaps: "GMK WOB",
+      createdAt: 1657480356,
+      updatedAt: null,
+    },
+    creator: {
+      id: 1,
+      twitterUsername: "pzrsaa",
+      twitterImageUrl:
+        "https://pbs.twimg.com/profile_images/1586442927131267075/OQoqS_nI_normal.jpg",
+      createdAt: 1657480340,
+      updatedAt: null,
+    },
+  },
+];
+
 export const switchOptions = [
   {
     label: "Ajazz x Huano Diced Fruit Banana",

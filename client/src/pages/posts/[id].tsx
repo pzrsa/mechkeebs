@@ -17,7 +17,6 @@ import {
   Portal,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { AiFillSound } from "react-icons/ai";
@@ -25,36 +24,30 @@ import BlurImage from "../../components/BlurImage";
 import FormattedDate from "../../components/FormattedDate";
 import Wrapper from "../../components/Wrapper";
 import { GCLOUD_BUCKET_NAME } from "../../data/constants";
+import { archivedPosts } from "../../data/data";
 import { usePaginatedPosts } from "../../hooks/post";
 import { useUser } from "../../hooks/user";
 import { deletePost } from "../../lib/mutations";
-import { fetchPost } from "../../lib/queries";
-import { Post } from "../../types/Post";
-import getPostFromUrlId from "../../utils/getPostFromUrl";
 
-export const getServerSideProps: GetServerSideProps = async (
-  context: GetServerSidePropsContext
-) => {
-  const postId = getPostFromUrlId(context);
+export async function getStaticPaths() {
+  const paths = archivedPosts.map((post) => ({
+    params: { id: post.id.toString() },
+  }));
 
-  const data: Post = await fetchPost(`${postId}`);
-
-  if (!data?.result) {
-    return {
-      notFound: true,
-    };
-  }
-
-  return {
-    props: { data },
-  };
-};
-
-interface PostProps {
-  data: Post;
+  return { paths, fallback: false };
 }
 
-const Post: React.FC<PostProps> = ({ data: post }) => {
+export async function getStaticProps({ params }: any) {
+  const post = archivedPosts.find((post) => post.id.toString() === params.id);
+  console.log(post);
+  return { props: { post } };
+}
+
+interface PostProps {
+  post: any;
+}
+
+const Post: React.FC<PostProps> = ({ post }) => {
   const router = useRouter();
 
   const { user } = useUser();
@@ -67,30 +60,26 @@ const Post: React.FC<PostProps> = ({ data: post }) => {
   return (
     <>
       <Head>
-        <title>MechKeebs - {post.result.keyboard.name}</title>
+        <title>MechKeebs - {post.keyboard.name}</title>
         <meta
           property="og:site_name"
-          content={post.result.keyboard.name}
+          content={post.keyboard.name}
           key="og:site_name"
         />
-        <meta
-          property="og:title"
-          content={post.result.keyboard.name}
-          key="og:title"
-        />
+        <meta property="og:title" content={post.keyboard.name} key="og:title" />
         <meta
           property="og:image"
-          content={`https://storage.googleapis.com/${GCLOUD_BUCKET_NAME}/${post.result.imageName}`}
+          content={`https://storage.googleapis.com/${GCLOUD_BUCKET_NAME}/${post.imageName}`}
           key="og:image"
         />
         <meta
           name="twitter:title"
-          content={post.result.keyboard.name}
+          content={post.keyboard.name}
           key="twitter:title"
         />
         <meta
           name="twitter:image"
-          content={`https://storage.googleapis.com/${GCLOUD_BUCKET_NAME}/${post.result.imageName}`}
+          content={`https://storage.googleapis.com/${GCLOUD_BUCKET_NAME}/${post.imageName}`}
           key="twitter:image"
         />
       </Head>
@@ -98,32 +87,32 @@ const Post: React.FC<PostProps> = ({ data: post }) => {
         <Box mx="auto" maxW={[null, "7xl"]}>
           <AspectRatio ratio={16 / 9} boxShadow={boxShadow}>
             <BlurImage
-              src={`https://storage.googleapis.com/${GCLOUD_BUCKET_NAME}/${post.result.imageName}`}
-              alt={post.result.keyboard.name}
+              src={`https://storage.googleapis.com/${GCLOUD_BUCKET_NAME}/${post.imageName}`}
+              alt={post.keyboard.name}
             />
           </AspectRatio>
           <Box py={4}>
             <Heading fontSize={{ base: "lg", md: "2xl" }} fontWeight="black">
-              {post.result.keyboard.name}
+              {post.keyboard.name}
             </Heading>
             <Box fontSize={{ base: "md", md: "xl" }} fontWeight="bold">
-              {post.result.keyboard.keycaps} · {post.result.keyboard.switches}
+              {post.keyboard.keycaps} · {post.keyboard.switches}
             </Box>
             <Box fontSize={{ base: "sm", md: "lg" }} fontWeight="semibold">
               by{" "}
               <Link
                 fontWeight={"black"}
-                href={`https://twitter.com/${post.result.creator.twitterUsername}`}
+                href={`https://twitter.com/${post.creator.twitterUsername}`}
                 isExternal
               >
-                @{post.result.creator.twitterUsername}
+                @{post.creator.twitterUsername}
               </Link>{" "}
-              · <FormattedDate date={post.result.createdAt} />
+              · <FormattedDate date={post.createdAt} />
             </Box>
-            {post.result.keyboard.soundTestUrl ? (
+            {post.keyboard.soundTestUrl ? (
               <Box maxW={"fit-content"} mt={2}>
                 <Link
-                  href={post.result.keyboard.soundTestUrl}
+                  href={post.keyboard.soundTestUrl}
                   isExternal
                   _hover={{ textDecoration: "none" }}
                 >
@@ -131,7 +120,7 @@ const Post: React.FC<PostProps> = ({ data: post }) => {
                 </Link>
               </Box>
             ) : null}
-            {post.result.creator.id === user?.user?.id ? (
+            {post.creator.id === user?.user?.id ? (
               <Flex>
                 <Popover closeOnBlur={true} placement={"left-start"}>
                   {({ onClose }) => (
@@ -159,7 +148,7 @@ const Post: React.FC<PostProps> = ({ data: post }) => {
                               <Button
                                 colorScheme="red"
                                 onClick={async () => {
-                                  await deletePost(post.result.id);
+                                  await deletePost(post.id);
                                   await router.push("/");
                                   mutate();
                                 }}
